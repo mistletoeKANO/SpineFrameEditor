@@ -1,0 +1,28 @@
+﻿
+#EntryStateView{
+    max-height: 120px;
+    min-height: 40px;
+    margin: 2px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.24);
+    background-color: rgba(0,0,0,0.1);
+}
+
+#SelectedEntryState{
+    margin: 2px;
+}
+
+#AnimStateViewList{
+    flex-grow: 1;
+}
+
+#AnimStateItem{
+    margin: 2px;
+    height: 32px;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.StateItemLabel{
+    -unity-text-align: middle-center;
+}

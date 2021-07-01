@@ -1,0 +1,3 @@
+﻿#ToolBarPrefab{
+    min-width: 180px;
+}

@@ -1,0 +1,132 @@
+﻿#FrameSeqOuter{
+    flex-grow: 0;
+}
+
+#FrameSeqToolBar{
+    background-color: rgba(0,0,0,0.25);
+    height: 22px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ToolBarCubeBtn{
+    width: 32px;
+    height: 21px;
+    justify-content: center;
+    align-items: center;
+}
+
+#ToolBarPauseBtn{
+    border-width: 0;
+    width: 30px;
+}
+
+#ToolbarSpacer{
+    min-width: 20px;
+}
+
+#AnimSpeedSlider{
+    width: 120px;
+}
+
+#SpeedValueLabel{
+    width: 40px;
+}
+
+#BehaviourList{
+    min-width: 158px;
+    max-width: 158px;
+    min-height: 240px;
+    margin-right: 2px;
+    background-color: rgba(0,0,0,0.18);
+}
+
+#BehaviourItemHeadView{
+    -unity-text-align: middle-left;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#BehaviourItemHeadTitle{
+    -unity-text-align: middle-left;
+    padding-left: 4px;
+    width: 158px;
+}
+
+#BehaviourItem_BodyView_Container{
+    position: absolute;
+    flex-direction: row;
+    align-items: center;
+    cursor: resize-horizontal;
+}
+
+#BehaviourItemBodyView_Center{
+    flex-grow: 1;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#BehaviourItemBody_Handle{
+    border-width: 2px;
+    border-radius: 4px;
+    border-color: rgba(255, 132, 0, 0.48);
+    cursor: resize-horizontal;
+}
+
+#FrameScrollView{
+    flex-grow: 0;
+    min-height: 120px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#FrameScrollViewContainer{
+    flex-grow: 1;
+    flex-direction: row-reverse;
+    align-self: flex-start;
+    overflow: visible;
+}
+
+#FrameBox{
+    border-width: 2px;
+    border-color: rgba(128,128,128,0.24);
+    border-radius: 5px;
+    min-height: 240px;
+}
+
+#FrameBoxLabelContainer{
+    justify-content: center;
+    flex-shrink: initial;
+    flex-direction: row;
+}
+
+#FrameBoxLabel{
+    color: rgba(256,256,256,0.42);
+    -unity-text-align: middle-center;
+    font-size: 12px;
+    align-self: center;
+}
+
+#FrameBoxLabelBeHitBox{
+    width: 0;
+    height: 0;
+    margin-right: 2px;
+    border-width: 4px;
+    border-radius: 4px;
+    border-color: rgba(0,255,19,0.47);
+    align-self: center;
+}
+
+#FrameBoxLabelAttackBox{
+    width: 0;
+    height: 0;
+    border-width: 4px;
+    border-radius: 4px;
+    border-color: rgba(255, 0, 0, 0.47);
+    align-self: center;
+}
+
+.unity-scroll-view__content-viewport{
+    max-height: 240px;
+    min-height: 120px;
+}

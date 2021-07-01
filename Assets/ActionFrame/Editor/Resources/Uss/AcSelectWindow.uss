@@ -1,0 +1,17 @@
+﻿#AcSelectWindowScroll{
+    margin: 6px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.33);
+}
+
+#WindowBG{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#SelectItem{
+    min-height: 32px;
+}

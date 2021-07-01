@@ -1,0 +1,41 @@
+﻿.LeftPanelClass{
+    flex-grow: 1;
+    max-width: 256px;
+    min-width: 160px;
+    border-right-width: 1px;
+    border-color: rgba(0,0,0,0.28);
+}
+
+.ViewTitle{
+    background-color: rgba(0,0,0,0.24);
+    -unity-text-align: middle-center;
+    margin: 2px;
+}
+
+#unity-low-button, #unity-high-button{
+    visibility: hidden;
+}
+#unity-slider{
+    margin: 0;
+}
+#unity-tracker{
+    background-color: rgba(0,0,0,0.24);
+}
+#unity-dragger{
+    background-color: rgba(0,0,0,0.42);
+}
+
+.unity-base-slider__tracker{
+    margin: 0;
+}
+
+.unity-base-slider__dragger-border{
+    margin-top: -2;
+}
+.unity-base-slider__dragger{
+    margin-top: 0;
+}
+.unity-base-field__label{
+    min-width: auto;
+    margin-right: 4px;
+}

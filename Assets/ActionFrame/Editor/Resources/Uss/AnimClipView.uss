@@ -1,0 +1,27 @@
+﻿#AnimClipScrollView{
+    flex-grow: 1;
+}
+
+#AnimClipInfoView{
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.4);
+    background-color: rgba(200,200,200,0.1);
+    max-height: 320px;
+    margin: 2px;
+}
+
+.InfoLabel{
+    background-color: rgba(0,0,0,0.24);
+    -unity-text-align: middle-left;
+    padding-left: 2px;
+    margin: 2px;
+}
+.ClipItem{
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    height: 24px;
+    margin: 2px;
+}
+.ClipItemLabel{
+    -unity-text-align: middle-center;
+}

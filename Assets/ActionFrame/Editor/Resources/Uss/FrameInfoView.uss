@@ -1,0 +1,106 @@
+﻿#FrameInfoView{
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    margin-top: 1px;
+    border-top-width: 1px;
+    border-top-color: rgba(0,0,0,0.6);
+}
+
+#StateInfoBaseContainer{
+    margin: 2px;
+    padding: 1px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.47);
+}
+
+#BoxItemContainer{
+    margin: 2px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+#AddHitOrAttackBoxBtn{
+    margin: 4px;
+    height: 24px;
+}
+
+#StateInfoBtn{
+    position: absolute;
+    height: 24px;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+}
+
+.CommonListStyle{
+    border-right-width: 1px;
+    border-color: rgba(0,0,0,0.4);
+    min-width: 200px;
+    max-width: 200px;
+}
+
+#CurSelectedBehaviour{
+    width: auto;
+    flex-grow: 1;
+    max-width: 320px;
+}
+
+#ListFoldOut{
+    margin: 2px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.2);
+}
+
+.unity-foldout{
+    margin: 2px;
+    border-width: 1px;
+    border-color: rgba(0,0,0,0.2);
+}
+
+.unity-foldout__content{
+    margin: 0;
+    padding: 2px 0 2px 0;
+}
+
+.unity-foldout__toggle{
+    background-color: rgba(255,255,255,0.2);
+    flex-grow: 1;
+    margin: 0;
+    height: 20px;
+}
+
+.unity-toggle__checkmark{
+    align-self: center;
+}
+
+#ListFoldOutBtn{
+    position: absolute;
+    -unity-text-align: middle-center;
+    width: 21px;
+    height: 20px;
+    margin: 0;
+    border-width: 0 0 0 1px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0;
+}
+
+#OddNumberContainer{
+    background-color: rgba(0,0,0,0.2);
+    padding-left: 2px;
+}
+
+#EvenNumberContainer{
+    padding-left: 2px;
+}
+
+#ListItemRemoveBtn{
+    width: 21px;
+    -unity-text-align: middle-center;
+    margin: 2 0 2 0;
+    padding: 0;
+    border-width: 1px 0 1px 1px;
+    border-color: rgba(0,0,0,0.4);
+    border-radius: 0;
+}

@@ -1,0 +1,22 @@
+﻿#WindowToolBar{
+    border-top-width: 1px;
+}
+
+#MainView{
+    flex-grow: 1;
+    flex-direction: row;
+    background-color: rgba(0,0,0,0.12);
+}
+
+#FrameView{
+    flex-grow: 1;
+}
+
+#TipForm{
+    position: absolute;
+    background-color: rgba(38, 89, 116, 0.28);
+    -unity-text-align: middle-center;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 16px;
+}
