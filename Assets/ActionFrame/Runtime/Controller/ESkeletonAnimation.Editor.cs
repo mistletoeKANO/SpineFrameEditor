@@ -64,7 +64,7 @@ namespace ActionFrame.Runtime
             
         }
 
-        [MenuItem("GameObject/Spine/ESkeletonAnimation")]
+        [MenuItem("GameObject/Spine/ESkeletonAnimation", false, 10)]
         private static void CreateESkeletonAnimation()
         {
             GameObject obj = new GameObject("ESkeletonAnimation", typeof(MeshFilter), 

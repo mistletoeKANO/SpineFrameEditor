@@ -148,6 +148,7 @@ namespace ActionFrame.Editor
         private void OnContextClick(ContextClickEvent e)
         {
             GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("复制状态名称"), false, this.CopySelectStateName);
             menu.AddItem(new GUIContent("移除当前状态"), false, this.RemoveCurrentState);
             menu.ShowAsContext();
         }
@@ -161,6 +162,11 @@ namespace ActionFrame.Editor
         private void RefreshFrameView()
         {
             this.m_Host.RefreshFrameViewData(this.m_SelectedStateInfo?.Data);
+        }
+
+        private void CopySelectStateName()
+        {
+            UnityEngine.GUIUtility.systemCopyBuffer = this.m_SelectedStateInfo.Data.StateName;
         }
 
         private void RemoveCurrentState()

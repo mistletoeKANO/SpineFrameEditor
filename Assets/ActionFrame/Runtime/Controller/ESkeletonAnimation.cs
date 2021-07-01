@@ -48,6 +48,12 @@ namespace ActionFrame.Runtime
         public override void Start()
         {
             base.Start();
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+#endif
             this.Init();
         }
 
