@@ -18,8 +18,8 @@ namespace ActionFrame.Runtime
 
         public BehaviourData()
         {
-            this.BehaviourFrameStartTime = 1f / 30f;
-            this.BehaviourFrameEndTime = 1f / 30f;
+            this.BehaviourFrameStartTime = 0;
+            this.BehaviourFrameEndTime = 0;
         }
     }
 }

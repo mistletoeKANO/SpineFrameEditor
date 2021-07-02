@@ -649,7 +649,7 @@ namespace ActionFrame.Editor
             menu.AddItem(new GUIContent("应用所有帧"),false, () =>
             {
                 float maxTime = this.m_StateView.CurSelectedState.Duration;
-                float minTime = 1f / (float)ActionFrameWindow.FrameRate;
+                float minTime = 0f;
 
                 ((BehaviourData) (behaviour.FrameData)).BehaviourFrameStartTime = minTime;
                 ((BehaviourData) (behaviour.FrameData)).BehaviourFrameEndTime = maxTime;

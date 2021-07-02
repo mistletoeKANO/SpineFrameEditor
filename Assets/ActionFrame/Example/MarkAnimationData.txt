@@ -1,0 +1,193 @@
+{
+  "m_EntryState": {
+    "StateName": "idle_Key",
+    "Duration": 4.0,
+    "FrameCount": 120,
+    "IsLoop": true,
+    "EventList": [
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "idle_Random1",
+        "IsLoop": false,
+        "LoopCount": 0,
+        "BehaviourName": "状态跳转-idle_Random1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "idle_Random2",
+        "IsLoop": false,
+        "LoopCount": 0,
+        "BehaviourName": "状态跳转-idle_Random2",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "skill3_Begin",
+        "IsLoop": false,
+        "LoopCount": 0,
+        "BehaviourName": "状态跳转-skill3_Begin",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      }
+    ],
+    "FrameDic": {},
+    "NextStateName": null,
+    "TransitionTime": 0.0
+  },
+  "m_StateDataList": [
+    {
+      "StateName": "idle_Key",
+      "Duration": 4.0,
+      "FrameCount": 120,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "idle_Random1",
+          "IsLoop": false,
+          "LoopCount": 0,
+          "BehaviourName": "状态跳转-idle_Random1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "idle_Random2",
+          "IsLoop": false,
+          "LoopCount": 0,
+          "BehaviourName": "状态跳转-idle_Random2",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "skill3_Begin",
+          "IsLoop": false,
+          "LoopCount": 0,
+          "BehaviourName": "状态跳转-skill3_Begin",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "idle_Random1",
+      "Duration": 1.5,
+      "FrameCount": 45,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "idle_Random2",
+      "Duration": 4.733333,
+      "FrameCount": 141,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "skill3_Begin",
+      "Duration": 2.2,
+      "FrameCount": 66,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "skill3_Key",
+          "IsLoop": true,
+          "LoopCount": 0,
+          "BehaviourName": "状态跳转-skill3_Key",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.2
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "skill3_Key",
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "skill3_Key",
+      "Duration": 0.433333337,
+      "FrameCount": 13,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Move",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Combo",
+          "BehaviourFrameStartTime": 0.266666681,
+          "BehaviourFrameEndTime": 0.266666681
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Hit",
+          "BehaviourFrameStartTime": 0.266666681,
+          "BehaviourFrameEndTime": 0.266666681
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Damage",
+          "BehaviourFrameStartTime": 0.3,
+          "BehaviourFrameEndTime": 0.3
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Hit",
+          "BehaviourFrameStartTime": 0.366666675,
+          "BehaviourFrameEndTime": 0.366666675
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Damage",
+          "BehaviourFrameStartTime": 0.4,
+          "BehaviourFrameEndTime": 0.4
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "skill3_End",
+          "IsLoop": false,
+          "LoopCount": 0,
+          "BehaviourName": "状态跳转-skill3_End",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.433333337
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "skill3_End",
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "skill3_End",
+      "Duration": 1.1,
+      "FrameCount": 33,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "SkillEnd",
+          "BehaviourFrameStartTime": 1.1,
+          "BehaviourFrameEndTime": 1.1
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    }
+  ]
+}
