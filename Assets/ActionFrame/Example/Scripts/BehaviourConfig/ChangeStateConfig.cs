@@ -13,26 +13,42 @@ namespace ActionFrame.Runtime
         [LabelName("跳转状态名称", "下一个状态名称.")]
         public string StateName;
 
-        [LabelName("是否循环")]
-        public bool IsLoop;
-
-        [LabelName("循环次数", "次数为-1时,则为运行时自定义次数")]
-        public int LoopCount;
-
         [LabelName("输入列表")]
         [SerializeReference]
-        public List<ICheckInput> KeyCode;
+        public List<KeyCodeCheck> KeyCode;
     }
 
-    public class ICheckInput
+    public class ChangeState : BaseHandle
     {
-        [LabelName("按键")]
-        public KeyCode Code;
-    }
+        public override void StartHandle(ESkeletonAnimation hero)
+        {
+            
+        }
 
-    public class ChangeState : IHandle
-    {
-        public void BeginHandle()
+        public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
+        {
+            ChangeStateConfig stateConfig = (ChangeStateConfig) this.config;
+            if (this.CheckInput(stateConfig.KeyCode, hero))
+            {
+                StateData data = hero.GetStateData(stateConfig.StateName);
+                hero.ChangeState(data.StateName, data.IsLoop);
+            }
+        }
+
+        private bool CheckInput(List<KeyCodeCheck> codeList, ESkeletonAnimation hero)
+        {
+            foreach (var input in codeList)
+            {
+                if (input.CheckInput(hero))
+                {
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        public override void ExitHandle(ESkeletonAnimation hero)
         {
             
         }

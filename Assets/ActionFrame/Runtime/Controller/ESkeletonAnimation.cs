@@ -56,6 +56,10 @@ namespace ActionFrame.Runtime
 
         public void Init()
         {
+            if (this.AnimationState == null)
+            {
+                return;
+            }
             this.AnimationState.ClearTracks();
             if (this.eSpineCtrJsonFile == null || string.IsNullOrEmpty(eSpineCtrJsonFile.text))
             {
@@ -92,6 +96,7 @@ namespace ActionFrame.Runtime
             }
             this.m_RunFrameCount++;
             this.Update(Time.deltaTime);
+            this.UpdateInput(Time.deltaTime);
         }
 
         private void InitState()
@@ -107,7 +112,7 @@ namespace ActionFrame.Runtime
             this.m_RunFrameCount = 0;
         }
 
-        private Spine.TrackEntry ChangeState(string stateName, bool isLoop)
+        public Spine.TrackEntry ChangeState(string stateName, bool isLoop)
         {
             if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
             {
@@ -116,25 +121,17 @@ namespace ActionFrame.Runtime
             this.skeleton.SetToSetupPose();
             this.AnimationState.ClearTracks();
             m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
-            this.loop = isLoop;
-            m_CurrentTrack.Event += this.TriggerCustomEvent;
-            if (!isLoop)
-            {
-                m_CurrentTrack.Complete += entry =>
-                {
-                    if (this.m_DefaultState == null)
-                    {
-                        return;
-                    }
-                    this.ChangeState(this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
-                };
-            }
+            m_CurrentTrack.Complete += this.StateComplete;
+            this.m_CurrentState = this.GetStateData(stateName);
             return m_CurrentTrack;
         }
 
-        private void TriggerCustomEvent(TrackEntry trackEntry, Spine.Event e)
+        private void StateComplete(TrackEntry entry)
         {
-            
+            if (!entry.Loop)
+            {
+                this.ChangeState(this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
+            }
         }
     }
 }

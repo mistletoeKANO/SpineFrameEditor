@@ -171,13 +171,13 @@ namespace ActionFrame.Editor
                 return;
             }
             this.m_PrefabData = new PrefabDataParse(evt.newValue as GameObject);
-            this.m_AnimClipView?.InitClipList();
+            this.OnJsonValueChange(this.m_PrefabData.ESkeletonAnim.ESpineCtrJsonFile);
             this.m_PrefabData.ESkeletonAnim.JsonFileChangeEvent += this.OnJsonValueChange;
             if (this.m_PrefabData.ESkeletonAnim.ESpineCtrJsonFile == null)
             {
                 return;
             }
-            this.OnJsonValueChange(this.m_PrefabData.ESkeletonAnim.ESpineCtrJsonFile);
+            this.m_AnimClipView?.InitClipList(this.m_PrefabData);
         }
 
         private void OnJsonValueChange(object json)

@@ -16,26 +16,7 @@ namespace ActionFrame.Runtime
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                
-            }
+            
         }
     }
 }
