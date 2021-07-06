@@ -130,7 +130,8 @@ namespace ActionFrame.Runtime
         {
             if (!entry.Loop)
             {
-                this.ChangeState(this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
+                StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
+                this.ChangeState(next.StateName, next.IsLoop);
             }
         }
     }

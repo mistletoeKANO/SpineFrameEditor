@@ -107,7 +107,7 @@
       "IsLoop": false,
       "EventList": [],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -117,7 +117,7 @@
       "IsLoop": false,
       "EventList": [],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -225,7 +225,7 @@
       "IsLoop": false,
       "EventList": [],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -242,7 +242,7 @@
         }
       ],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_3",
       "TransitionTime": 0.0
     },
     {
@@ -259,7 +259,7 @@
         }
       ],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -276,7 +276,7 @@
         }
       ],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -293,7 +293,7 @@
         }
       ],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -322,7 +322,7 @@
         }
       ],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -332,7 +332,7 @@
       "IsLoop": false,
       "EventList": [],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
@@ -342,7 +342,7 @@
       "IsLoop": false,
       "EventList": [],
       "FrameDic": {},
-      "NextStateName": null,
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     }
   ]

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ActionFrame.Runtime;
 using UnityEditor;
@@ -138,8 +139,17 @@ namespace ActionFrame.Editor
             if (stateData.IsLoop)
                 return;
             List<string> strList = this.m_Host.JsonData.SpineController.m_StateDataList.Select(item => item.StateName).ToList();
-            this.m_NextStatePopUp = new PopupField<string>("下一个状态", strList,
-                string.IsNullOrEmpty(stateData.NextStateName) ? strList[0] : stateData.NextStateName);
+            string select = String.Empty;
+            if (string.IsNullOrEmpty(stateData.NextStateName))
+            {
+                select = strList[0];
+                stateData.NextStateName = select;
+            }
+            else
+            {
+                select = stateData.NextStateName;
+            }
+            this.m_NextStatePopUp = new PopupField<string>("下一个状态", strList, select);
             this.m_NextStatePopUp.RegisterCallback<ChangeEvent<string>>(e =>
             {
                 stateData.NextStateName = e.newValue;
