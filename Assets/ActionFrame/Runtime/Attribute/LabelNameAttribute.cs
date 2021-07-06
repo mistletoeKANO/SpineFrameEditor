@@ -7,10 +7,12 @@ namespace ActionFrame.Runtime
     public class LabelNameAttribute : Attribute
     {
         public string LabelName;
+        public string ToolTip;
 
-        public LabelNameAttribute(string labelName)
+        public LabelNameAttribute(string labelName, string toolTip = "")
         {
             this.LabelName = labelName;
+            this.ToolTip = toolTip;
         }
     }
 }

@@ -76,10 +76,10 @@ namespace ActionFrame.Editor
             {
                 selected = this.m_Host.JsonData.SpineController.m_EntryState.StateName;
             }
-            else
-            {
+            else if (strList.Count > 0)
                 selected = strList[0];
-            }
+            else
+                return;
             this.m_EntryStatePopUp = new PopupField<string>(strList, selected);
             this.m_EntryStatePopUp.formatSelectedValueCallback += this.OnValueChangeOfEntryState;
             this.m_EntryStatePopUp.name = "SelectedEntryState";
@@ -180,6 +180,7 @@ namespace ActionFrame.Editor
                 this.m_SelectedStateInfo.View.style.backgroundColor = AcFrameStyle.FrameBoxSelect;
             }
             this.RefreshFrameView();
+            this.ResetEntryState();
         }
         
         private class InternalStateInfo

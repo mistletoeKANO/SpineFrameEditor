@@ -159,7 +159,10 @@ namespace ActionFrame.Editor
             {
                 return;
             }
-            this.m_CurSelectedBehaviourView.DrawObject("", data, data.GetType());
+            this.m_CurSelectedBehaviourView.DrawObject("", "", data, data.GetType(), o =>
+            {
+                this.m_FrameSeqView.RefreshCurSelectedBehaviour();
+            });
         }
 
         public void ResetSelectFrameBox(FrameData frameData, bool isSelected)

@@ -27,7 +27,7 @@ namespace ActionFrame.Editor
             }
         }
 
-        public static void DrawObject(this VisualElement self, string labelName, object obj, Type objType, Action<object> callback = null)
+        public static void DrawObject(this VisualElement self, string labelName, string toolTip, object obj, Type objType, Action<object> callback = null)
         {
             if (obj == null)
             {
@@ -53,50 +53,60 @@ namespace ActionFrame.Editor
                 case float v:
                     FloatField floatField = new FloatField(labelName);
                     floatField.value = v;
+                    floatField.tooltip = toolTip;
                     DrawValueType<float>(floatField);
                     break;
                 case double v:
                     DoubleField doubleField = new DoubleField(labelName);
                     doubleField.value = v;
+                    doubleField.tooltip = toolTip;
                     DrawValueType<double>(doubleField);
                     break;
                 case int v:
                     IntegerField intField = new IntegerField(labelName);
                     intField.value = v;
+                    intField.tooltip = toolTip;
                     DrawValueType<int>(intField);
                     break;
                 case string v:
                     TextField strField = new TextField(labelName);
                     strField.value = v;
+                    strField.tooltip = toolTip;
                     DrawValueType<string>(strField);
                     break;
                 case bool v:
                     Toggle toggle = new Toggle(labelName);
                     toggle.value = v;
+                    toggle.tooltip = toolTip;
                     DrawValueType<bool>(toggle);
                     break;
                 case Vector2 v:
                     Vector2Field v2Field = new Vector2Field(labelName);
                     v2Field.value = v;
+                    v2Field.tooltip = toolTip;
                     DrawValueType<Vector2>(v2Field);
                     break;
                 case Vector3 v:
                     Vector3Field v3Field = new Vector3Field(labelName);
                     v3Field.value = v;
+                    v3Field.tooltip = toolTip;
                     DrawValueType<Vector3>(v3Field);
                     break;
                 case Vector2Int v:
                     Vector2IntField v2IntField = new Vector2IntField(labelName);
                     v2IntField.value = v;
+                    v2IntField.tooltip = toolTip;
                     DrawValueType<Vector2Int>(v2IntField);
                     break;
                 case Vector3Int v:
                     Vector3IntField v3IntField = new Vector3IntField(labelName);
                     v3IntField.value = v;
+                    v3IntField.tooltip = toolTip;
                     DrawValueType<Vector3Int>(v3IntField);
                     break;
                 case Enum v:
                     EnumField enumField = new EnumField(labelName, v);
+                    enumField.tooltip = toolTip;
                     enumField.RegisterValueChangedCallback(e =>
                     {
                         obj = e.newValue;
@@ -106,6 +116,7 @@ namespace ActionFrame.Editor
                     break;
                 case LayerMask v:
                     MaskField layerMaskField = new LayerMaskField(labelName, v);
+                    layerMaskField.tooltip = toolTip;
                     layerMaskField.RegisterValueChangedCallback(e =>
                     {
                         obj = e.newValue;
@@ -118,6 +129,7 @@ namespace ActionFrame.Editor
                     foldout.name = "ListFoldOut";
                     foldout.text = labelName;
                     foldout.value = false;
+                    foldout.tooltip = toolTip;
 
                     Button foldOutBtn = new Button(() =>
                     {
@@ -145,12 +157,13 @@ namespace ActionFrame.Editor
                         container.style.flexDirection = new StyleEnum<FlexDirection>(FlexDirection.Row);
                         container.name = isOdd? "OddNumberContainer" : "EvenNumberContainer";
                         var labelNameAttr = type.GetCustomAttribute<LabelNameAttribute>();
-                        string name = labelNameAttr != null ? labelNameAttr.LabelName : "";
+                        string name = labelNameAttr != null ? labelNameAttr.LabelName : labelName;
+                        string tip = labelNameAttr != null ? labelNameAttr.ToolTip : String.Empty;
                         
                         VisualElement containerLeft = new VisualElement();
                         containerLeft.style.flexGrow = 1;
                         container.Add(containerLeft);
-                        containerLeft.DrawObject(name, ((IList)list)[index], type, o =>
+                        containerLeft.DrawObject(name, tip, ((IList)list)[index], type, o =>
                         {
                             ((IList)list)[index] = o;
                         });
@@ -173,6 +186,7 @@ namespace ActionFrame.Editor
                         {
                             Foldout foldoutClass = new Foldout();
                             foldoutClass.text = string.IsNullOrEmpty(labelName)? obj.ToString() : labelName;
+                            foldoutClass.tooltip = string.IsNullOrEmpty(toolTip)? String.Empty : toolTip;
                             FieldInfo[] fields = objType.GetFields();
                             foreach (var field in fields)
                             {
@@ -180,7 +194,7 @@ namespace ActionFrame.Editor
                                 {
                                     continue;
                                 }
-                                obj = foldoutClass.DrawField(obj, field);
+                                obj = foldoutClass.DrawField(obj, field, callback);
                             }
                             self.Add(foldoutClass);
                         }
@@ -189,16 +203,18 @@ namespace ActionFrame.Editor
             }
         }
         
-        public static object DrawField(this VisualElement self, object target, FieldInfo fieldInfo)
+        private static object DrawField(this VisualElement self, object target, FieldInfo fieldInfo, Action<object> callback = null)
         {
             object fieldValue = fieldInfo.GetValue(target);
             
             var labelNameAttr = fieldInfo.GetCustomAttribute<LabelNameAttribute>();
             string labelName = labelNameAttr != null? labelNameAttr.LabelName : fieldInfo.Name;
+            string toolTip = labelNameAttr != null? labelNameAttr.ToolTip : String.Empty;
             
-            self.DrawObject(labelName, fieldValue, fieldInfo.FieldType, o =>
+            self.DrawObject(labelName, toolTip, fieldValue, fieldInfo.FieldType, o =>
             {
                 fieldInfo.SetValue(target, o);
+                callback?.Invoke(target);
             });
 
             return target;

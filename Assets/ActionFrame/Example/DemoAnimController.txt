@@ -1,0 +1,201 @@
+{
+  "m_EntryState": {
+    "StateName": "idle_1",
+    "Duration": 1.2,
+    "FrameCount": 36,
+    "IsLoop": true,
+    "EventList": [],
+    "FrameDic": {},
+    "NextStateName": null,
+    "TransitionTime": 0.0
+  },
+  "m_StateDataList": [
+    {
+      "StateName": "idle_1",
+      "Duration": 1.2,
+      "FrameCount": 36,
+      "IsLoop": true,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "idle_2",
+      "Duration": 0.6667,
+      "FrameCount": 20,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "idle_3",
+      "Duration": 0.9333,
+      "FrameCount": 27,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "walk",
+      "Duration": 1.2,
+      "FrameCount": 36,
+      "IsLoop": true,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "run",
+      "Duration": 0.8,
+      "FrameCount": 24,
+      "IsLoop": true,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "run_shield",
+      "Duration": 0.8,
+      "FrameCount": 24,
+      "IsLoop": true,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "jump",
+      "Duration": 1.4,
+      "FrameCount": 41,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "shield_attack",
+      "Duration": 1.4,
+      "FrameCount": 41,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "shield_attack",
+          "BehaviourFrameStartTime": 0.4333,
+          "BehaviourFrameEndTime": 0.4333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "sword_attack",
+      "Duration": 1.4,
+      "FrameCount": 41,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "sword_attack",
+          "BehaviourFrameStartTime": 0.5667,
+          "BehaviourFrameEndTime": 0.5667
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "buff_1",
+      "Duration": 1.3333,
+      "FrameCount": 39,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "buff_1",
+          "BehaviourFrameStartTime": 0.5,
+          "BehaviourFrameEndTime": 0.5
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "buff_2",
+      "Duration": 1.7,
+      "FrameCount": 51,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "buff_2",
+          "BehaviourFrameStartTime": 0.4333,
+          "BehaviourFrameEndTime": 0.4333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "buff_3",
+      "Duration": 1.7667,
+      "FrameCount": 53,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "buff_3",
+          "BehaviourFrameStartTime": 0.5667,
+          "BehaviourFrameEndTime": 0.5667
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "buff_3",
+          "BehaviourFrameStartTime": 0.7,
+          "BehaviourFrameEndTime": 0.7
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "buff_3",
+          "BehaviourFrameStartTime": 0.8333,
+          "BehaviourFrameEndTime": 0.8333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "dead",
+      "Duration": 1.5667,
+      "FrameCount": 47,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    },
+    {
+      "StateName": "hit",
+      "Duration": 1.1333,
+      "FrameCount": 33,
+      "IsLoop": false,
+      "EventList": [],
+      "FrameDic": {},
+      "NextStateName": null,
+      "TransitionTime": 0.0
+    }
+  ]
+}

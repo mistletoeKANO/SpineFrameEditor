@@ -794,6 +794,12 @@ namespace ActionFrame.Editor
             }
         }
 
+        internal void RefreshCurSelectedBehaviour()
+        {
+            BehaviourData behaviourData = (BehaviourData) this.m_SelectedBehaviour.FrameData;
+            this.m_SelectedBehaviour.HeadViewTitle.text = behaviourData.BehaviourName;
+        }
+
         private enum DragType
         {
             LeftHandle,

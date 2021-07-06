@@ -1,4 +1,5 @@
-﻿using Spine;
+﻿using System;
+using Spine;
 using Spine.Unity;
 using UnityEngine;
 
@@ -26,10 +27,6 @@ namespace ActionFrame.Runtime
             set => this.m_CurrentTrack = value;
         }
 
-        private StateData m_DefaultState;
-        private StateData m_CurrentState;
-        private StateData m_NextState;
-        
         /// <summary>
         /// 延迟帧数
         /// </summary>
@@ -64,13 +61,16 @@ namespace ActionFrame.Runtime
             {
                 return;
             }
-            this.m_ESpineCtrData = JsonHelper.ToObject<ESpineControllerData>(eSpineCtrJsonFile.text);
-            this.m_DefaultState = this.m_ESpineCtrData.m_EntryState;
-            if (this.m_DefaultState == null)
+            try
             {
-                return;
+                this.m_ESpineCtrData = JsonHelper.ToObject<ESpineControllerData>(eSpineCtrJsonFile.text);
+                this.InitJsonData(this.m_ESpineCtrData);
             }
-            this.m_CurrentTrack = this.ChangeState(this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
+            catch (Exception e)
+            {
+                throw new Exception($"Deserialize json data failure with {e.Message}");
+            }
+            this.InitState();
         }
         
         private void Update()
@@ -81,7 +81,10 @@ namespace ActionFrame.Runtime
                 return;
             }
 #endif
-            
+            if (this.m_CurrentTrack == null)
+            {
+                return;
+            }
             if (m_DelayFrame > 0)
             {
                 m_DelayFrame--;
@@ -89,6 +92,19 @@ namespace ActionFrame.Runtime
             }
             this.m_RunFrameCount++;
             this.Update(Time.deltaTime);
+        }
+
+        private void InitState()
+        {
+            if (this.m_DefaultState == null)
+            {
+                Debug.LogError($"State init failure.");
+                return;
+            }
+            this.m_CurrentTrack =
+                this.AnimationState.SetAnimation(0, this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
+            this.m_CurrentState = this.m_DefaultState;
+            this.m_RunFrameCount = 0;
         }
 
         private Spine.TrackEntry ChangeState(string stateName, bool isLoop)
