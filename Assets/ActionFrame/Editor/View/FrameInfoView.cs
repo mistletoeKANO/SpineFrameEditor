@@ -317,6 +317,7 @@ namespace ActionFrame.Editor
                 this.DrawAttackAndHitBox(this.m_AttackListContainer, item, false);
                 this.m_FrameSeqView.CurSelectFrame.FrameData.AttackedRangeList.Add(item);
             }
+            this.ResetSelectFrameBox(this.m_FrameSeqView.CurSelectFrame.FrameData, true);
             this.m_FrameSeqView.ResetSelectFrameBoxHitBox();
         }
 
