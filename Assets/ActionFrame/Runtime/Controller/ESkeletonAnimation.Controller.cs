@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace ActionFrame.Runtime
 {
@@ -44,6 +45,14 @@ namespace ActionFrame.Runtime
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
             foreach (var item in handles)
             {
+                BehaviourData data = (BehaviourData) item.config;
+                int curFrame = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * 30);
+                int startFrame = Mathf.RoundToInt(data.BehaviourFrameStartTime * 30);
+                int endFrame = Mathf.RoundToInt(data.BehaviourFrameEndTime * 30);
+                if (curFrame < startFrame || curFrame > endFrame)
+                {
+                    continue;
+                }
                 item.UpdateHandle(this, dealtTime);
             }
         }

@@ -158,6 +158,19 @@
           "BehaviourName": "Move",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 1.2
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "shield_attack",
+          "KeyCode": [
+            {
+              "EventType": 4,
+              "InputType": 0
+            }
+          ],
+          "BehaviourName": "状态切换-shield_attack",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.2
         }
       ],
       "FrameDic": {},
@@ -239,10 +252,23 @@
           "BehaviourName": "shield_attack",
           "BehaviourFrameStartTime": 0.4333,
           "BehaviourFrameEndTime": 0.4333
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "sword_attack",
+          "KeyCode": [
+            {
+              "EventType": 4,
+              "InputType": 0
+            }
+          ],
+          "BehaviourName": "状态切换-sword_attack",
+          "BehaviourFrameStartTime": 0.7333335,
+          "BehaviourFrameEndTime": 1.36666667
         }
       ],
       "FrameDic": {},
-      "NextStateName": "idle_3",
+      "NextStateName": "idle_1",
       "TransitionTime": 0.0
     },
     {
