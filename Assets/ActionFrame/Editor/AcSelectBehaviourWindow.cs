@@ -11,7 +11,7 @@ namespace ActionFrame.Editor
 {
     public class AcSelectBehaviourWindow : EditorWindow
     {
-        public static readonly GUIStyle AcSelectWindowBg = (GUIStyle) "flow background";
+        private static readonly GUIStyle AcSelectWindowBg = (GUIStyle) "flow background";
         private VisualElement m_BG;
         private ScrollView m_ScrollView;
         private List<string> selectNames = new List<string>();

@@ -80,6 +80,10 @@ namespace ActionFrame.Editor
         public void RemoveState(StateData state)
         {
             this.m_SpineCtr.m_StateDataList.Remove(state);
+            if (this.m_SpineCtr.m_StateDataList.Count == 0)
+            {
+                this.m_SpineCtr.m_EntryState = null;
+            }
         }
 
         public void RemoveState(string stateName)

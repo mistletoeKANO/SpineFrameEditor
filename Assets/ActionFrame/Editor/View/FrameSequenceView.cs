@@ -46,7 +46,7 @@ namespace ActionFrame.Editor
         
         private Dictionary<int, FrameInfoInternal> m_FrameDic;
         private FrameInfoInternal m_CurSelectFrame;
-        private FrameInfoInternal m_DrawGizmorFrame;
+        private FrameInfoInternal m_DrawGizMorFrame;
 
         internal FrameInfoInternal CurSelectFrame
         {
@@ -62,10 +62,12 @@ namespace ActionFrame.Editor
         /// <summary>
         /// 当前状态执行总帧数
         /// </summary>
-        private int m_RunFrameCount = 0;
+        private int m_RunFrameCount = -1;
         
         private float m_DragBehaviourBodyStartPos = 0f;
         private bool m_IsInDragHandle = false;
+
+        private object m_CopyBuffer;
 
         public override void Init(EditorWindow host, VisualElement parent)
         {
@@ -97,10 +99,10 @@ namespace ActionFrame.Editor
                 return;
             }
             
-            if (this.m_DrawGizmorFrame != null)
+            if (this.m_DrawGizMorFrame != null)
             {
                 Matrix4x4 localToWorld = this.m_Host.PrefabData.PrefabTransform.localToWorldMatrix;
-                SceneViewDrawer.DrawRect(localToWorld, this.m_DrawGizmorFrame.FrameData.BeHitRangeList, AcFrameStyle.HitBoxGizMo);
+                SceneViewDrawer.DrawRect(localToWorld, this.m_DrawGizMorFrame.FrameData.BeHitRangeList, AcFrameStyle.HitBoxGizMo);
             }
 
             if (this.m_CurSelectFrame.FrameData == null)
@@ -108,13 +110,13 @@ namespace ActionFrame.Editor
                 return;
             }
 
-            this.m_DrawGizmorFrame = this.m_CurSelectFrame.FrameData.ApplyBeHitBoxToAllFrame
+            this.m_DrawGizMorFrame = this.m_CurSelectFrame.FrameData.ApplyBeHitBoxToAllFrame
                 ? this.m_CurSelectFrame
                 : null;
 
             if (this.m_CurSelectFrame.FrameData.BeHitRangeList.Count > 0)
             {
-                if (this.m_DrawGizmorFrame == null)
+                if (this.m_DrawGizMorFrame == null)
                 {
                     Matrix4x4 localToWorld = this.m_Host.PrefabData.PrefabTransform.localToWorldMatrix;
                     SceneViewDrawer.DrawRect(localToWorld, this.m_CurSelectFrame.FrameData.BeHitRangeList, AcFrameStyle.HitBoxGizMo);
@@ -140,8 +142,9 @@ namespace ActionFrame.Editor
             this.m_LastFrameTime = Time.realtimeSinceStartup;
             if (this.m_IsPLay && !this.m_IsPause)
             {
+                this.UpdateRunFrameStyle();
                 this.m_Host.PrefabData.ESkeletonAnim.UpdateFrame(1f / ActionFrameWindow.FrameRate);
-                this.m_RunFrameCount = Mathf.Clamp(this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount, 1,
+                this.m_RunFrameCount = Mathf.Clamp(this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount, 0,
                     this.m_StateView.CurSelectedState.FrameCount);
                 this.m_CurSelectFrame = this.m_FrameDic[this.m_RunFrameCount];
                 this.UpdateRunFrameStyle();
@@ -158,7 +161,7 @@ namespace ActionFrame.Editor
                 frame.View.style.backgroundColor = AcFrameStyle.FrameBoxNormal;
             }
 
-            if (this.m_RunFrameCount == 0)
+            if (this.m_RunFrameCount < 0)
             {
                 return;
             }
@@ -253,7 +256,7 @@ namespace ActionFrame.Editor
             {
                 return;
             }
-            for (int i = 1; i <= stateData.FrameCount; i++)
+            for (int i = 0; i <= stateData.FrameCount; i++)
             {
                 this.m_ScrollContainerWidth += FrameBoxWidth;
                 FrameInfoInternal frameInfo = new FrameInfoInternal();
@@ -464,9 +467,10 @@ namespace ActionFrame.Editor
                 return;
             }
             this.m_IsPLay = !this.m_IsPLay;
-            this.m_RunFrameCount = 0;
+            this.m_RunFrameCount = -1;
             if (this.m_IsPLay)
             {
+                this.m_RunFrameCount = 0;
                 this.m_Host.PrefabData.ESkeletonAnim.InitAnimState(this.m_StateView.CurSelectedState,
                     this.m_Host.JsonData.SpineController.m_EntryState, this.m_AnimSpeedSlider.value);
             }
@@ -543,6 +547,19 @@ namespace ActionFrame.Editor
         private void RemoveBehaviourAndRefreshView(ContextClickEvent e, BehaviourEventInfo info)
         {
             GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("拷贝"),false, () =>
+            {
+                this.m_CopyBuffer = info.CopyBehaviourData();
+            });
+            menu.AddItem(new GUIContent("粘贴"),false, () =>
+            {
+                BehaviourData anim = (BehaviourData) this.m_CopyBuffer;
+                BehaviourData cur = (BehaviourData) info.FrameData;
+                cur.BehaviourName = anim.BehaviourName;
+                cur.BehaviourFrameStartTime = anim.BehaviourFrameStartTime;
+                cur.BehaviourFrameEndTime = anim.BehaviourFrameEndTime;
+                this.RefreshBehaviourListView();
+            });
             menu.AddItem(new GUIContent("移除当前行为"), false, () =>
             {
                 if (info.FrameData.GetType() == typeof(ActionFrame.Runtime.SpineEventConfig))
@@ -565,6 +582,8 @@ namespace ActionFrame.Editor
         {
             BehaviourData data = (BehaviourData) eventData;
             BehaviourEventInfo info = new BehaviourEventInfo();
+            info.FrameData = eventData;
+
             info.HeadView = new VisualElement();
             info.HeadView.RegisterCallback<TooltipEvent>(e=> this.OnOverBehaviourToolTip(e, info));
             info.HeadView.name = "BehaviourItemHeadView";
@@ -579,11 +598,9 @@ namespace ActionFrame.Editor
             info.HeadViewTitle.style.height = BehaviourItemHeight;
             info.HeadView.Add(info.HeadViewTitle);
             
-            info.FrameData = eventData;
-
-            int startFrame = Mathf.RoundToInt((float) data.BehaviourFrameStartTime * 30);
-            int endFrame = Mathf.RoundToInt((float) data.BehaviourFrameEndTime * 30);
-            int offsetLeft = BehaviourListWidth + (startFrame - 1) * FrameBoxWidth;
+            int startFrame = Mathf.RoundToInt((float) data.BehaviourFrameStartTime * ActionFrameWindow.FrameRate);
+            int endFrame = Mathf.RoundToInt((float) data.BehaviourFrameEndTime * ActionFrameWindow.FrameRate);
+            int offsetLeft = BehaviourListWidth + startFrame * FrameBoxWidth;
             int bodyWidth = (endFrame - startFrame + 1) * FrameBoxWidth;
             
             info.BodyViewContainer = new VisualElement();
@@ -600,6 +617,7 @@ namespace ActionFrame.Editor
             info.BodyViewCenter = new IMGUIContainer(() => { this.OnDragBehaviourBodyView(info); });
             info.BodyViewCenter.RegisterCallback<MouseEnterEvent>(e => this.OnMouseEnterBehaviourBodyView(e, info));
             info.BodyViewCenter.RegisterCallback<MouseLeaveEvent>(e => this.OnMouseLeaveBehaviourBodyView(e, info));
+            info.BodyViewCenter.RegisterCallback<ContextClickEvent>(e => this.OnContextClickBehaviourBodyView(e, info));
             info.BodyViewCenter.name = "BehaviourItemBodyView_Center";
             info.BodyViewCenter.style.height = BehaviourItemHeight;
             info.BodyViewCenter.style.backgroundColor = AcFrameStyle.FrameBehaviourBodyNormal;
@@ -623,6 +641,23 @@ namespace ActionFrame.Editor
             toolTipRect.position = new Vector2(int.MaxValue, behaviour.HeadViewTitle.worldBound.position.y);
             toolTipRect.height = behaviour.HeadViewTitle.layout.height;
             e.rect = toolTipRect;
+        }
+
+        private void OnContextClickBehaviourBodyView(ContextClickEvent e, BehaviourEventInfo behaviour)
+        {
+            GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("应用所有帧"),false, () =>
+            {
+                float maxTime = this.m_StateView.CurSelectedState.Duration;
+                float minTime = 0f;
+
+                ((BehaviourData) (behaviour.FrameData)).BehaviourFrameStartTime = minTime;
+                ((BehaviourData) (behaviour.FrameData)).BehaviourFrameEndTime = maxTime;
+                int curEndFrame = Mathf.RoundToInt(maxTime * ActionFrameWindow.FrameRate);
+                behaviour.BodyViewContainer.style.width = (curEndFrame + 1) * FrameBoxWidth;
+                behaviour.BodyViewContainer.style.left = BehaviourListWidth;
+            });
+            menu.ShowAsContext();
         }
         
         private void OnMouseEnterBehaviourBodyView(MouseEnterEvent e, BehaviourEventInfo behaviour)
@@ -673,7 +708,7 @@ namespace ActionFrame.Editor
                     switch (dragType)
                     {
                         case DragType.DragCenter:
-                            if (curStartFrame + moveFrame < 1)
+                            if (curStartFrame + moveFrame < 0)
                                 break;
                             if (curEndFrame + moveFrame > this.m_StateView.CurSelectedState.FrameCount)
                                 break;
@@ -682,7 +717,7 @@ namespace ActionFrame.Editor
                             break;
                         case DragType.LeftHandle:
                             this.m_IsInDragHandle = true;
-                            if (curStartFrame + moveFrame < 1)
+                            if (curStartFrame + moveFrame < 0)
                                 break;
                             if (moveFrame > 0)
                             {
@@ -704,12 +739,11 @@ namespace ActionFrame.Editor
                             }
                             ((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime += moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
                             int endFrameRight = Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime * (float)ActionFrameWindow.FrameRate);
-                            behaviour.BodyViewContainer.style.width =
-                                (int) ((endFrameRight - curStartFrame + 1) * FrameBoxWidth);
+                            behaviour.BodyViewContainer.style.width = (int) ((endFrameRight - curStartFrame + 1) * FrameBoxWidth);
                             break;
                     }
                     int startFrame = Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameStartTime * (float)ActionFrameWindow.FrameRate);
-                    behaviour.BodyViewContainer.style.left = BehaviourListWidth + (startFrame - 1) * FrameBoxWidth;
+                    behaviour.BodyViewContainer.style.left = BehaviourListWidth + startFrame * FrameBoxWidth;
                     current.Use();
                     break;
             }
@@ -760,6 +794,12 @@ namespace ActionFrame.Editor
             }
         }
 
+        internal void RefreshCurSelectedBehaviour()
+        {
+            BehaviourData behaviourData = (BehaviourData) this.m_SelectedBehaviour.FrameData;
+            this.m_SelectedBehaviour.HeadViewTitle.text = behaviourData.BehaviourName;
+        }
+
         private enum DragType
         {
             LeftHandle,
@@ -789,6 +829,17 @@ namespace ActionFrame.Editor
             public VisualElement BodyRightHandle;
             
             public object FrameData;
+
+            public BehaviourData CopyBehaviourData()
+            {
+                System.Type type = this.FrameData.GetType();
+                BehaviourData cur = (BehaviourData) this.FrameData;
+                BehaviourData obj = (BehaviourData) System.Activator.CreateInstance(type);
+                obj.BehaviourName = cur.BehaviourName;
+                obj.BehaviourFrameStartTime = cur.BehaviourFrameStartTime;
+                obj.BehaviourFrameEndTime = cur.BehaviourFrameEndTime;
+                return obj;
+            }
         }
     }
 }

@@ -76,10 +76,10 @@ namespace ActionFrame.Editor
             {
                 selected = this.m_Host.JsonData.SpineController.m_EntryState.StateName;
             }
-            else
-            {
+            else if (strList.Count > 0)
                 selected = strList[0];
-            }
+            else
+                return;
             this.m_EntryStatePopUp = new PopupField<string>(strList, selected);
             this.m_EntryStatePopUp.formatSelectedValueCallback += this.OnValueChangeOfEntryState;
             this.m_EntryStatePopUp.name = "SelectedEntryState";
@@ -148,6 +148,7 @@ namespace ActionFrame.Editor
         private void OnContextClick(ContextClickEvent e)
         {
             GenericMenu menu = new GenericMenu();
+            menu.AddItem(new GUIContent("复制状态名称"), false, this.CopySelectStateName);
             menu.AddItem(new GUIContent("移除当前状态"), false, this.RemoveCurrentState);
             menu.ShowAsContext();
         }
@@ -163,6 +164,11 @@ namespace ActionFrame.Editor
             this.m_Host.RefreshFrameViewData(this.m_SelectedStateInfo?.Data);
         }
 
+        private void CopySelectStateName()
+        {
+            UnityEngine.GUIUtility.systemCopyBuffer = this.m_SelectedStateInfo.Data.StateName;
+        }
+
         private void RemoveCurrentState()
         {
             this.m_Host.RemoveState(this.m_SelectedStateInfo.Data);
@@ -174,6 +180,7 @@ namespace ActionFrame.Editor
                 this.m_SelectedStateInfo.View.style.backgroundColor = AcFrameStyle.FrameBoxSelect;
             }
             this.RefreshFrameView();
+            this.ResetEntryState();
         }
         
         private class InternalStateInfo

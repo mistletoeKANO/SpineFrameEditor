@@ -68,7 +68,7 @@ namespace ActionFrame.Editor
             this.m_CurView.Add(this.m_ScrollView);
         }
 
-        public void InitClipList()
+        public void InitClipList(PrefabDataParse dataParse)
         {
             if (this.m_Host.PrefabData == null)
             {
@@ -76,7 +76,12 @@ namespace ActionFrame.Editor
             }
             this.m_ScrollView.contentContainer.RemoveAllChild();
             this.m_ClipItemList.Clear();
-            foreach (var anim in this.m_Host.PrefabData.ESkeletonAnim.skeleton.Data.Animations)
+            if (dataParse == null || dataParse.ESkeletonAnim.skeleton == null)
+            {
+                this.m_Host.TipDialog.ShowTip("请使用Hierarchy视图下预制体, 否则无法读取 预制体动画信息.", 15f);
+                return;
+            }
+            foreach (var anim in dataParse.ESkeletonAnim.skeleton.Data.Animations)
             {
                 ClipInfo clipInfo = new ClipInfo();
                 clipInfo.View = new IMGUIContainer();
