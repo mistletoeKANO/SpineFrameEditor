@@ -215,6 +215,19 @@
           "BehaviourName": "Run",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 0.8
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "shield_attack",
+          "KeyCode": [
+            {
+              "EventType": 4,
+              "InputType": 0
+            }
+          ],
+          "BehaviourName": "状态切换-shield_attack",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.8
         }
       ],
       "FrameDic": {},
@@ -269,7 +282,7 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.4
     },
     {
       "StateName": "sword_attack",
@@ -286,7 +299,7 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.4
     },
     {
       "StateName": "buff_1",

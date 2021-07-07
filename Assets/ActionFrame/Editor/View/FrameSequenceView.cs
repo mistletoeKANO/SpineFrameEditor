@@ -466,6 +466,11 @@ namespace ActionFrame.Editor
                 this.m_Host.TipDialog.ShowTip("未选择状态", 1f);
                 return;
             }
+            if (this.m_Host.PrefabData.ESkeletonAnim.AnimationState == null)
+            {
+                this.m_Host.TipDialog.ShowTip("预制体组件未初始化. 请使用场景内 预制体编辑.", 4f);
+                return;
+            }
             this.m_IsPLay = !this.m_IsPLay;
             this.m_RunFrameCount = -1;
             if (this.m_IsPLay)

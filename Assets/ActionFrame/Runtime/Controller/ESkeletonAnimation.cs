@@ -96,7 +96,7 @@ namespace ActionFrame.Runtime
             }
             this.m_RunFrameCount++;
             this.Update(Time.deltaTime);
-            this.UpdateInput(Time.deltaTime);
+            this.UpdateHandle(Time.deltaTime);
         }
 
         private void InitState()
@@ -126,12 +126,34 @@ namespace ActionFrame.Runtime
             return m_CurrentTrack;
         }
 
+        public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime)
+        {
+            if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
+            {
+                return this.AnimationState.GetCurrent(0);
+            }
+            this.m_ForwardTrack = this.m_CurrentTrack;
+            this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+            m_CurrentTrack.Complete += this.StateComplete;
+            this.m_CurrentTrack.MixBlend = MixBlend.Setup;
+            this.m_CurrentTrack.MixDuration = mixTime;
+            this.m_CurrentState = this.GetStateData(stateName);
+            return this.m_CurrentTrack;
+        }
+
         private void StateComplete(TrackEntry entry)
         {
             if (!entry.Loop)
             {
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
-                this.ChangeState(next.StateName, next.IsLoop);
+                if (this.m_CurrentState.TransitionTime > 0)
+                {
+                    this.ChangeStateWithMix(next.StateName, next.IsLoop, this.m_CurrentState.TransitionTime);
+                }
+                else
+                {
+                    this.ChangeState(next.StateName, next.IsLoop);
+                }
             }
         }
     }

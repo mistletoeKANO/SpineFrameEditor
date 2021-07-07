@@ -40,7 +40,7 @@ namespace ActionFrame.Runtime
             }
         }
 
-        private void UpdateInput(float dealtTime)
+        private void UpdateHandle(float dealtTime)
         {
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
             foreach (var item in handles)
