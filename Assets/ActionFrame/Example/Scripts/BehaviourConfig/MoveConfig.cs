@@ -19,8 +19,12 @@ namespace ActionFrame.Runtime
 
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
         {
+            if (!InputEventCache.IsHasInput(InputEventType.Walk))
+            {
+                return;
+            }
             MoveConfig moveConfig = (MoveConfig) this.config;
-            hero.transform.position += new Vector3(hero.skeleton.ScaleX * moveConfig.MoveSpeed, 0, 0);
+            hero.transform.position += (Vector3)InputEventCache.InputAxis * moveConfig.MoveSpeed;
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

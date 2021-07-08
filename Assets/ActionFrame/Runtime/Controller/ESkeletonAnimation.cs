@@ -96,7 +96,6 @@ namespace ActionFrame.Runtime
             }
             this.m_RunFrameCount++;
             this.Update(Time.deltaTime);
-            this.UpdateHandle(Time.deltaTime);
         }
 
         private void InitState()

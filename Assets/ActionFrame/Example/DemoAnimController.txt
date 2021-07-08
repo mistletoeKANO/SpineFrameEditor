@@ -10,8 +10,7 @@
         "StateName": "run",
         "KeyCode": [
           {
-            "EventType": 2,
-            "InputType": 2
+            "EventType": 4
           }
         ],
         "BehaviourName": "状态切换-run",
@@ -23,8 +22,7 @@
         "StateName": "walk",
         "KeyCode": [
           {
-            "EventType": 1,
-            "InputType": 2
+            "EventType": 2
           }
         ],
         "BehaviourName": "状态切换-walk",
@@ -36,8 +34,7 @@
         "StateName": "shield_attack",
         "KeyCode": [
           {
-            "EventType": 4,
-            "InputType": 0
+            "EventType": 16
           }
         ],
         "BehaviourName": "状态切换-shield_attack",
@@ -61,8 +58,7 @@
           "StateName": "run",
           "KeyCode": [
             {
-              "EventType": 2,
-              "InputType": 2
+              "EventType": 4
             }
           ],
           "BehaviourName": "状态切换-run",
@@ -74,8 +70,7 @@
           "StateName": "walk",
           "KeyCode": [
             {
-              "EventType": 1,
-              "InputType": 2
+              "EventType": 2
             }
           ],
           "BehaviourName": "状态切换-walk",
@@ -87,8 +82,7 @@
           "StateName": "shield_attack",
           "KeyCode": [
             {
-              "EventType": 4,
-              "InputType": 0
+              "EventType": 16
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -131,8 +125,7 @@
           "StateName": "idle_1",
           "KeyCode": [
             {
-              "EventType": 0,
-              "InputType": 2
+              "EventType": 1
             }
           ],
           "BehaviourName": "状态切换-idle_1",
@@ -144,8 +137,7 @@
           "StateName": "run",
           "KeyCode": [
             {
-              "EventType": 2,
-              "InputType": 2
+              "EventType": 4
             }
           ],
           "BehaviourName": "状态切换-run",
@@ -154,7 +146,7 @@
         },
         {
           "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
-          "MoveSpeed": 0.1,
+          "MoveSpeed": 0.08,
           "BehaviourName": "Move",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 1.2
@@ -164,8 +156,7 @@
           "StateName": "shield_attack",
           "KeyCode": [
             {
-              "EventType": 4,
-              "InputType": 0
+              "EventType": 16
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -188,8 +179,7 @@
           "StateName": "idle_1",
           "KeyCode": [
             {
-              "EventType": 0,
-              "InputType": 2
+              "EventType": 1
             }
           ],
           "BehaviourName": "状态切换-idle_1",
@@ -201,8 +191,7 @@
           "StateName": "walk",
           "KeyCode": [
             {
-              "EventType": 1,
-              "InputType": 2
+              "EventType": 2
             }
           ],
           "BehaviourName": "状态切换-walk",
@@ -211,7 +200,7 @@
         },
         {
           "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
-          "MoveSpeed": 0.2,
+          "MoveSpeed": 0.16,
           "BehaviourName": "Run",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 0.8
@@ -221,8 +210,7 @@
           "StateName": "shield_attack",
           "KeyCode": [
             {
-              "EventType": 4,
-              "InputType": 0
+              "EventType": 16
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -271,8 +259,7 @@
           "StateName": "sword_attack",
           "KeyCode": [
             {
-              "EventType": 4,
-              "InputType": 0
+              "EventType": 16
             }
           ],
           "BehaviourName": "状态切换-sword_attack",
