@@ -95,8 +95,6 @@ namespace ActionFrame.Runtime
                 var move = hero.Move.ReadValue<Vector2>();
                 InputEventCache.EventType |= InputEventType.Walk;
                 InputEventCache.InputAxis = move;
-                this.m_Hero.skeleton.ScaleX = (int) (move.x * 100) == 0
-                    ? this.m_Hero.skeleton.ScaleX : move.x > 0 ? 1 : -1;
             }
 
             if (hero.Move.phase == InputActionPhase.Waiting)
