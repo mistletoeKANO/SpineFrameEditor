@@ -8,6 +8,7 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "run",
+        "Duration": 0.1,
         "KeyCode": [
           {
             "EventType": 4
@@ -20,6 +21,7 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "walk",
+        "Duration": 0.1,
         "KeyCode": [
           {
             "EventType": 2
@@ -32,6 +34,7 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "shield_attack",
+        "Duration": 0.1,
         "KeyCode": [
           {
             "EventType": 16
@@ -56,6 +59,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
+          "Duration": 0.1,
           "KeyCode": [
             {
               "EventType": 4
@@ -68,6 +72,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
+          "Duration": 0.1,
           "KeyCode": [
             {
               "EventType": 2
@@ -80,6 +85,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
+          "Duration": 0.1,
           "KeyCode": [
             {
               "EventType": 16
@@ -123,6 +129,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
+          "Duration": 0.1,
           "KeyCode": [
             {
               "EventType": 1
@@ -135,6 +142,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
+          "Duration": 0.2,
           "KeyCode": [
             {
               "EventType": 4
@@ -154,6 +162,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
+          "Duration": 0.0,
           "KeyCode": [
             {
               "EventType": 16
@@ -177,6 +186,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
+          "Duration": 0.0,
           "KeyCode": [
             {
               "EventType": 1
@@ -189,6 +199,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
+          "Duration": 0.0,
           "KeyCode": [
             {
               "EventType": 2
@@ -208,6 +219,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
+          "Duration": 0.1,
           "KeyCode": [
             {
               "EventType": 16
@@ -257,6 +269,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "sword_attack",
+          "Duration": 0.0,
           "KeyCode": [
             {
               "EventType": 16

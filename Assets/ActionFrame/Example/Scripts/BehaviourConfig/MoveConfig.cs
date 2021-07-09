@@ -24,7 +24,8 @@ namespace ActionFrame.Runtime
                 return;
             }
             MoveConfig moveConfig = (MoveConfig) this.config;
-            hero.transform.position += (Vector3)InputEventCache.InputAxis * moveConfig.MoveSpeed;
+            Vector3 moveVec = new Vector3(InputEventCache.InputAxis.x, InputEventCache.InputAxis.y * Mathf.Pow(2, 0.5f) / 2f, 0);
+            hero.transform.position += moveVec * moveConfig.MoveSpeed;
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

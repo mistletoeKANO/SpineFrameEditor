@@ -143,7 +143,7 @@ namespace ActionFrame.Editor
             if (this.m_IsPLay && !this.m_IsPause)
             {
                 this.UpdateRunFrameStyle();
-                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrame(1f / ActionFrameWindow.FrameRate);
+                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrameEditor(1f / ActionFrameWindow.FrameRate);
                 this.m_RunFrameCount = Mathf.Clamp(this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount, 0,
                     this.m_StateView.CurSelectedState.FrameCount);
                 this.m_CurSelectFrame = this.m_FrameDic[this.m_RunFrameCount];
@@ -519,7 +519,7 @@ namespace ActionFrame.Editor
             }
             if (this.m_IsPLay && this.m_IsPause)
             {
-                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrame(1f / ActionFrameWindow.FrameRate);
+                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrameEditor(1f / ActionFrameWindow.FrameRate);
                 this.m_RunFrameCount = this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount;
                 this.UpdateRunFrameStyle();
             }

@@ -36,11 +36,11 @@ namespace ActionFrame.Runtime
                 Debug.LogWarning("初始状态为空 ...");
             }
             this.m_DefaultState = defaultData;
-            this.m_CurrentTrack = this.ChangeState(stateData.StateName, stateData.IsLoop);
+            this.m_CurrentTrack = this.ChangeStateWithMix(stateData.StateName, stateData.IsLoop);
             this.m_CurrentTrack.TimeScale = timeSca;
         }
         
-        public void UpdateFrame(float dealtTime)
+        public void UpdateFrameEditor(float dealtTime)
         {
             if (m_DelayFrame > 0)
             {

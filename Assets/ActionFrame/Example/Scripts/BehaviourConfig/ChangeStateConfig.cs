@@ -13,6 +13,9 @@ namespace ActionFrame.Runtime
         [LabelName("跳转状态名称", "下一个状态名称.")]
         public string StateName;
 
+        [LabelName("过渡时间")]
+        public float Duration;
+
         [LabelName("输入列表")]
         [SerializeReference]
         public List<KeyCodeCheck> KeyCode;
@@ -31,7 +34,7 @@ namespace ActionFrame.Runtime
             if (this.IsSatisfyCondition(stateConfig.KeyCode))
             {
                 StateData data = hero.GetStateData(stateConfig.StateName);
-                hero.ChangeState(data.StateName, data.IsLoop);
+                hero.ChangeStateWithMix(data.StateName, data.IsLoop, stateConfig.Duration);
             }
         }
 

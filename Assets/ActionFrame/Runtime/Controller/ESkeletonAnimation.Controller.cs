@@ -40,18 +40,28 @@ namespace ActionFrame.Runtime
             }
         }
 
-        public void UpdateHandle(float dealtTime)
+        private void UpdateHandle(float dealtTime)
         {
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
+            int curFrame = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * this.m_FrameRate);
+
             foreach (var item in handles)
             {
                 BehaviourData data = (BehaviourData) item.config;
-                int curFrame = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * 30);
-                int startFrame = Mathf.RoundToInt(data.BehaviourFrameStartTime * 30);
-                int endFrame = Mathf.RoundToInt(data.BehaviourFrameEndTime * 30);
+
+                int startFrame = Mathf.RoundToInt(data.BehaviourFrameStartTime * this.m_FrameRate);
+                int endFrame = Mathf.RoundToInt(data.BehaviourFrameEndTime * this.m_FrameRate);
                 if (curFrame < startFrame || curFrame > endFrame)
                 {
                     continue;
+                }
+                if (curFrame == startFrame)
+                {
+                    item.StartHandle(this);
+                }
+                if (curFrame == endFrame)
+                {
+                    item.ExitHandle(this);
                 }
                 item.UpdateHandle(this, dealtTime);
             }

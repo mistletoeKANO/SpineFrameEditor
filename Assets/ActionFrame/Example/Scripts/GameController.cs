@@ -46,7 +46,7 @@ namespace ActionFrame.Runtime
             InputEventCache.Clear();
             this.UpdateCameraPos();
             this.UpdateInput();
-            this.m_Hero.UpdateHandle(Time.deltaTime);
+            this.m_Hero.UpdateLogic(Time.deltaTime);
         }
 
         private void UpdateInput()
