@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace ActionFrame.Runtime
 {
@@ -39,11 +40,29 @@ namespace ActionFrame.Runtime
             }
         }
 
-        private void UpdateInput(float dealtTime)
+        private void UpdateHandle(float dealtTime)
         {
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
+            int curFrame = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * this.m_FrameRate);
+
             foreach (var item in handles)
             {
+                BehaviourData data = (BehaviourData) item.config;
+
+                int startFrame = Mathf.RoundToInt(data.BehaviourFrameStartTime * this.m_FrameRate);
+                int endFrame = Mathf.RoundToInt(data.BehaviourFrameEndTime * this.m_FrameRate);
+                if (curFrame < startFrame || curFrame > endFrame)
+                {
+                    continue;
+                }
+                if (curFrame == startFrame)
+                {
+                    item.StartHandle(this);
+                }
+                if (curFrame == endFrame)
+                {
+                    item.ExitHandle(this);
+                }
                 item.UpdateHandle(this, dealtTime);
             }
         }

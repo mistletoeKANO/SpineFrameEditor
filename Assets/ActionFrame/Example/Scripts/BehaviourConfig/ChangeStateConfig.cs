@@ -13,6 +13,9 @@ namespace ActionFrame.Runtime
         [LabelName("跳转状态名称", "下一个状态名称.")]
         public string StateName;
 
+        [LabelName("过渡时间")]
+        public float Duration;
+
         [LabelName("输入列表")]
         [SerializeReference]
         public List<KeyCodeCheck> KeyCode;
@@ -28,22 +31,21 @@ namespace ActionFrame.Runtime
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
         {
             ChangeStateConfig stateConfig = (ChangeStateConfig) this.config;
-            if (this.CheckInput(stateConfig.KeyCode, hero))
+            if (this.IsSatisfyCondition(stateConfig.KeyCode))
             {
                 StateData data = hero.GetStateData(stateConfig.StateName);
-                hero.ChangeState(data.StateName, data.IsLoop);
+                hero.ChangeStateWithMix(data.StateName, data.IsLoop, stateConfig.Duration);
             }
         }
 
-        private bool CheckInput(List<KeyCodeCheck> codeList, ESkeletonAnimation hero)
+        private bool IsSatisfyCondition(List<KeyCodeCheck> codeList)
         {
-            foreach (var input in codeList)
+            foreach (var code in codeList)
             {
-                if (input.CheckInput(hero))
+                if (!InputEventCache.IsHasInput(code.EventType))
                 {
-                    continue;
+                    return false;
                 }
-                return false;
             }
             return true;
         }

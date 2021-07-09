@@ -22,6 +22,7 @@ namespace ActionFrame.Editor
         private VisualElement m_StateInfo;
         
         private Toggle m_StateInfoIsLoop;
+        private FloatField m_StateMixDuration;
         private PopupField<string> m_NextStatePopUp;
 
         #endregion
@@ -123,6 +124,7 @@ namespace ActionFrame.Editor
                 if (this.m_NextStatePopUp != null && data.IsLoop)
                 {
                     this.m_StateInfo.Remove(this.m_NextStatePopUp);
+                    this.m_StateInfo.Remove(this.m_StateMixDuration);
                 }
                 this.ResetNextStateInfo(data);
             });
@@ -155,6 +157,14 @@ namespace ActionFrame.Editor
                 stateData.NextStateName = e.newValue;
             });
             this.m_StateInfo.Add(this.m_NextStatePopUp);
+            
+            this.m_StateMixDuration = new FloatField("动画过渡时长");
+            this.m_StateMixDuration.value = stateData.TransitionTime;
+            this.m_StateMixDuration.RegisterValueChangedCallback(e =>
+            {
+                stateData.TransitionTime = e.newValue;
+            });
+            this.m_StateInfo.Add(this.m_StateMixDuration);
         }
 
         public void ResetSelectedBehaviour(object data)
@@ -317,6 +327,7 @@ namespace ActionFrame.Editor
                 this.DrawAttackAndHitBox(this.m_AttackListContainer, item, false);
                 this.m_FrameSeqView.CurSelectFrame.FrameData.AttackedRangeList.Add(item);
             }
+            this.ResetSelectFrameBox(this.m_FrameSeqView.CurSelectFrame.FrameData, true);
             this.m_FrameSeqView.ResetSelectFrameBoxHitBox();
         }
 

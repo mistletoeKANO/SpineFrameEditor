@@ -8,6 +8,7 @@ namespace ActionFrame.Runtime
     [AddComponentMenu("Spine/ESkeletonAnimation")]
     public sealed partial class ESkeletonAnimation : SkeletonAnimation
     {
+        private readonly int m_FrameRate = 30;
         [SerializeField]
         private TextAsset eSpineCtrJsonFile;
 
@@ -27,6 +28,13 @@ namespace ActionFrame.Runtime
             set => this.m_CurrentTrack = value;
         }
 
+        private float m_TimeScale = 1f;
+        public new float TimeScale
+        {
+            get => this.m_TimeScale;
+            set => this.m_TimeScale = value;
+        }
+
         /// <summary>
         /// 延迟帧数
         /// </summary>
@@ -35,7 +43,8 @@ namespace ActionFrame.Runtime
         /// <summary>
         /// 执行的总帧数
         /// </summary>
-        private int m_RunFrameCount = 0;
+        private int m_RunFrameCount = -1;
+        private float m_RunAnimTime = 0;
 
         public TextAsset ESpineCtrJsonFile
         {
@@ -85,6 +94,10 @@ namespace ActionFrame.Runtime
                 return;
             }
 #endif
+        }
+
+        public void UpdateLogic(float dealtTime)
+        {
             if (this.m_CurrentTrack == null)
             {
                 return;
@@ -94,9 +107,25 @@ namespace ActionFrame.Runtime
                 m_DelayFrame--;
                 return;
             }
-            this.m_RunFrameCount++;
-            this.Update(Time.deltaTime);
-            this.UpdateInput(Time.deltaTime);
+            
+            this.m_RunFrameCount += 1;
+            //处理当前状态行为
+            float updateTime = dealtTime * this.m_TimeScale;
+            if (updateTime > dealtTime)
+            {
+                while (updateTime - dealtTime >= 0)
+                {
+                    updateTime -= dealtTime;
+                    this.Update(dealtTime);
+                    this.UpdateHandle(dealtTime);
+                }
+            }
+            if (updateTime > 0)
+            {
+                this.Update(updateTime);
+                this.UpdateHandle(updateTime);
+            }
+            this.m_RunAnimTime += dealtTime * this.m_TimeScale;
         }
 
         private void InitState()
@@ -110,20 +139,33 @@ namespace ActionFrame.Runtime
                 this.AnimationState.SetAnimation(0, this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
             this.m_CurrentState = this.m_DefaultState;
             this.m_RunFrameCount = 0;
+            this.m_RunAnimTime = 0;
         }
 
-        public Spine.TrackEntry ChangeState(string stateName, bool isLoop)
+        public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime = 0f)
         {
             if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
             {
                 return this.AnimationState.GetCurrent(0);
             }
-            this.skeleton.SetToSetupPose();
-            this.AnimationState.ClearTracks();
-            m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
-            m_CurrentTrack.Complete += this.StateComplete;
+            this.m_RunFrameCount = 0;
+            this.m_RunAnimTime = 0;
+            if (mixTime > 0)
+            {
+                this.m_ForwardTrack = this.m_CurrentTrack;
+                this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+                this.m_CurrentTrack.MixBlend = MixBlend.Setup;
+                this.m_CurrentTrack.MixDuration = mixTime;
+            }
+            else
+            {
+                this.skeleton.SetToSetupPose();
+                this.AnimationState.ClearTracks();
+                m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+            }
             this.m_CurrentState = this.GetStateData(stateName);
-            return m_CurrentTrack;
+            m_CurrentTrack.Complete += this.StateComplete;
+            return this.m_CurrentTrack;
         }
 
         private void StateComplete(TrackEntry entry)
@@ -131,7 +173,7 @@ namespace ActionFrame.Runtime
             if (!entry.Loop)
             {
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
-                this.ChangeState(next.StateName, next.IsLoop);
+                this.ChangeStateWithMix(next.StateName, next.IsLoop, this.m_CurrentState.TransitionTime);
             }
         }
     }

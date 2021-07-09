@@ -8,10 +8,10 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "run",
+        "Duration": 0.1,
         "KeyCode": [
           {
-            "EventType": 2,
-            "InputType": 2
+            "EventType": 4
           }
         ],
         "BehaviourName": "状态切换-run",
@@ -21,10 +21,10 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "walk",
+        "Duration": 0.1,
         "KeyCode": [
           {
-            "EventType": 1,
-            "InputType": 2
+            "EventType": 2
           }
         ],
         "BehaviourName": "状态切换-walk",
@@ -34,10 +34,10 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "shield_attack",
+        "Duration": 0.1,
         "KeyCode": [
           {
-            "EventType": 4,
-            "InputType": 0
+            "EventType": 16
           }
         ],
         "BehaviourName": "状态切换-shield_attack",
@@ -59,10 +59,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
+          "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 2,
-              "InputType": 2
+              "EventType": 4
             }
           ],
           "BehaviourName": "状态切换-run",
@@ -72,10 +72,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
+          "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 1,
-              "InputType": 2
+              "EventType": 2
             }
           ],
           "BehaviourName": "状态切换-walk",
@@ -85,10 +85,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
+          "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 4,
-              "InputType": 0
+              "EventType": 16
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -129,10 +129,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
+          "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 0,
-              "InputType": 2
+              "EventType": 1
             }
           ],
           "BehaviourName": "状态切换-idle_1",
@@ -142,10 +142,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
+          "Duration": 0.2,
           "KeyCode": [
             {
-              "EventType": 2,
-              "InputType": 2
+              "EventType": 4
             }
           ],
           "BehaviourName": "状态切换-run",
@@ -154,8 +154,21 @@
         },
         {
           "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
-          "MoveSpeed": 0.1,
+          "MoveSpeed": 0.08,
           "BehaviourName": "Move",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.2
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "shield_attack",
+          "Duration": 0.0,
+          "KeyCode": [
+            {
+              "EventType": 16
+            }
+          ],
+          "BehaviourName": "状态切换-shield_attack",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 1.2
         }
@@ -173,10 +186,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
+          "Duration": 0.0,
           "KeyCode": [
             {
-              "EventType": 0,
-              "InputType": 2
+              "EventType": 1
             }
           ],
           "BehaviourName": "状态切换-idle_1",
@@ -186,10 +199,10 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
+          "Duration": 0.0,
           "KeyCode": [
             {
-              "EventType": 1,
-              "InputType": 2
+              "EventType": 2
             }
           ],
           "BehaviourName": "状态切换-walk",
@@ -198,8 +211,21 @@
         },
         {
           "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
-          "MoveSpeed": 0.2,
+          "MoveSpeed": 0.16,
           "BehaviourName": "Run",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.8
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "shield_attack",
+          "Duration": 0.1,
+          "KeyCode": [
+            {
+              "EventType": 16
+            }
+          ],
+          "BehaviourName": "状态切换-shield_attack",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 0.8
         }
@@ -239,11 +265,24 @@
           "BehaviourName": "shield_attack",
           "BehaviourFrameStartTime": 0.4333,
           "BehaviourFrameEndTime": 0.4333
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "sword_attack",
+          "Duration": 0.0,
+          "KeyCode": [
+            {
+              "EventType": 16
+            }
+          ],
+          "BehaviourName": "状态切换-sword_attack",
+          "BehaviourFrameStartTime": 0.7333335,
+          "BehaviourFrameEndTime": 1.36666667
         }
       ],
       "FrameDic": {},
-      "NextStateName": "idle_3",
-      "TransitionTime": 0.0
+      "NextStateName": "idle_1",
+      "TransitionTime": 0.4
     },
     {
       "StateName": "sword_attack",
@@ -260,7 +299,7 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.4
     },
     {
       "StateName": "buff_1",

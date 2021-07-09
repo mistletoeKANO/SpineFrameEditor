@@ -2,7 +2,7 @@
 {
     public abstract class BaseHandle
     {
-        protected object config;
+        public object config;
         public void InitConfig(object data)
         {
             this.config = data;
