@@ -278,6 +278,13 @@
           "BehaviourName": "状态切换-sword_attack",
           "BehaviourFrameStartTime": 0.7333335,
           "BehaviourFrameEndTime": 1.36666667
+        },
+        {
+          "$type": "ActionFrame.Runtime.AttackMoveConfig, Assembly-CSharp",
+          "MoveValue": 0.3,
+          "BehaviourName": "AttackMove",
+          "BehaviourFrameStartTime": 0.466666669,
+          "BehaviourFrameEndTime": 0.533333361
         }
       ],
       "FrameDic": {},
@@ -295,6 +302,13 @@
           "BehaviourName": "sword_attack",
           "BehaviourFrameStartTime": 0.5667,
           "BehaviourFrameEndTime": 0.5667
+        },
+        {
+          "$type": "ActionFrame.Runtime.AttackMoveConfig, Assembly-CSharp",
+          "MoveValue": 0.4,
+          "BehaviourName": "AttackMove",
+          "BehaviourFrameStartTime": 0.5666667,
+          "BehaviourFrameEndTime": 0.633333445
         }
       ],
       "FrameDic": {},

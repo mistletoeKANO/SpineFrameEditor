@@ -27,9 +27,10 @@ namespace ActionFrame.Runtime
             get => this.m_CurrentTrack;
             set => this.m_CurrentTrack = value;
         }
-
+        
+        [SerializeField]
         private float m_TimeScale = 1f;
-        public new float TimeScale
+        public float TimeScale
         {
             get => this.m_TimeScale;
             set => this.m_TimeScale = value;

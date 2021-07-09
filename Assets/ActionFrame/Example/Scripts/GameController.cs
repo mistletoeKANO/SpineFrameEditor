@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ActionFrame.Runtime
@@ -10,10 +11,11 @@ namespace ActionFrame.Runtime
         public Transform BGRoot;
         public Vector2 CameraFollowRange;
         public float CameraFollowSpeed;
-        
+
         private GameObject m_HeroObj;
         private GameObject[] m_BGArray;
         private ESkeletonAnimation m_Hero;
+        private List<ESkeletonAnimation> m_Monster;
         private Camera m_CurCamera;
         private float width = 0f;
 
@@ -21,10 +23,17 @@ namespace ActionFrame.Runtime
 
         private void Start()
         {
-            this.m_HeroObj = Instantiate(PrefabHero);
-            this.m_Hero = this.m_HeroObj.GetComponent<ESkeletonAnimation>();
             this.m_CurCamera = Camera.main;
-            RectTransform rect = this.PrefabBG.GetComponent<RectTransform>();
+            this.m_Input = new HeroInputSys();
+            this.m_Input.Enable();
+
+            this.InitMap();
+            this.InitData();
+        }
+
+        private void InitMap()
+        {
+            RectTransform rect = this.PrefabBG.transform.GetChild(0).GetComponent<RectTransform>();
             this.width = rect.sizeDelta.x * rect.localScale.x;
             this.m_BGArray = new GameObject[3];
 
@@ -33,12 +42,35 @@ namespace ActionFrame.Runtime
                 var obj = Instantiate(PrefabBG, BGRoot);
                 float widthCur =  i == 0 ? -this.width : i == 1 ? 0 : this.width;
                 obj.transform.position = new Vector3(-widthCur, 0, 0);
-                obj.GetComponent<SpriteRenderer>().flipX = (i & 1) == 0;
+                obj.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = (i & 1) == 0;
+                
+                //初始化 精灵图的 层级
+                Transform spriteRoot = obj.transform.GetChild(1);
+                for (int j = 0; j < spriteRoot.childCount; j++)
+                {
+                    GameObject child = spriteRoot.GetChild(j).gameObject;
+                    child.GetComponent<SpriteRenderer>().sortingOrder = (int) (-child.transform.position.y * 1000);
+                }
                 this.m_BGArray[i] = obj;
             }
+        }
+
+        private void InitData()
+        {
+            this.m_HeroObj = Instantiate(PrefabHero);
+            this.m_HeroObj.GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
+            this.m_Hero = this.m_HeroObj.GetComponent<ESkeletonAnimation>();
             
-            this.m_Input = new HeroInputSys();
-            this.m_Input.Enable();
+            this.m_Monster = new List<ESkeletonAnimation>();
+            for (int i = 0; i < 2; i++)
+            {
+                var monster = Instantiate(PrefabHero);
+                monster.transform.position = this.m_Hero.transform.position +
+                                             new Vector3(Random.Range(-2, 2), Random.Range(-1, 1));
+                monster.GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
+                ESkeletonAnimation esk = monster.GetComponent<ESkeletonAnimation>();
+                this.m_Monster.Add(esk);
+            }
         }
 
         private void Update()
@@ -47,6 +79,12 @@ namespace ActionFrame.Runtime
             this.UpdateCameraPos();
             this.UpdateInput();
             this.m_Hero.UpdateLogic(Time.deltaTime);
+
+            InputEventCache.Clear();
+            foreach (var monster in this.m_Monster)
+            {
+                monster.UpdateLogic(Time.deltaTime);
+            }
         }
 
         private void UpdateInput()

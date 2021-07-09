@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabHero: {fileID: 8356257940193208535, guid: 38f973e0f536e0742930092429bfd723,
     type: 3}
-  PrefabBG: {fileID: 3759742275456595094, guid: 987b2718012a34145b43cc4b3fd0b3e8,
+  PrefabBG: {fileID: 3368604535330962027, guid: 2e587779daaf3274681d9fced6ab5d6d,
     type: 3}
   BGRoot: {fileID: 155514517}
   CameraFollowRange: {x: 2, y: 2}

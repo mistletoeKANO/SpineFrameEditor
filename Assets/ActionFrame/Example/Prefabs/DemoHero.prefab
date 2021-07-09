@@ -902,8 +902,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 942970093
+  m_SortingLayer: 1
   m_SortingOrder: 0
 --- !u!114 &8356257940193208537
 MonoBehaviour:
@@ -943,6 +943,7 @@ MonoBehaviour:
   loop: 1
   timeScale: 1
   eSpineCtrJsonFile: {fileID: 4900000, guid: eafea268511944c690d07f885b4238db, type: 3}
+  m_TimeScale: 1
 --- !u!114 &8356257940193208536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +973,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.007074833, y: -0.0209862}
+  m_Offset: {x: 0.0037249327, y: -0.0089226365}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -983,7 +984,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1586113, y: 0.031615496}
+  m_Size: {x: 0.83902335, y: 0.0675987}
   m_EdgeRadius: 0
 --- !u!50 &1902963494409867905
 Rigidbody2D:
@@ -1005,7 +1006,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8356257940320605015
 GameObject:
   m_ObjectHideFlags: 0

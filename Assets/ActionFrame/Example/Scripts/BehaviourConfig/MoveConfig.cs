@@ -26,6 +26,7 @@ namespace ActionFrame.Runtime
             MoveConfig moveConfig = (MoveConfig) this.config;
             Vector3 moveVec = new Vector3(InputEventCache.InputAxis.x, InputEventCache.InputAxis.y * Mathf.Pow(2, 0.5f) / 2f, 0);
             hero.transform.position += moveVec * moveConfig.MoveSpeed;
+            hero.GetComponent<Renderer>().sortingOrder = (int) (-hero.transform.position.y * 1000);
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

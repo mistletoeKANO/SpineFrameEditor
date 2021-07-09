@@ -28,7 +28,7 @@ namespace ActionFrame.Editor
 			base.OnEnable();
 			animationName = serializedObject.FindProperty("_animationName");
 			loop = serializedObject.FindProperty("loop");
-			timeScale = serializedObject.FindProperty("timeScale");
+			timeScale = serializedObject.FindProperty("m_TimeScale");
 			eSpineCtrJsonFile = serializedObject.FindProperty("eSpineCtrJsonFile");
 		}
 
