@@ -19,7 +19,7 @@ namespace ActionFrame.Runtime
 
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
         {
-            if (!InputEventCache.IsHasInput(InputEventType.Walk))
+            if (!InputEventCache.IsHasInput(InputEventType.Walk) && !InputEventCache.IsHasInput(InputEventType.Run))
             {
                 return;
             }
@@ -27,8 +27,8 @@ namespace ActionFrame.Runtime
                 ? hero.skeleton.ScaleX : InputEventCache.InputAxis.x > 0 ? 1 : -1;
             MoveConfig moveConfig = (MoveConfig) this.config;
             Vector3 moveVec = new Vector3(InputEventCache.InputAxis.x, InputEventCache.InputAxis.y * Mathf.Pow(2, 0.5f) / 2f, 0);
-            hero.transform.position += moveVec * moveConfig.MoveSpeed;
-            hero.GetComponent<Renderer>().sortingOrder = (int) (-hero.transform.position.y * 1000);
+            hero.transform.parent.position += moveVec * moveConfig.MoveSpeed;
+            hero.GetComponent<Renderer>().sortingOrder = (int) (-hero.transform.parent.position.y * 1000);
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

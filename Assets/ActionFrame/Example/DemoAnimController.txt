@@ -37,10 +37,23 @@
         "Duration": 0.1,
         "KeyCode": [
           {
-            "EventType": 16
+            "EventType": 32
           }
         ],
         "BehaviourName": "状态切换-shield_attack",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 1.2
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "jump",
+        "Duration": 0.0,
+        "KeyCode": [
+          {
+            "EventType": 8
+          }
+        ],
+        "BehaviourName": "状态切换-jump",
         "BehaviourFrameStartTime": 0.0,
         "BehaviourFrameEndTime": 1.2
       }
@@ -88,10 +101,23 @@
           "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 16
+              "EventType": 32
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.2
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "jump",
+          "Duration": 0.0,
+          "KeyCode": [
+            {
+              "EventType": 8
+            }
+          ],
+          "BehaviourName": "状态切换-jump",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 1.2
         }
@@ -165,7 +191,7 @@
           "Duration": 0.0,
           "KeyCode": [
             {
-              "EventType": 16
+              "EventType": 32
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -222,7 +248,7 @@
           "Duration": 0.1,
           "KeyCode": [
             {
-              "EventType": 16
+              "EventType": 32
             }
           ],
           "BehaviourName": "状态切换-shield_attack",
@@ -249,10 +275,18 @@
       "Duration": 1.4,
       "FrameCount": 41,
       "IsLoop": false,
-      "EventList": [],
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.JumpConfig, Assembly-CSharp",
+          "JumpSpeed": 0.06,
+          "BehaviourName": "Jump",
+          "BehaviourFrameStartTime": 1.73846881E-09,
+          "BehaviourFrameEndTime": 1.36666667
+        }
+      ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.2
     },
     {
       "StateName": "shield_attack",
@@ -272,7 +306,7 @@
           "Duration": 0.0,
           "KeyCode": [
             {
-              "EventType": 16
+              "EventType": 32
             }
           ],
           "BehaviourName": "状态切换-sword_attack",

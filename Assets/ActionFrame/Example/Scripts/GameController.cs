@@ -21,11 +21,15 @@ namespace ActionFrame.Runtime
 
         private HeroInputSys m_Input;
 
+        private readonly float m_LogicFrameTime = 1 / 30f;
+        private float m_CurLogicTime = 0f;
+
         private void Start()
         {
             this.m_CurCamera = Camera.main;
             this.m_Input = new HeroInputSys();
             this.m_Input.Enable();
+            Physics.autoSimulation = false;
 
             this.InitMap();
             this.InitData();
@@ -58,8 +62,8 @@ namespace ActionFrame.Runtime
         private void InitData()
         {
             this.m_HeroObj = Instantiate(PrefabHero);
-            this.m_HeroObj.GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
-            this.m_Hero = this.m_HeroObj.GetComponent<ESkeletonAnimation>();
+            this.m_HeroObj.transform.GetChild(0).GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
+            this.m_Hero = this.m_HeroObj.GetComponentInChildren<ESkeletonAnimation>();
             
             this.m_Monster = new List<ESkeletonAnimation>();
             for (int i = 0; i < 2; i++)
@@ -67,23 +71,28 @@ namespace ActionFrame.Runtime
                 var monster = Instantiate(PrefabHero);
                 monster.transform.position = this.m_Hero.transform.position +
                                              new Vector3(Random.Range(-2, 2), Random.Range(-1, 1));
-                monster.GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
-                ESkeletonAnimation esk = monster.GetComponent<ESkeletonAnimation>();
+                monster.transform.GetChild(0).GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
+                ESkeletonAnimation esk = monster.GetComponentInChildren<ESkeletonAnimation>();
                 this.m_Monster.Add(esk);
             }
         }
 
         private void Update()
         {
-            InputEventCache.Clear();
             this.UpdateCameraPos();
             this.UpdateInput();
-            this.m_Hero.UpdateLogic(Time.deltaTime);
 
-            InputEventCache.Clear();
-            foreach (var monster in this.m_Monster)
+            this.m_CurLogicTime += Time.deltaTime;
+            if (this.m_CurLogicTime >= this.m_LogicFrameTime)
             {
-                monster.UpdateLogic(Time.deltaTime);
+                this.m_CurLogicTime -= this.m_LogicFrameTime;
+                this.m_Hero.UpdateLogic(this.m_LogicFrameTime);
+                InputEventCache.Clear();
+                foreach (var monster in this.m_Monster)
+                {
+                    monster.UpdateLogic(this.m_LogicFrameTime);
+                }
+                Physics.Simulate(this.m_LogicFrameTime);
             }
         }
 
@@ -144,7 +153,7 @@ namespace ActionFrame.Runtime
                 this.m_BGArray[0] = this.m_BGArray[1];
                 this.m_BGArray[1] = this.m_BGArray[2];
                 this.m_BGArray[2] = temp;
-                SpriteRenderer two = this.m_BGArray[2].GetComponent<SpriteRenderer>();
+                SpriteRenderer two = this.m_BGArray[2].transform.GetChild(0).GetComponent<SpriteRenderer>();
                 two.flipX = !two.flipX;
             }
 
@@ -155,7 +164,7 @@ namespace ActionFrame.Runtime
                 this.m_BGArray[2] = this.m_BGArray[1];
                 this.m_BGArray[1] = this.m_BGArray[0];
                 this.m_BGArray[0] = temp;
-                SpriteRenderer zero = this.m_BGArray[0].GetComponent<SpriteRenderer>();
+                SpriteRenderer zero = this.m_BGArray[0].transform.GetChild(0).GetComponent<SpriteRenderer>();
                 zero.flipX = !zero.flipX;
             }
         }

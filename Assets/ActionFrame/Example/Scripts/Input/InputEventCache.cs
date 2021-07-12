@@ -26,6 +26,7 @@ namespace ActionFrame.Runtime
         Walk = 2,
         Run = 4,
         Jump = 8,
-        Attack = 16,
+        Jumping = 16,
+        Attack = 32,
     }
 }

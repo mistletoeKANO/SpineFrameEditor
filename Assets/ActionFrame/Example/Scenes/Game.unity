@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590c083b9ac34fa29d0665c29a4fbfd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabHero: {fileID: 8356257940193208535, guid: 38f973e0f536e0742930092429bfd723,
+  PrefabHero: {fileID: 9113729382055417207, guid: 38f973e0f536e0742930092429bfd723,
     type: 3}
   PrefabBG: {fileID: 3368604535330962027, guid: 2e587779daaf3274681d9fced6ab5d6d,
     type: 3}
