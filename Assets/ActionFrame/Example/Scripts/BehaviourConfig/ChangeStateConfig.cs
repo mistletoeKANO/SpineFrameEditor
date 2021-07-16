@@ -16,6 +16,9 @@ namespace ActionFrame.Runtime
         [LabelName("过渡时间")]
         public float Duration;
 
+        [LabelName("动画开始帧")]
+        public int StartFrame;
+
         [LabelName("输入列表")]
         [SerializeReference]
         public List<KeyCodeCheck> KeyCode;
@@ -34,7 +37,7 @@ namespace ActionFrame.Runtime
             if (this.IsSatisfyCondition(stateConfig.KeyCode))
             {
                 StateData data = hero.GetStateData(stateConfig.StateName);
-                hero.ChangeStateWithMix(data.StateName, data.IsLoop, stateConfig.Duration);
+                hero.ChangeStateWithMix(data.StateName, data.IsLoop, stateConfig.Duration, stateConfig.StartFrame * hero.FrameTime);
             }
         }
 

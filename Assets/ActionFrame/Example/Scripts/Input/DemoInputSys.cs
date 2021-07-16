@@ -43,6 +43,14 @@ namespace ActionFrame.Runtime
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""RunBtn"",
+                    ""type"": ""Button"",
+                    ""id"": ""752bd5ae-24dc-46b5-bf1b-02ebdffe1391"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -122,6 +130,17 @@ namespace ActionFrame.Runtime
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a797d27e-79d2-48de-8be6-5e397f69729e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DemoScheme"",
+                    ""action"": ""RunBtn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -139,6 +158,7 @@ namespace ActionFrame.Runtime
             m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
             m_Hero_Jump = m_Hero.FindAction("Jump", throwIfNotFound: true);
             m_Hero_Attack = m_Hero.FindAction("Attack", throwIfNotFound: true);
+            m_Hero_RunBtn = m_Hero.FindAction("RunBtn", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -191,6 +211,7 @@ namespace ActionFrame.Runtime
         private readonly InputAction m_Hero_Move;
         private readonly InputAction m_Hero_Jump;
         private readonly InputAction m_Hero_Attack;
+        private readonly InputAction m_Hero_RunBtn;
         public struct HeroActions
         {
             private @HeroInputSys m_Wrapper;
@@ -198,6 +219,7 @@ namespace ActionFrame.Runtime
             public InputAction @Move => m_Wrapper.m_Hero_Move;
             public InputAction @Jump => m_Wrapper.m_Hero_Jump;
             public InputAction @Attack => m_Wrapper.m_Hero_Attack;
+            public InputAction @RunBtn => m_Wrapper.m_Hero_RunBtn;
             public InputActionMap Get() { return m_Wrapper.m_Hero; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -216,6 +238,9 @@ namespace ActionFrame.Runtime
                     @Attack.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
                     @Attack.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
                     @Attack.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnAttack;
+                    @RunBtn.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
+                    @RunBtn.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
+                    @RunBtn.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
                 }
                 m_Wrapper.m_HeroActionsCallbackInterface = instance;
                 if (instance != null)
@@ -229,6 +254,9 @@ namespace ActionFrame.Runtime
                     @Attack.started += instance.OnAttack;
                     @Attack.performed += instance.OnAttack;
                     @Attack.canceled += instance.OnAttack;
+                    @RunBtn.started += instance.OnRunBtn;
+                    @RunBtn.performed += instance.OnRunBtn;
+                    @RunBtn.canceled += instance.OnRunBtn;
                 }
             }
         }
@@ -247,6 +275,7 @@ namespace ActionFrame.Runtime
             void OnMove(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
+            void OnRunBtn(InputAction.CallbackContext context);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using Spine.Unity;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +14,9 @@ namespace ActionFrame.Runtime
 #if UNITY_EDITOR
         [NonSerialized]
         public Action<object> JsonFileChangeEvent;
+        
+        private readonly Color m_GizMorBeHit = new Color(0f, 0f, 1f, 0.4f);
+        private readonly Color m_GizMorAttack = new Color(1f, 0f, 0.02f, 0.4f);
 
         public int RunFrameCount
         {
@@ -36,7 +39,7 @@ namespace ActionFrame.Runtime
                 Debug.LogWarning("初始状态为空 ...");
             }
             this.m_DefaultState = defaultData;
-            this.m_CurrentTrack = this.ChangeStateWithMix(stateData.StateName, stateData.IsLoop);
+            this.m_CurrentTrack = this.ChangeStateWithMix(stateData.StateName, stateData.IsLoop, stateData.TransitionTime);
             this.m_CurrentTrack.TimeScale = timeSca;
         }
         
@@ -63,14 +66,48 @@ namespace ActionFrame.Runtime
             this.Update(int.MaxValue);
             
         }
+        
+        private void OnDrawGizmos()
+        {
+            if (this.m_DefaultState != null && this.m_DefaultState.FrameDic[0] != null)
+            {
+                FrameData data = this.m_DefaultState.FrameDic[0];
+                if (data == null) return;
+                this.DrawBodyBox(data.BeHitRangeList, this.m_GizMorBeHit);
+            }
+
+            if (this.m_CurrentState != null)
+            {
+                int frameIndex = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * this.FrameRate);
+                if (!this.m_CurrentState.FrameDic.ContainsKey(frameIndex))
+                {
+                    return;
+                }
+                FrameData data = this.m_CurrentState.FrameDic[frameIndex];
+                if (data == null) return;
+                this.DrawBodyBox(data.AttackedRangeList, this.m_GizMorAttack);
+            }
+        }
+
+        private void DrawBodyBox(List<BoxItem> boxItems, Color color)
+        {
+            HandlesDrawer.H.PushColor(color);
+            HandlesDrawer.H.fillPolygon = true;
+            HandlesDrawer.H.useFillPolygonOutline = true;
+            foreach (var boxItem in boxItems)
+            {
+                Vector3 pos = new Vector3(boxItem.Offset.x * this.skeleton.ScaleX, boxItem.Offset.y);
+                Matrix4x4 matrix = Matrix4x4.Translate(pos + this.transform.position);
+                matrix = MathUtility.MatrixRotate(matrix, boxItem.Rotation);
+                HandlesDrawer.H.DrawRect(boxItem.Size, matrix);
+            }
+            HandlesDrawer.H.PopColor();
+        }
 
         [MenuItem("GameObject/Spine/ESkeletonAnimation", false, 10)]
         private static void CreateESkeletonAnimation()
         {
-            GameObject obj = new GameObject("ESkeletonAnimation", typeof(MeshFilter), 
-                typeof(MeshRenderer),
-                typeof(ESkeletonAnimation),
-                typeof(SkeletonUtility));
+            GameObject obj = new GameObject("ESkeletonAnimation", typeof(ESkeletonAnimation), typeof(SkeletonUtility));
             string filePath = UnityEditor.EditorUtility.OpenFilePanel("选择Spine资源文件", Application.dataPath, "asset");
             if (string.IsNullOrEmpty(filePath))
             {

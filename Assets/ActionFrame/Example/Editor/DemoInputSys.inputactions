@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "RunBtn",
+                    "type": "Button",
+                    "id": "752bd5ae-24dc-46b5-bf1b-02ebdffe1391",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -105,6 +113,17 @@
                     "processors": "",
                     "groups": "DemoScheme",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a797d27e-79d2-48de-8be6-5e397f69729e",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DemoScheme",
+                    "action": "RunBtn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

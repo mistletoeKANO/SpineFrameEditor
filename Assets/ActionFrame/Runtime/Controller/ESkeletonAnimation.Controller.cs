@@ -7,11 +7,31 @@ namespace ActionFrame.Runtime
 {
     public sealed partial class ESkeletonAnimation
     {
+        public float FrameTime
+        {
+            get => 1f / this.m_FrameRate;
+        }
+
+        public int FrameRate
+        {
+            get => this.m_FrameRate;
+        }
+        
         private StateData m_DefaultState;
         private StateData m_CurrentState;
         private StateData m_NextState;
         private Dictionary<string, List<BaseHandle>> m_HandleDic;
-        
+
+        public StateData DefaultState
+        {
+            get => this.m_DefaultState;
+        }
+
+        public StateData CurrentState
+        {
+            get => this.m_CurrentState;
+        }
+
         private void InitJsonData(ESpineControllerData ctrData)
         {
             this.m_DefaultState = this.m_ESpineCtrData.m_EntryState;

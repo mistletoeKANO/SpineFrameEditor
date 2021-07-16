@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace ActionFrame.Runtime
 {
-    public class GameController : MonoBehaviour
+    public partial class GameController : MonoBehaviour
     {
         public GameObject PrefabHero;
         public GameObject PrefabBG;
@@ -30,7 +32,7 @@ namespace ActionFrame.Runtime
             this.m_Input = new HeroInputSys();
             this.m_Input.Enable();
             Physics.autoSimulation = false;
-
+            this.OnAddListener();
             this.InitMap();
             this.InitData();
         }
@@ -64,7 +66,7 @@ namespace ActionFrame.Runtime
             this.m_HeroObj = Instantiate(PrefabHero);
             this.m_HeroObj.transform.GetChild(0).GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
             this.m_Hero = this.m_HeroObj.GetComponentInChildren<ESkeletonAnimation>();
-            
+
             this.m_Monster = new List<ESkeletonAnimation>();
             for (int i = 0; i < 2; i++)
             {
@@ -99,7 +101,7 @@ namespace ActionFrame.Runtime
         private void UpdateInput()
         {
             var hero = this.m_Input.Hero;
-            if (hero.Move.phase == InputActionPhase.Started)
+            if (hero.Move.phase == InputActionPhase.Started && hero.RunBtn.phase == InputActionPhase.Waiting)
             {
                 var move = hero.Move.ReadValue<Vector2>();
                 InputEventCache.EventType |= InputEventType.Walk;
@@ -109,6 +111,13 @@ namespace ActionFrame.Runtime
             if (hero.Move.phase == InputActionPhase.Waiting)
             {
                 InputEventCache.EventType |= InputEventType.Idle;
+            }
+
+            if (hero.RunBtn.phase == InputActionPhase.Started && hero.Move.phase == InputActionPhase.Started)
+            {
+                var move = hero.Move.ReadValue<Vector2>();
+                InputEventCache.EventType |= InputEventType.Run;
+                InputEventCache.InputAxis = move;
             }
 
             if (hero.Attack.triggered)
@@ -167,6 +176,11 @@ namespace ActionFrame.Runtime
                 SpriteRenderer zero = this.m_BGArray[0].transform.GetChild(0).GetComponent<SpriteRenderer>();
                 zero.flipX = !zero.flipX;
             }
+        }
+
+        private void OnDestroy()
+        {
+            this.OnRemoveListener();
         }
     }
 }

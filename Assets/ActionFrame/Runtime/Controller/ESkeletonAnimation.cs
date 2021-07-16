@@ -46,6 +46,7 @@ namespace ActionFrame.Runtime
         /// </summary>
         private int m_RunFrameCount = -1;
         private float m_RunAnimTime = 0;
+        private float m_UpdateLogicTime = 0;
 
         public TextAsset ESpineCtrJsonFile
         {
@@ -95,6 +96,27 @@ namespace ActionFrame.Runtime
                 return;
             }
 #endif
+            this.UpdateAnimation();
+        }
+
+        private void UpdateAnimation()
+        {
+            if (this.m_RunAnimTime <= 0)
+            {
+                return;
+            }
+            float updateTime = 0f;
+            if (this.m_RunAnimTime - Time.deltaTime * this.m_TimeScale > 0)
+            {
+                updateTime = Time.deltaTime * this.m_TimeScale;
+                this.m_RunAnimTime -= Time.deltaTime * this.m_TimeScale;
+            }
+            else
+            {
+                updateTime = this.m_RunAnimTime;
+                this.m_RunAnimTime = 0f;
+            }
+            this.Update(updateTime);
         }
 
         public void UpdateLogic(float dealtTime)
@@ -108,25 +130,18 @@ namespace ActionFrame.Runtime
                 m_DelayFrame--;
                 return;
             }
-            
+            this.m_RunAnimTime += dealtTime * this.m_TimeScale;
             this.m_RunFrameCount += 1;
             //处理当前状态行为
-            float updateTime = dealtTime * this.m_TimeScale;
-            if (updateTime > dealtTime)
+            this.m_UpdateLogicTime += dealtTime * this.m_TimeScale;
+            if (this.m_UpdateLogicTime >= dealtTime)
             {
-                while (updateTime - dealtTime >= 0)
+                while (this.m_UpdateLogicTime - dealtTime >= 0)
                 {
-                    updateTime -= dealtTime;
-                    this.Update(dealtTime);
+                    this.m_UpdateLogicTime -= dealtTime;
                     this.UpdateHandle(dealtTime);
                 }
             }
-            if (updateTime > 0)
-            {
-                this.Update(updateTime);
-                this.UpdateHandle(updateTime);
-            }
-            this.m_RunAnimTime += dealtTime * this.m_TimeScale;
         }
 
         private void InitState()
@@ -141,20 +156,34 @@ namespace ActionFrame.Runtime
             this.m_CurrentState = this.m_DefaultState;
             this.m_RunFrameCount = 0;
             this.m_RunAnimTime = 0;
+            this.m_UpdateLogicTime = 0;
         }
 
-        public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime = 0f)
+        public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
         {
             if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
             {
                 return this.AnimationState.GetCurrent(0);
             }
+            return this.ChangeStateInternal(stateName, isLoop, mixTime, animStartTime);
+        }
+
+        public Spine.TrackEntry ChangeStateNoCtr(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
+        {
+            return this.ChangeStateInternal(stateName, isLoop, mixTime, animStartTime);
+        }
+
+        private Spine.TrackEntry ChangeStateInternal(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
+        {
             this.m_RunFrameCount = 0;
             this.m_RunAnimTime = 0;
+            this.m_UpdateLogicTime = 0;
             if (mixTime > 0)
             {
                 this.m_ForwardTrack = this.m_CurrentTrack;
                 this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+                this.m_CurrentTrack.AnimationStart = animStartTime;
+                this.m_RunFrameCount = Mathf.RoundToInt(animStartTime * this.FrameTime);
                 this.m_CurrentTrack.MixBlend = MixBlend.Setup;
                 this.m_CurrentTrack.MixDuration = mixTime;
             }
@@ -162,7 +191,7 @@ namespace ActionFrame.Runtime
             {
                 this.skeleton.SetToSetupPose();
                 this.AnimationState.ClearTracks();
-                m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+                this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
             }
             this.m_CurrentState = this.GetStateData(stateName);
             m_CurrentTrack.Complete += this.StateComplete;

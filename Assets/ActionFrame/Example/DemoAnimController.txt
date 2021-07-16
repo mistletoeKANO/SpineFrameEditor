@@ -9,6 +9,7 @@
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "run",
         "Duration": 0.1,
+        "StartFrame": 0,
         "KeyCode": [
           {
             "EventType": 4
@@ -22,6 +23,7 @@
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "walk",
         "Duration": 0.1,
+        "StartFrame": 0,
         "KeyCode": [
           {
             "EventType": 2
@@ -35,6 +37,7 @@
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "shield_attack",
         "Duration": 0.1,
+        "StartFrame": 0,
         "KeyCode": [
           {
             "EventType": 32
@@ -48,6 +51,7 @@
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "jump",
         "Duration": 0.0,
+        "StartFrame": 0,
         "KeyCode": [
           {
             "EventType": 8
@@ -58,7 +62,27 @@
         "BehaviourFrameEndTime": 1.2
       }
     ],
-    "FrameDic": {},
+    "FrameDic": {
+      "0": {
+        "FrameNumber": 0,
+        "FrameTime": 0.0,
+        "ApplyBeHitBoxToAllFrame": true,
+        "BeHitRangeList": [
+          {
+            "Offset": {
+              "x": 0.0,
+              "y": 0.9
+            },
+            "Size": {
+              "x": 0.8,
+              "y": 1.65
+            },
+            "Rotation": 0.0
+          }
+        ],
+        "AttackedRangeList": []
+      }
+    },
     "NextStateName": null,
     "TransitionTime": 0.0
   },
@@ -73,6 +97,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
           "Duration": 0.1,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 4
@@ -86,6 +111,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
           "Duration": 0.1,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 2
@@ -99,6 +125,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
           "Duration": 0.1,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 32
@@ -112,6 +139,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "jump",
           "Duration": 0.0,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 8
@@ -122,7 +150,27 @@
           "BehaviourFrameEndTime": 1.2
         }
       ],
-      "FrameDic": {},
+      "FrameDic": {
+        "0": {
+          "FrameNumber": 0,
+          "FrameTime": 0.0,
+          "ApplyBeHitBoxToAllFrame": true,
+          "BeHitRangeList": [
+            {
+              "Offset": {
+                "x": 0.0,
+                "y": 0.9
+              },
+              "Size": {
+                "x": 0.8,
+                "y": 1.65
+              },
+              "Rotation": 0.0
+            }
+          ],
+          "AttackedRangeList": []
+        }
+      },
       "NextStateName": null,
       "TransitionTime": 0.0
     },
@@ -156,6 +204,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
           "Duration": 0.1,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 1
@@ -169,6 +218,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "run",
           "Duration": 0.2,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 4
@@ -189,6 +239,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
           "Duration": 0.0,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 32
@@ -213,6 +264,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "idle_1",
           "Duration": 0.0,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 1
@@ -226,6 +278,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
           "Duration": 0.0,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 2
@@ -246,6 +299,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "shield_attack",
           "Duration": 0.1,
+          "StartFrame": 0,
           "KeyCode": [
             {
               "EventType": 32
@@ -303,7 +357,8 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "sword_attack",
-          "Duration": 0.0,
+          "Duration": 0.1,
+          "StartFrame": 6,
           "KeyCode": [
             {
               "EventType": 32
@@ -319,9 +374,39 @@
           "BehaviourName": "AttackMove",
           "BehaviourFrameStartTime": 0.466666669,
           "BehaviourFrameEndTime": 0.533333361
+        },
+        {
+          "$type": "ActionFrame.Runtime.HitAnimConfig, Assembly-CSharp",
+          "HitForce": {
+            "x": 10.0,
+            "y": 0.0
+          },
+          "BehaviourName": "HitAnim",
+          "BehaviourFrameStartTime": 0.433333337,
+          "BehaviourFrameEndTime": 0.433333337
         }
       ],
-      "FrameDic": {},
+      "FrameDic": {
+        "13": {
+          "FrameNumber": 0,
+          "FrameTime": 0.0,
+          "ApplyBeHitBoxToAllFrame": false,
+          "BeHitRangeList": [],
+          "AttackedRangeList": [
+            {
+              "Offset": {
+                "x": 1.21,
+                "y": 0.54
+              },
+              "Size": {
+                "x": 1.33,
+                "y": 0.67
+              },
+              "Rotation": 0.0
+            }
+          ]
+        }
+      },
       "NextStateName": "idle_1",
       "TransitionTime": 0.4
     },
@@ -343,9 +428,39 @@
           "BehaviourName": "AttackMove",
           "BehaviourFrameStartTime": 0.5666667,
           "BehaviourFrameEndTime": 0.633333445
+        },
+        {
+          "$type": "ActionFrame.Runtime.HitAnimConfig, Assembly-CSharp",
+          "HitForce": {
+            "x": 10.0,
+            "y": 0.0
+          },
+          "BehaviourName": "HitAnim",
+          "BehaviourFrameStartTime": 0.5666667,
+          "BehaviourFrameEndTime": 0.5666667
         }
       ],
-      "FrameDic": {},
+      "FrameDic": {
+        "17": {
+          "FrameNumber": 0,
+          "FrameTime": 0.0,
+          "ApplyBeHitBoxToAllFrame": false,
+          "BeHitRangeList": [],
+          "AttackedRangeList": [
+            {
+              "Offset": {
+                "x": 1.15,
+                "y": 0.55
+              },
+              "Size": {
+                "x": 1.68,
+                "y": 0.85
+              },
+              "Rotation": 0.0
+            }
+          ]
+        }
+      },
       "NextStateName": "idle_1",
       "TransitionTime": 0.4
     },
@@ -430,7 +545,7 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.2
     }
   ]
 }

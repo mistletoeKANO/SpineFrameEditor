@@ -20,8 +20,7 @@ namespace ActionFrame.Runtime
 
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
         {
-            int frame = Mathf.RoundToInt(hero.CurrentTrack.AnimationTime * 30);
-            UnityEngine.Debug.Log($"Spine内置事件. 当前帧{frame}");
+            
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

@@ -22,7 +22,7 @@ namespace ActionFrame.Runtime
             AttackMoveConfig config = (AttackMoveConfig) this.config;
             Vector3 startPos = hero.transform.position;
             Vector3 endPos = startPos + new Vector3(config.MoveValue * hero.skeleton.ScaleX, 0, 0);
-            hero.transform.position = Vector3.Lerp(startPos, endPos, 0.2f);
+            hero.transform.parent.position = Vector3.Lerp(startPos, endPos, 0.2f);
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)
