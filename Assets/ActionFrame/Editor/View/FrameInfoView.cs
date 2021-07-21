@@ -22,6 +22,7 @@ namespace ActionFrame.Editor
         private VisualElement m_StateInfo;
         
         private Toggle m_StateInfoIsLoop;
+        private Toggle m_CurBeHitBoxUseAll;
         private FloatField m_StateMixDuration;
         private PopupField<string> m_NextStatePopUp;
 
@@ -129,6 +130,17 @@ namespace ActionFrame.Editor
                 this.ResetNextStateInfo(data);
             });
             this.m_StateInfo.Add(this.m_StateInfoIsLoop);
+            if (data == this.m_Host.JsonData.SpineController.m_EntryState)
+            {
+                this.m_CurBeHitBoxUseAll = new Toggle("应用当前状态受击框到所有状态");
+                this.m_CurBeHitBoxUseAll.value = data.UseCurSBeHitBoxToAllS;
+                this.m_CurBeHitBoxUseAll.RegisterValueChangedCallback(e =>
+                {
+                    data.UseCurSBeHitBoxToAllS = e.newValue;
+                });
+                this.m_StateInfo.Add(this.m_CurBeHitBoxUseAll);
+            }
+            
             this.ResetNextStateInfo(data);
             Button addNewState = new Button(this.OnAddBehaviour);
             addNewState.text = "新增行为";

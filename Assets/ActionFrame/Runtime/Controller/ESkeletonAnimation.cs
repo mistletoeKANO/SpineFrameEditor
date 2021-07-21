@@ -45,6 +45,8 @@ namespace ActionFrame.Runtime
         /// 执行的总帧数
         /// </summary>
         private int m_RunFrameCount = -1;
+        public int CurrentFrameCount { get => this.m_RunFrameCount; }
+        
         private float m_RunAnimTime = 0;
         private float m_UpdateLogicTime = 0;
 
@@ -182,8 +184,6 @@ namespace ActionFrame.Runtime
             {
                 this.m_ForwardTrack = this.m_CurrentTrack;
                 this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
-                this.m_CurrentTrack.AnimationStart = animStartTime;
-                this.m_RunFrameCount = Mathf.RoundToInt(animStartTime * this.FrameTime);
                 this.m_CurrentTrack.MixBlend = MixBlend.Setup;
                 this.m_CurrentTrack.MixDuration = mixTime;
             }
@@ -193,6 +193,8 @@ namespace ActionFrame.Runtime
                 this.AnimationState.ClearTracks();
                 this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
             }
+            this.m_RunFrameCount = Mathf.RoundToInt(animStartTime * this.FrameTime);
+            this.m_CurrentTrack.AnimationStart = animStartTime;
             this.m_CurrentState = this.GetStateData(stateName);
             m_CurrentTrack.Complete += this.StateComplete;
             return this.m_CurrentTrack;

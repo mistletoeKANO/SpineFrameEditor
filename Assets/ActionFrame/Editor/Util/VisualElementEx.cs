@@ -27,6 +27,26 @@ namespace ActionFrame.Editor
             }
         }
 
+        public static void RemoveAllExcludeZero(this VisualElement self)
+        {
+            if (self.childCount == 0) return;
+            int count = self.childCount;
+            for (int i = 0; i < count - 1; i++)
+            {
+                self.RemoveAt(1);
+            }
+        }
+
+        public static void RemoveSelectedLength(this VisualElement self, int startIndex, int length)
+        {
+            if (self.childCount == 0) return;
+            int count = self.childCount;
+            for (int i = 0; i < length; i++)
+            {
+                self.RemoveAt(startIndex);
+            }
+        }
+
         public static void DrawObject(this VisualElement self, string labelName, string toolTip, object obj, Type objType, Action<object> callback = null)
         {
             if (obj == null)

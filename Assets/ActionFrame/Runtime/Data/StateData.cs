@@ -36,6 +36,10 @@ namespace ActionFrame.Runtime
         /// 动画过渡时长
         /// </summary>
         public float TransitionTime;
+        /// <summary>
+        /// 应用当前状态受击框到所有状态
+        /// </summary>
+        public bool UseCurSBeHitBoxToAllS;
 
         public StateData(string stateName, float duration, float rate)
         {

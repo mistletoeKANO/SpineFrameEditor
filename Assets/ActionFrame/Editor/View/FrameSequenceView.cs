@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ActionFrame.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -20,6 +21,8 @@ namespace ActionFrame.Editor
         private static readonly int kDragSelectionControlID = "DragSelection".GetHashCode();
         private static readonly int kDragLeftHndleControlID = "DragLeftHandle".GetHashCode();
         private static readonly int kDragRightHandleControlID = "DragRightHandle".GetHashCode();
+        
+        private static readonly int kDragBehaviourControlID = "DragBehaviour".GetHashCode();
         
         private AnimationStateView m_StateView;
         private FrameInfoView m_FrameInfoView;
@@ -65,6 +68,8 @@ namespace ActionFrame.Editor
         private int m_RunFrameCount = -1;
         
         private float m_DragBehaviourBodyStartPos = 0f;
+        private float m_DragBehaviourDis = 0f;
+        
         private bool m_IsInDragHandle = false;
 
         private object m_CopyBuffer;
@@ -266,12 +271,11 @@ namespace ActionFrame.Editor
                 }
                 frameInfo.FrameIndex = i;
                 frameInfo.View = new IMGUIContainer(this.OnScrollDragMoveHro);
-                string labelStr = $"{i}";
-                
+
                 frameInfo.LabelContainer = new VisualElement();
                 frameInfo.LabelContainer.name = "FrameBoxLabelContainer";
 
-                frameInfo.ViewLabel = new Label(labelStr);
+                frameInfo.ViewLabel = new Label($"{i}");
                 frameInfo.ViewLabel.name = "FrameBoxLabel";
                 frameInfo.LabelContainer.Add(frameInfo.ViewLabel);
 
@@ -595,6 +599,7 @@ namespace ActionFrame.Editor
             info.HeadView.style.height = BehaviourItemHeight;
             info.HeadView.style.width = this.m_ScrollContainerWidth;
             info.HeadView.style.backgroundColor = AcFrameStyle.FrameBehaviourEventNormal;
+
             info.HeadViewTitle = new Label(data.BehaviourName);
             info.HeadViewTitle.name = "BehaviourItemHeadTitle";
             info.HeadViewTitle.RegisterCallback<MouseDownEvent>(e => { this.OnClickBehaviourItem(e, info);});
@@ -602,6 +607,10 @@ namespace ActionFrame.Editor
             info.HeadViewTitle.style.backgroundColor = AcFrameStyle.FrameBehaviourEventNormal;
             info.HeadViewTitle.style.height = BehaviourItemHeight;
             info.HeadView.Add(info.HeadViewTitle);
+            
+            info.HeadDragHandle = new IMGUIContainer(() => this.OnDragBehaviour(info));
+            info.HeadDragHandle.name = "BehaviourHeadDragHandle";
+            info.HeadViewTitle.Add(info.HeadDragHandle);
             
             int startFrame = Mathf.RoundToInt((float) data.BehaviourFrameStartTime * ActionFrameWindow.FrameRate);
             int endFrame = Mathf.RoundToInt((float) data.BehaviourFrameEndTime * ActionFrameWindow.FrameRate);
@@ -678,6 +687,111 @@ namespace ActionFrame.Editor
         {
             behaviour.BodyViewCenter.style.backgroundColor = AcFrameStyle.FrameBehaviourBodyNormal;
         }
+        
+        private void OnDragBehaviour(BehaviourEventInfo behaviour)
+        {
+            int controlId = GUIUtility.GetControlID(kDragBehaviourControlID, FocusType.Passive);
+            Event current = Event.current;
+            if (current.type == EventType.Layout || current.type == EventType.Repaint)
+            {
+                return;
+            }
+            
+            float realMove = this.m_DragBehaviourDis / BehaviourItemHeight;
+            int moveLength = realMove > 1? Mathf.FloorToInt(realMove) : realMove < -1? Mathf.CeilToInt(realMove) : 0;
+            
+            switch (current.GetTypeForControl(controlId))
+            {
+                case EventType.MouseDown:
+                    if (current.button != 0 || current.clickCount == 2)
+                        break;
+                    GUIUtility.hotControl = controlId;
+                    this.m_DragBehaviourBodyStartPos = Event.current.mousePosition.y;
+                    this.m_DragBehaviourDis = 0f;
+                    break;
+                case EventType.MouseUp:
+                    if (GUIUtility.hotControl != controlId)
+                        break;
+                    GUIUtility.hotControl = 0;
+
+                    behaviour.HeadView.transform.position = Vector3.zero;
+                    break;
+                case EventType.MouseDrag:
+                    if (GUIUtility.hotControl != controlId)
+                        break;
+                    float moveY = current.mousePosition.y - this.m_DragBehaviourBodyStartPos;
+                    behaviour.HeadView.transform.position += new Vector3(0, moveY);
+                    this.m_DragBehaviourDis += moveY;
+                    if (moveLength >= 1 || moveLength <= -1)
+                    {
+                        int oldIndex = this.m_BehaviourList.IndexOf(behaviour);
+                        int newIndex = Mathf.Clamp(oldIndex + moveLength, 0, this.m_BehaviourList.Count - 1);
+                        if (oldIndex != newIndex)
+                        {
+                            this.m_DragBehaviourDis = 0f;
+                            this.RefreshBehaviourListPos(behaviour, newIndex);
+                            behaviour.HeadView.transform.position = Vector3.zero;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 这就是坨 屎, 浪费很多时间 实现的 效果还不流畅...
+        /// </summary>
+        private void RefreshBehaviourListPos(BehaviourEventInfo behaviour, int newIndex)
+        {
+            this.m_BehaviourList.Remove(behaviour);
+            newIndex = Mathf.Clamp(newIndex, 0, this.m_BehaviourList.Count);
+            this.m_BehaviourList.Insert(newIndex, behaviour);
+            
+            this.m_StateView.CurSelectedState.EventList.Remove(behaviour.FrameData);
+            this.m_StateView.CurSelectedState.EventList.Insert(newIndex, behaviour.FrameData);
+            
+            this.m_BehaviourListContainer.RemoveAllExcludeZero();
+            for (int i = 0; i < this.m_BehaviourList.Count; i++)
+            {
+                this.m_BehaviourListContainer.Add(this.m_BehaviourList[i].HeadView);
+            }
+            //todo 留着吧！ 看看 后面还能不能 优化一下效果
+            /*this.m_BehaviourListContainer.Remove(behaviour.HeadView);
+            if (!isDrag) this.m_BehaviourList.Remove(behaviour);
+            if (oldIndex < newIndex)
+            {
+                newIndex = Mathf.Clamp(newIndex + 1, 1, this.m_BehaviourListContainer.childCount);
+                this.m_BehaviourListContainer.Insert(newIndex, behaviour.HeadView);
+                if (!isDrag) this.m_BehaviourList.Insert(newIndex, behaviour);
+            }
+            else
+            {
+                oldIndex = Mathf.Clamp(oldIndex, 1, this.m_BehaviourListContainer.childCount);
+                this.m_BehaviourListContainer.Insert(oldIndex, behaviour.HeadView);
+                if (!isDrag) this.m_BehaviourList.Insert(oldIndex - 1, behaviour);
+            }*/
+
+            //this.m_BehaviourListContainer.RemoveAllExcludeZero();
+            //List<BehaviourEventInfo> tempList = this.m_BehaviourList;
+
+            /*for (int i = 0; i < tempList.Count; i++)
+            {
+                int insertIndex = 0;
+                if (oldIndex < newIndex)
+                {
+                    insertIndex = (i < oldIndex || i > newIndex) ? i : (i >= oldIndex && i < newIndex) ? i + 1 : i == newIndex ? oldIndex : i;
+                }
+                else
+                {
+                    insertIndex = (i < newIndex || i > oldIndex) ? i : i == newIndex ? oldIndex : (i > newIndex && i <= oldIndex) ? i - 1 : i;
+                }
+                this.m_BehaviourListContainer.Add(tempList[insertIndex].HeadView);
+                if (!isDrag)
+                {
+                    this.m_BehaviourList.Add(tempList[insertIndex]);
+                }
+            }*/
+            //this.m_BehaviourListContainer.MarkDirtyRepaint();
+        }
 
         private void OnDragBehaviourBodyInternal(BehaviourEventInfo behaviour, int controlId, DragType dragType)
         {
@@ -692,7 +806,7 @@ namespace ActionFrame.Editor
                     if (current.button != 0 || current.clickCount == 2)
                         break;
                     GUIUtility.hotControl = controlId;
-                    this.m_DragBehaviourBodyStartPos = Event.current.mousePosition.x;
+                    this.m_DragBehaviourBodyStartPos = current.mousePosition.x;
                     break;
                 case EventType.MouseUp:
                     this.m_IsInDragHandle = false;
@@ -827,6 +941,7 @@ namespace ActionFrame.Editor
         {
             public Label HeadViewTitle;
             public VisualElement HeadView;
+            public IMGUIContainer HeadDragHandle;
             
             public VisualElement BodyViewContainer;
             public IMGUIContainer BodyViewCenter;

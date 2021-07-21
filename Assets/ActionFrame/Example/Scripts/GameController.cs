@@ -35,6 +35,7 @@ namespace ActionFrame.Runtime
             this.OnAddListener();
             this.InitMap();
             this.InitData();
+            this.gameObject.AddComponent<GUIManager>();
         }
 
         private void InitMap()

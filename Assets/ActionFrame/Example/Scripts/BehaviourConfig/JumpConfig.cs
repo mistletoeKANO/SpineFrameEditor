@@ -14,17 +14,13 @@ namespace ActionFrame.Runtime
     {
         public override void StartHandle(ESkeletonAnimation hero)
         {
-            
+            JumpConfig jumpConfig = (JumpConfig) this.config;
+            hero.transform.MoveSin(jumpConfig.JumpSpeed, 0.467f);
         }
 
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)
         {
-            if (!InputEventCache.IsHasInput(InputEventType.Jump))
-            {
-                return;
-            }
-            JumpConfig jumpConfig = (JumpConfig) this.config;
-            hero.transform.parent.GetComponent<Rigidbody2D>().velocity = new Vector2(0 , jumpConfig.JumpSpeed);
+            
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)

@@ -84,7 +84,6 @@ namespace ActionFrame.Editor
         /// </summary>
         private void OnInit()
         {
-            Application.targetFrameRate = (int)ActionFrameWindow.FrameRate;
             this.m_TipDialog = new AcFrameTip();
             this.m_TipDialog.Init(this.rootVisualElement);
         }

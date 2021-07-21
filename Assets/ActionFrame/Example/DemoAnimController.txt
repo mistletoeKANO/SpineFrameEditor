@@ -7,20 +7,6 @@
     "EventList": [
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
-        "StateName": "run",
-        "Duration": 0.1,
-        "StartFrame": 0,
-        "KeyCode": [
-          {
-            "EventType": 4
-          }
-        ],
-        "BehaviourName": "状态切换-run",
-        "BehaviourFrameStartTime": 0.0,
-        "BehaviourFrameEndTime": 1.2
-      },
-      {
-        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "walk",
         "Duration": 0.1,
         "StartFrame": 0,
@@ -30,6 +16,20 @@
           }
         ],
         "BehaviourName": "状态切换-walk",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 1.2
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "run",
+        "Duration": 0.1,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 4
+          }
+        ],
+        "BehaviourName": "状态切换-run",
         "BehaviourFrameStartTime": 0.0,
         "BehaviourFrameEndTime": 1.2
       },
@@ -51,7 +51,7 @@
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "jump",
         "Duration": 0.0,
-        "StartFrame": 0,
+        "StartFrame": 8,
         "KeyCode": [
           {
             "EventType": 8
@@ -84,7 +84,8 @@
       }
     },
     "NextStateName": null,
-    "TransitionTime": 0.0
+    "TransitionTime": 0.0,
+    "UseCurSBeHitBoxToAllS": true
   },
   "m_StateDataList": [
     {
@@ -93,20 +94,6 @@
       "FrameCount": 36,
       "IsLoop": true,
       "EventList": [
-        {
-          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
-          "StateName": "run",
-          "Duration": 0.1,
-          "StartFrame": 0,
-          "KeyCode": [
-            {
-              "EventType": 4
-            }
-          ],
-          "BehaviourName": "状态切换-run",
-          "BehaviourFrameStartTime": 0.0,
-          "BehaviourFrameEndTime": 1.2
-        },
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "walk",
@@ -118,6 +105,20 @@
             }
           ],
           "BehaviourName": "状态切换-walk",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.2
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "run",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 4
+            }
+          ],
+          "BehaviourName": "状态切换-run",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 1.2
         },
@@ -139,7 +140,7 @@
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "jump",
           "Duration": 0.0,
-          "StartFrame": 0,
+          "StartFrame": 8,
           "KeyCode": [
             {
               "EventType": 8
@@ -172,7 +173,8 @@
         }
       },
       "NextStateName": null,
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": true
     },
     {
       "StateName": "idle_2",
@@ -182,7 +184,8 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "idle_3",
@@ -192,7 +195,8 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "walk",
@@ -252,7 +256,8 @@
       ],
       "FrameDic": {},
       "NextStateName": null,
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "run",
@@ -312,7 +317,8 @@
       ],
       "FrameDic": {},
       "NextStateName": null,
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "run_shield",
@@ -322,7 +328,8 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": null,
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "jump",
@@ -332,15 +339,16 @@
       "EventList": [
         {
           "$type": "ActionFrame.Runtime.JumpConfig, Assembly-CSharp",
-          "JumpSpeed": 0.06,
+          "JumpSpeed": 4.0,
           "BehaviourName": "Jump",
-          "BehaviourFrameStartTime": 1.73846881E-09,
+          "BehaviourFrameStartTime": 0.266666681,
           "BehaviourFrameEndTime": 1.36666667
         }
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.2
+      "TransitionTime": 0.2,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "shield_attack",
@@ -408,7 +416,8 @@
         }
       },
       "NextStateName": "idle_1",
-      "TransitionTime": 0.4
+      "TransitionTime": 0.4,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "sword_attack",
@@ -462,7 +471,8 @@
         }
       },
       "NextStateName": "idle_1",
-      "TransitionTime": 0.4
+      "TransitionTime": 0.4,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "buff_1",
@@ -479,7 +489,8 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "buff_2",
@@ -496,7 +507,8 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "buff_3",
@@ -525,7 +537,8 @@
       ],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "dead",
@@ -535,7 +548,8 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBoxToAllS": false
     },
     {
       "StateName": "hit",
@@ -545,7 +559,8 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.2
+      "TransitionTime": 0.2,
+      "UseCurSBeHitBoxToAllS": false
     }
   ]
 }
