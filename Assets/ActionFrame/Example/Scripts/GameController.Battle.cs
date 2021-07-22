@@ -24,10 +24,11 @@ namespace ActionFrame.Runtime
 
             List<ESkeletonAnimation> beHitAnim = this.m_Hero.RectColliderEnter(this.m_Monster, e.FrameIndex);
             if (beHitAnim.Count == 0) return;
+            Vector2 hitSpeed = new Vector2(this.m_Hero.skeleton.ScaleX * e.HitSpeed.x, e.HitSpeed.y);
             foreach (var monster in beHitAnim)
             {
                 monster.ChangeStateNoCtr("hit", false, 0);
-                monster.transform.parent.GetComponent<Rigidbody2D>().AddForce(e.HitForce * this.m_Hero.skeleton.ScaleX);
+                monster.AttachNormalSpeed(hitSpeed);
                 monster.DelayFrame += 6;
             }
             this.m_Hero.DelayFrame += 6;

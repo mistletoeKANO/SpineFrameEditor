@@ -12,6 +12,11 @@ namespace ActionFrame.Runtime
             return (EventType & cur) == cur;
         }
 
+        public static bool IsOnlyInput(InputEventType cur)
+        {
+            return (EventType | cur) == cur && EventType != 0;
+        }
+
         public static void Clear()
         {
             EventType = InputEventType.None;

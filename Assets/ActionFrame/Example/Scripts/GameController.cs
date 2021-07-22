@@ -36,6 +36,7 @@ namespace ActionFrame.Runtime
             this.InitMap();
             this.InitData();
             this.gameObject.AddComponent<GUIManager>();
+            
         }
 
         private void InitMap()
@@ -108,12 +109,7 @@ namespace ActionFrame.Runtime
                 InputEventCache.EventType |= InputEventType.Walk;
                 InputEventCache.InputAxis = move;
             }
-
-            if (hero.Move.phase == InputActionPhase.Waiting)
-            {
-                InputEventCache.EventType |= InputEventType.Idle;
-            }
-
+            
             if (hero.RunBtn.phase == InputActionPhase.Started && hero.Move.phase == InputActionPhase.Started)
             {
                 var move = hero.Move.ReadValue<Vector2>();
@@ -121,14 +117,22 @@ namespace ActionFrame.Runtime
                 InputEventCache.InputAxis = move;
             }
 
+            if (hero.Move.phase == InputActionPhase.Waiting)
+            {
+                InputEventCache.EventType |= InputEventType.Idle;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
+            }
+
             if (hero.Attack.triggered)
             {
                 InputEventCache.EventType |= InputEventType.Attack;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
             }
 
             if (hero.Jump.triggered)
             {
                 InputEventCache.EventType |= InputEventType.Jump;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
             }
         }
 

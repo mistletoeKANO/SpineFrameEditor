@@ -138,10 +138,12 @@ namespace ActionFrame.Runtime
             this.m_UpdateLogicTime += dealtTime * this.m_TimeScale;
             if (this.m_UpdateLogicTime >= dealtTime)
             {
+                float updateDealt = 0;
                 while (this.m_UpdateLogicTime - dealtTime >= 0)
                 {
+                    updateDealt += dealtTime;
                     this.m_UpdateLogicTime -= dealtTime;
-                    this.UpdateHandle(dealtTime);
+                    this.UpdateHandle(dealtTime, updateDealt);
                 }
             }
         }
@@ -196,12 +198,14 @@ namespace ActionFrame.Runtime
             this.m_RunFrameCount = Mathf.RoundToInt(animStartTime * this.FrameTime);
             this.m_CurrentTrack.AnimationStart = animStartTime;
             this.m_CurrentState = this.GetStateData(stateName);
-            m_CurrentTrack.Complete += this.StateComplete;
+            this.m_CurrentTrack.Complete += this.StateComplete;
+            this.StartHandle();
             return this.m_CurrentTrack;
         }
 
         private void StateComplete(TrackEntry entry)
         {
+            this.ExitHandle();
             if (!entry.Loop)
             {
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);

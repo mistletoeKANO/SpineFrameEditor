@@ -822,6 +822,10 @@ namespace ActionFrame.Editor
                     int moveFrame = Mathf.RoundToInt(moveX / FrameBoxWidth);
                     int curStartFrame = Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameStartTime * (float)ActionFrameWindow.FrameRate);
                     int curEndFrame =  Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime * (float)ActionFrameWindow.FrameRate);
+                    
+                    float moveValue = moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
+                    float curStart = ((BehaviourData) behaviour.FrameData).BehaviourFrameStartTime;
+                    float curEnd = ((BehaviourData) behaviour.FrameData).BehaviourFrameEndTime;
                     if (moveFrame == 0)
                         break;
                     switch (dragType)
@@ -831,8 +835,8 @@ namespace ActionFrame.Editor
                                 break;
                             if (curEndFrame + moveFrame > this.m_StateView.CurSelectedState.FrameCount)
                                 break;
-                            ((BehaviourData)behaviour.FrameData).BehaviourFrameStartTime += moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
-                            ((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime += moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
+                            ((BehaviourData) behaviour.FrameData).BehaviourFrameStartTime = Mathf.Abs(curStart + moveValue) < 0.0001f? 0 : curStart + moveValue;
+                            ((BehaviourData) behaviour.FrameData).BehaviourFrameEndTime = Mathf.Abs(curEnd + moveValue) < 0.0001f? 0 : curEnd + moveValue;
                             break;
                         case DragType.LeftHandle:
                             this.m_IsInDragHandle = true;
@@ -843,7 +847,7 @@ namespace ActionFrame.Editor
                                 if (curStartFrame + moveFrame > curEndFrame)
                                     break;
                             }
-                            ((BehaviourData)behaviour.FrameData).BehaviourFrameStartTime += moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
+                            ((BehaviourData) behaviour.FrameData).BehaviourFrameStartTime = Mathf.Abs(curStart + moveValue) < 0.0001f? 0 : curStart + moveValue;
                             int startFrameLeft = Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameStartTime * (float)ActionFrameWindow.FrameRate);
                             behaviour.BodyViewContainer.style.width = ((curEndFrame - startFrameLeft + 1) * FrameBoxWidth);
                             break;
@@ -856,7 +860,7 @@ namespace ActionFrame.Editor
                                 if (curEndFrame + moveFrame < curStartFrame)
                                     break;
                             }
-                            ((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime += moveFrame * (1f / (float)ActionFrameWindow.FrameRate);
+                            ((BehaviourData) behaviour.FrameData).BehaviourFrameEndTime = Mathf.Abs(curEnd + moveValue) < 0.0001f? 0 : curEnd + moveValue;
                             int endFrameRight = Mathf.RoundToInt(((BehaviourData)behaviour.FrameData).BehaviourFrameEndTime * (float)ActionFrameWindow.FrameRate);
                             behaviour.BodyViewContainer.style.width = (int) ((endFrameRight - curStartFrame + 1) * FrameBoxWidth);
                             break;

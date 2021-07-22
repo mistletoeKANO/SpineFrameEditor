@@ -37,9 +37,9 @@ namespace ActionFrame.Runtime
         /// </summary>
         public float TransitionTime;
         /// <summary>
-        /// 应用当前状态受击框到所有状态
+        /// 当前状态下 默认使用当前状态受击框
         /// </summary>
-        public bool UseCurSBeHitBoxToAllS;
+        public bool UseCurSBeHitBox;
 
         public StateData(string stateName, float duration, float rate)
         {
@@ -47,6 +47,7 @@ namespace ActionFrame.Runtime
             this.Duration = duration;
             this.FrameCount = (int) (duration * rate);
             this.IsLoop = false;
+            this.UseCurSBeHitBox = false;
         }
     }
 }

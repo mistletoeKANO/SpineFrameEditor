@@ -31,7 +31,7 @@ namespace ActionFrame.Runtime
         {
             get => this.m_CurrentState;
         }
-
+        
         private void InitJsonData(ESpineControllerData ctrData)
         {
             this.m_DefaultState = this.m_ESpineCtrData.m_EntryState;
@@ -60,28 +60,37 @@ namespace ActionFrame.Runtime
             }
         }
 
-        private void UpdateHandle(float dealtTime)
+        private void StartHandle()
         {
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
-            int curFrame = Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * this.m_FrameRate);
+            foreach (var item in handles)
+            {
+                item.StartHandle(this);
+            }
+        }
+        
+        private void ExitHandle()
+        {
+            List<BaseHandle> handles = this.m_HandleDic[this.CurrentState.StateName];
+            foreach (var item in handles)
+            {
+                item.ExitHandle(this);
+            }
+        }
+
+        private void UpdateHandle(float dealtTime, float updateDealt)
+        {
+            List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
+            int curFrame = Mathf.RoundToInt((this.m_CurrentTrack.AnimationTime + updateDealt) * this.m_FrameRate);
 
             foreach (var item in handles)
             {
                 BehaviourData data = (BehaviourData) item.config;
-
                 int startFrame = Mathf.RoundToInt(data.BehaviourFrameStartTime * this.m_FrameRate);
                 int endFrame = Mathf.RoundToInt(data.BehaviourFrameEndTime * this.m_FrameRate);
                 if (curFrame < startFrame || curFrame > endFrame)
                 {
                     continue;
-                }
-                if (curFrame == startFrame)
-                {
-                    item.StartHandle(this);
-                }
-                if (curFrame == endFrame)
-                {
-                    item.ExitHandle(this);
                 }
                 item.UpdateHandle(this, dealtTime);
             }

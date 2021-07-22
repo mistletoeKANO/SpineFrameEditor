@@ -1,13 +1,12 @@
-﻿using UnityEngine;
-
+﻿
 namespace ActionFrame.Runtime
 {
     [LabelName("状态跳转基本信息")]
     [BehaviourConfig(typeof(JumpHandle))]
     public class JumpConfig : BehaviourData
     {
-        [LabelName("跳的高度")]
-        public float JumpSpeed;
+        [LabelName("起跳速度")]
+        public UnityEngine.Vector2 JumpSpeed;
     }
     
     public class JumpHandle : BaseHandle
@@ -15,7 +14,7 @@ namespace ActionFrame.Runtime
         public override void StartHandle(ESkeletonAnimation hero)
         {
             JumpConfig jumpConfig = (JumpConfig) this.config;
-            hero.transform.MoveSin(jumpConfig.JumpSpeed, 0.467f);
+            hero.AttachNormalSpeed(jumpConfig.JumpSpeed);
         }
 
         public override void UpdateHandle(ESkeletonAnimation hero, float dealtTime)

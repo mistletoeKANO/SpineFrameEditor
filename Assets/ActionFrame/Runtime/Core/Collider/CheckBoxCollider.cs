@@ -45,27 +45,28 @@ namespace ActionFrame.Runtime
             Dictionary<int, FrameData> selfFrameData = self.CurrentState.FrameDic;
             Dictionary<int, FrameData> animFrameData = anim.CurrentState.FrameDic;
             List<BoxItem> beHitBoxList = null;
-            if (anim.DefaultState.UseCurSBeHitBoxToAllS)
+            //是否使用 当前状态受击框
+            if (anim.DefaultState.UseCurSBeHitBox)
             {
+                if (animFrameData.ContainsKey(0) && animFrameData[0].ApplyBeHitBoxToAllFrame)
+                {
+                    beHitBoxList = animFrameData[0].BeHitRangeList;
+                }
+                else if (animFrameData.ContainsKey(anim.CurrentFrameCount))
+                {
+                    beHitBoxList = animFrameData[anim.CurrentFrameCount].BeHitRangeList;
+                }
+            }
+            else
+            {
+                //如果不使用 当前 状态默认受击框 或者 当前状态当前帧 受击框，则 使用 角色默认 状态 受击框
                 Dictionary<int, FrameData> animDefaultFrameData = anim.DefaultState.FrameDic;
                 if (animDefaultFrameData.ContainsKey(0))
                 {
                     beHitBoxList = animDefaultFrameData[0].BeHitRangeList;
                 }
             }
-            else if (animFrameData.ContainsKey(0) && animFrameData[0].ApplyBeHitBoxToAllFrame)
-            {
-                beHitBoxList = animFrameData[0].BeHitRangeList;
-            }
-            else if (animFrameData.ContainsKey(anim.CurrentFrameCount))
-            {
-                beHitBoxList = animFrameData[anim.CurrentFrameCount].BeHitRangeList;
-            }
             if (beHitBoxList == null)
-            {
-                return false;
-            }
-            if (!selfFrameData.ContainsKey(frameIndex))
             {
                 return false;
             }
@@ -79,7 +80,7 @@ namespace ActionFrame.Runtime
             Vector2 maxHeight = new Vector2();
             foreach (var box in beHitRangeList)
             {
-                Vector3 pos = anim.transform.position + (Vector3) box.Offset;
+                Vector3 pos = anim.transform.position + new Vector3(box.Offset.x * anim.skeleton.ScaleX, box.Offset.y);
                 Rect newRect = new Rect(pos, box.Size);
                 beHitBoxList.Enqueue(newRect);
                 float newBottom = box.Offset.y - box.Size.y / 2f;
@@ -88,8 +89,8 @@ namespace ActionFrame.Runtime
                 maxHeight.y = maxHeight.y < newTop ? newTop : maxHeight.y;
             }
             float height = Mathf.Abs(maxHeight.y - maxHeight.x);
-            // z 轴 攻击距离 暂定 为 受击框长度 的 1/6
-            if (Mathf.Abs(self.transform.position.y - anim.transform.position.y) > height / 6f)
+            // z 轴 攻击距离 暂定 为 受击框长度 的 1/6, 后续 可 针对单个技能可配
+            if (Mathf.Abs(self.transform.parent.position.y - anim.transform.parent.position.y) > height / 6f)
             {
                 return false;
             }

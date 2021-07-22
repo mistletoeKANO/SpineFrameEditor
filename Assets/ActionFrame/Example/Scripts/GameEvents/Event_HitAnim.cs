@@ -5,12 +5,12 @@ namespace ActionFrame.Runtime
 {
     public class Event_HitAnim : IEventHandle
     {
-        public Vector2 HitForce;
+        public Vector2 HitSpeed;
         public int FrameIndex;
 
-        public Event_HitAnim(Vector2 hitForce, int frameTime)
+        public Event_HitAnim(Vector2 hitSpeed, int frameTime)
         {
-            this.HitForce = hitForce;
+            this.HitSpeed = hitSpeed;
             this.FrameIndex = frameTime;
         }
     }

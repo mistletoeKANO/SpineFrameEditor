@@ -69,11 +69,29 @@ namespace ActionFrame.Runtime
         
         private void OnDrawGizmos()
         {
-            if (this.m_DefaultState != null && this.m_DefaultState.FrameDic[0] != null)
+            if (this.m_CurrentState != null && this.m_CurrentState.UseCurSBeHitBox)
+            {
+                List<BoxItem> boxItems = null;
+                if (this.m_CurrentState.FrameDic.ContainsKey(0) && this.m_CurrentState.FrameDic[0].ApplyBeHitBoxToAllFrame)
+                {
+                    boxItems = this.m_CurrentState.FrameDic[0].BeHitRangeList;
+                }
+                else if (this.m_CurrentState.FrameDic.ContainsKey(this.m_RunFrameCount))
+                {
+                    boxItems = this.m_CurrentState.FrameDic[this.m_RunFrameCount].BeHitRangeList;
+                }
+                if (boxItems != null)
+                {
+                    this.DrawBodyBox(boxItems, this.m_GizMorBeHit);
+                }
+            }
+            else if (this.m_DefaultState != null && this.m_DefaultState.FrameDic[0] != null)
             {
                 FrameData data = this.m_DefaultState.FrameDic[0];
-                if (data == null) return;
-                this.DrawBodyBox(data.BeHitRangeList, this.m_GizMorBeHit);
+                if (data != null)
+                {
+                    this.DrawBodyBox(data.BeHitRangeList, this.m_GizMorBeHit);
+                }
             }
 
             if (this.m_CurrentState != null)
