@@ -47,6 +47,14 @@ namespace ActionFrame.Runtime
         private int m_RunFrameCount = -1;
         public int CurrentFrameCount { get => this.m_RunFrameCount; }
         
+        /// <summary>
+        /// 当前 track 执行到的 帧数
+        /// </summary>
+        public int RunFrameCount
+        {
+            get => Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * 30);
+        }
+        
         private float m_RunAnimTime = 0;
         private float m_UpdateLogicTime = 0;
 
@@ -157,6 +165,7 @@ namespace ActionFrame.Runtime
             }
             this.m_CurrentTrack =
                 this.AnimationState.SetAnimation(0, this.m_DefaultState.StateName, this.m_DefaultState.IsLoop);
+            this.m_CurrentTrack.Complete += this.StateComplete;
             this.m_CurrentState = this.m_DefaultState;
             this.m_RunFrameCount = 0;
             this.m_RunAnimTime = 0;
@@ -211,6 +220,30 @@ namespace ActionFrame.Runtime
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
                 this.ChangeStateWithMix(next.StateName, next.IsLoop, this.m_CurrentState.TransitionTime);
             }
+        }
+        
+        public void SetCurTrackTimeScale(float value)
+        {
+            this.m_CurrentTrack.TimeScale = value;
+        }
+
+        /// <summary>
+        /// 设置子弹时间(顿帧 帧数) 单位 帧数
+        /// </summary>
+        /// <param name="frame"></param>
+        public void SetBullet(int frame)
+        {
+            this.m_DelayFrame += Mathf.Abs(frame);
+        }
+        
+        /// <summary>
+        /// 设置子弹时间, 持续时长 单位 秒
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetBullet(float time)
+        {
+            int frameCount = Mathf.RoundToInt(time / this.FrameTime);
+            this.m_DelayFrame += Mathf.Abs(frameCount);
         }
     }
 }

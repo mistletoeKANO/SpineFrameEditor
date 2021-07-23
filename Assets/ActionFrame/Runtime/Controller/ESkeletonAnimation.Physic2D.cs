@@ -16,7 +16,7 @@ namespace ActionFrame.Runtime
 
         private void FixedUpdate()
         {
-            if (this.DelayFrame > 0f || !IsUseSimulate) return;
+            if (this.m_DelayFrame > 0f || !IsUseSimulate) return;
             if (this.m_CurAnimProcess.IsJumping)
             {
                 this.UpdateNoGroundPos();
@@ -52,7 +52,7 @@ namespace ActionFrame.Runtime
 
         private void UpdateInGroundPos()
         {
-            Vector3 moveValue = new Vector3(this.m_CurAnimProcess.SpeedX * Time.fixedDeltaTime, this.m_CurAnimProcess.SpeedRootY * Time.fixedDeltaTime);
+            Vector3 moveValue = new Vector3(this.m_CurAnimProcess.SpeedX, this.m_CurAnimProcess.SpeedRootY) * Time.fixedDeltaTime;
             this.transform.parent.position += moveValue;
         }
 

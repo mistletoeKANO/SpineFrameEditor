@@ -18,18 +18,7 @@ namespace ActionFrame.Runtime
         private readonly Color m_GizMorBeHit = new Color(0f, 0f, 1f, 0.4f);
         private readonly Color m_GizMorAttack = new Color(1f, 0f, 0.02f, 0.4f);
 
-        public int RunFrameCount
-        {
-            get => Mathf.RoundToInt(this.m_CurrentTrack.AnimationTime * 30);
-        }
-
-        public int DelayFrame
-        {
-            get => this.m_DelayFrame;
-            set => this.m_DelayFrame = value;
-        }
-
-        public void InitAnimState(StateData stateData, StateData defaultData, float timeSca)
+        private void InitAnimState(StateData stateData, StateData defaultData, float timeSca)
         {
             this.AnimationState.ClearTracks();
             this.skeleton.SetToSetupPose();
@@ -43,7 +32,7 @@ namespace ActionFrame.Runtime
             this.m_CurrentTrack.TimeScale = timeSca;
         }
         
-        public void UpdateFrameEditor(float dealtTime)
+        private void UpdateFrameEditor(float dealtTime)
         {
             if (m_DelayFrame > 0)
             {
@@ -54,12 +43,7 @@ namespace ActionFrame.Runtime
             this.Update(dealtTime);
         }
 
-        public void SetCurTrackTimeScale(float value)
-        {
-            this.m_CurrentTrack.TimeScale = value;
-        }
-
-        public void ResetSelectFramePosture(string stateName, float time)
+        private void ResetSelectFramePosture(string stateName, float time)
         {
             this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, false);
             this.m_CurrentTrack.AnimationEnd = time;

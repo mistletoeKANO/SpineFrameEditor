@@ -134,6 +134,11 @@ namespace ActionFrame.Runtime
                 InputEventCache.EventType |= InputEventType.Jump;
                 this.m_Hero.AttachMoveSpeed(Vector2.zero);
             }
+
+            if (hero.Jump.phase == InputActionPhase.Started)
+            {
+                InputEventCache.EventType |= InputEventType.Jumping;
+            }
         }
 
         private void UpdateCameraPos()

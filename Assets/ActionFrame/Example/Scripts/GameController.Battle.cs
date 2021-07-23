@@ -29,9 +29,9 @@ namespace ActionFrame.Runtime
             {
                 monster.ChangeStateNoCtr("hit", false, 0);
                 monster.AttachNormalSpeed(hitSpeed);
-                monster.DelayFrame += 6;
+                monster.SetBullet(6);
             }
-            this.m_Hero.DelayFrame += 6;
+            this.m_Hero.SetBullet(6);
         }
     }
 }

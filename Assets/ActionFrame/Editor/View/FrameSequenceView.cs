@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using ActionFrame.Runtime;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -148,7 +148,9 @@ namespace ActionFrame.Editor
             if (this.m_IsPLay && !this.m_IsPause)
             {
                 this.UpdateRunFrameStyle();
-                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrameEditor(1f / ActionFrameWindow.FrameRate);
+                Type type = this.m_Host.PrefabData.ESkeletonAnim.GetType();
+                ReflectionUtil.InvokeMethodInstance(type, this.m_Host.PrefabData.ESkeletonAnim, "UpdateFrameEditor",
+                    1f / ActionFrameWindow.FrameRate);
                 this.m_RunFrameCount = Mathf.Clamp(this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount, 0,
                     this.m_StateView.CurSelectedState.FrameCount);
                 this.m_CurSelectFrame = this.m_FrameDic[this.m_RunFrameCount];
@@ -452,8 +454,9 @@ namespace ActionFrame.Editor
                 }
                 select.View.style.backgroundColor = AcFrameStyle.FrameBoxSelect;
                 this.m_FrameInfoView.ResetSelectFrameBox(select.FrameData, true);
-                this.m_Host.PrefabData.ESkeletonAnim.ResetSelectFramePosture(this.m_StateView.CurSelectedState.StateName,
-                    select.FrameIndex * 1f / ActionFrameWindow.FrameRate);
+                Type type = this.m_Host.PrefabData.ESkeletonAnim.GetType();
+                ReflectionUtil.InvokeMethodInstance(type, this.m_Host.PrefabData.ESkeletonAnim, "ResetSelectFramePosture", 
+                    this.m_StateView.CurSelectedState.StateName, select.FrameIndex * 1f / ActionFrameWindow.FrameRate);
             }
         }
 
@@ -480,7 +483,8 @@ namespace ActionFrame.Editor
             if (this.m_IsPLay)
             {
                 this.m_RunFrameCount = 0;
-                this.m_Host.PrefabData.ESkeletonAnim.InitAnimState(this.m_StateView.CurSelectedState,
+                ReflectionUtil.InvokeMethodInstance(this.m_Host.PrefabData.ESkeletonAnim.GetType(),
+                    this.m_Host.PrefabData.ESkeletonAnim, "InitAnimState", this.m_StateView.CurSelectedState,
                     this.m_Host.JsonData.SpineController.m_EntryState, this.m_AnimSpeedSlider.value);
             }
             else
@@ -523,7 +527,9 @@ namespace ActionFrame.Editor
             }
             if (this.m_IsPLay && this.m_IsPause)
             {
-                this.m_Host.PrefabData.ESkeletonAnim.UpdateFrameEditor(1f / ActionFrameWindow.FrameRate);
+                Type type = this.m_Host.PrefabData.ESkeletonAnim.GetType();
+                ReflectionUtil.InvokeMethodInstance(type, this.m_Host.PrefabData.ESkeletonAnim, "UpdateFrameEditor",
+                    1f / ActionFrameWindow.FrameRate);
                 this.m_RunFrameCount = this.m_Host.PrefabData.ESkeletonAnim.RunFrameCount;
                 this.UpdateRunFrameStyle();
             }

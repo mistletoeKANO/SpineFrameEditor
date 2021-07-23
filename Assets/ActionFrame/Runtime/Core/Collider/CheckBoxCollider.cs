@@ -81,6 +81,7 @@ namespace ActionFrame.Runtime
             foreach (var box in beHitRangeList)
             {
                 Vector3 pos = anim.transform.position + new Vector3(box.Offset.x * anim.skeleton.ScaleX, box.Offset.y);
+                pos = pos - (Vector3) box.Size / 2f;
                 Rect newRect = new Rect(pos, box.Size);
                 beHitBoxList.Enqueue(newRect);
                 float newBottom = box.Offset.y - box.Size.y / 2f;
@@ -99,6 +100,7 @@ namespace ActionFrame.Runtime
             {
                 Vector3 pos = self.transform.position +
                               new Vector3(boxItem.Offset.x * self.skeleton.ScaleX, boxItem.Offset.y);
+                pos = pos - (Vector3) boxItem.Size / 2f;
                 Rect newRect = new Rect(pos, boxItem.Size);
                 while (beHitBoxList.Count > 0)
                 {

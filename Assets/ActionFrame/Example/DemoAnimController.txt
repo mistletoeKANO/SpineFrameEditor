@@ -184,7 +184,7 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0,
+      "TransitionTime": 0.4,
       "UseCurSBeHitBox": false
     },
     {
@@ -195,7 +195,7 @@
       "EventList": [],
       "FrameDic": {},
       "NextStateName": "idle_1",
-      "TransitionTime": 0.0,
+      "TransitionTime": 0.4,
       "UseCurSBeHitBox": false
     },
     {
