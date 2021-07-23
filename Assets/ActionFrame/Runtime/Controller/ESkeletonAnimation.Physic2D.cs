@@ -14,8 +14,11 @@ namespace ActionFrame.Runtime
         public bool IsUseSimulate = true;
         public bool IsInGround = true;
 
+        public Action FixedUpdateAction;
+
         private void FixedUpdate()
         {
+            this.FixedUpdateAction?.Invoke();
             if (this.m_DelayFrame > 0f || !IsUseSimulate) return;
             if (this.m_CurAnimProcess.IsJumping)
             {
@@ -30,7 +33,8 @@ namespace ActionFrame.Runtime
         private void UpdateNoGroundPos()
         {
             Vector3 pos = this.transform.localPosition;
-            this.IsInGround = !(pos.y > 0f);
+            Vector3 groundPos = this.transform.parent.GetChild(1).localPosition;
+            this.IsInGround = !(pos.y > groundPos.y);
             
             if (Mathf.Abs(this.m_CurAnimProcess.SpeedSelfY) > 0f)
             {
@@ -39,12 +43,13 @@ namespace ActionFrame.Runtime
                 Transform curTrans = this.transform;
                 curTrans.localPosition += new Vector3(0, moveY);
                 curTrans.parent.position += new Vector3(moveX, 0);
-                if (pos.y + moveY < 0f)
+                if (pos.y + moveY < groundPos.y)
                 {
-                    curTrans.localPosition = Vector3.zero;
+                    curTrans.localPosition = groundPos;
                     this.m_CurAnimProcess.SpeedSelfY = 0;
                     this.m_CurAnimProcess.SpeedX = 0;
                     this.m_CurAnimProcess.IsJumping = false;
+                    this.IsInGround = true;
                 }
             }
             this.m_CurAnimProcess.SpeedSelfY -= Time.fixedDeltaTime * this.m_G;
@@ -65,8 +70,15 @@ namespace ActionFrame.Runtime
         
         public void AttachMoveSpeed(Vector2 speed)
         {
+            this.skeleton.ScaleX = (int) (speed.x * 100) == 0 ? this.skeleton.ScaleX : speed.x > 0 ? 1 : -1;
+            this.GetComponent<Renderer>().sortingOrder = (int) (-this.transform.parent.position.y * 1000);
             this.m_CurAnimProcess.SpeedX = speed.x;
             this.m_CurAnimProcess.SpeedRootY = speed.y;
+        }
+
+        public void AttachSpeedSelfY(float speedY)
+        {
+            this.m_CurAnimProcess.SpeedSelfY = speedY;
         }
     }
 

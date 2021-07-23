@@ -27,11 +27,11 @@ namespace ActionFrame.Runtime
             Vector2 hitSpeed = new Vector2(this.m_Hero.skeleton.ScaleX * e.HitSpeed.x, e.HitSpeed.y);
             foreach (var monster in beHitAnim)
             {
-                monster.ChangeStateNoCtr("hit", false, 0);
+                monster.ChangeStateNoCtr("Damage_1", false, 0, 0.099f);
                 monster.AttachNormalSpeed(hitSpeed);
                 monster.SetBullet(6);
             }
-            this.m_Hero.SetBullet(6);
+            //this.m_Hero.SetBullet(6);
         }
     }
 }

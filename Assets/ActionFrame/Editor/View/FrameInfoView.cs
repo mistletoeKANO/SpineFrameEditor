@@ -131,7 +131,7 @@ namespace ActionFrame.Editor
             });
             this.m_StateInfo.Add(this.m_StateInfoIsLoop);
             
-            this.m_UseCurBeHitBox = new Toggle("应用当前状态受击框到所有状态");
+            this.m_UseCurBeHitBox = new Toggle("当前状态使用自己的受击框");
             this.m_UseCurBeHitBox.value = data.UseCurSBeHitBox;
             this.m_UseCurBeHitBox.RegisterValueChangedCallback(e =>
             {

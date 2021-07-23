@@ -66,8 +66,8 @@ namespace ActionFrame.Runtime
         private void InitData()
         {
             this.m_HeroObj = Instantiate(PrefabHero);
-            this.m_HeroObj.transform.GetChild(0).GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
             this.m_Hero = this.m_HeroObj.GetComponentInChildren<ESkeletonAnimation>();
+            this.m_Hero.GetComponent<Renderer>().sortingOrder = (int) (-this.m_HeroObj.transform.position.y * 1000);
 
             this.m_Monster = new List<ESkeletonAnimation>();
             for (int i = 0; i < 2; i++)
@@ -75,8 +75,8 @@ namespace ActionFrame.Runtime
                 var monster = Instantiate(PrefabHero);
                 monster.transform.position = this.m_Hero.transform.position +
                                              new Vector3(Random.Range(-2, 2), Random.Range(-1, 1));
-                monster.transform.GetChild(0).GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
                 ESkeletonAnimation esk = monster.GetComponentInChildren<ESkeletonAnimation>();
+                esk.GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
                 this.m_Monster.Add(esk);
             }
         }

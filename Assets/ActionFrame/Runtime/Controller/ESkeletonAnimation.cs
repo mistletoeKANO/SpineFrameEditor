@@ -188,6 +188,7 @@ namespace ActionFrame.Runtime
 
         private Spine.TrackEntry ChangeStateInternal(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
         {
+            this.ExitHandle();
             this.m_RunFrameCount = 0;
             this.m_RunAnimTime = 0;
             this.m_UpdateLogicTime = 0;
@@ -214,10 +215,10 @@ namespace ActionFrame.Runtime
 
         private void StateComplete(TrackEntry entry)
         {
-            this.ExitHandle();
             if (!entry.Loop)
             {
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
+                if (next == null) return;
                 this.ChangeStateWithMix(next.StateName, next.IsLoop, this.m_CurrentState.TransitionTime);
             }
         }

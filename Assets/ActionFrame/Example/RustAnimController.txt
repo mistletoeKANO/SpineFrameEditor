@@ -1,0 +1,619 @@
+{
+  "m_EntryState": {
+    "StateName": "Idle_1",
+    "Duration": 4.0,
+    "FrameCount": 120,
+    "IsLoop": true,
+    "EventList": [
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Walk_1",
+        "Duration": 0.2,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 2
+          }
+        ],
+        "BehaviourName": "状态切换-Walk_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Run_1",
+        "Duration": 0.2,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 4
+          }
+        ],
+        "BehaviourName": "状态切换-Run_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Jump_Part_1",
+        "Duration": 0.1,
+        "StartFrame": 10,
+        "KeyCode": [
+          {
+            "EventType": 8
+          }
+        ],
+        "BehaviourName": "状态切换-Jump_Part_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Shoot_ColdWeapon_1",
+        "Duration": 0.1,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 32
+          }
+        ],
+        "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      }
+    ],
+    "FrameDic": {
+      "0": {
+        "FrameNumber": 0,
+        "FrameTime": 0.0,
+        "ApplyBeHitBoxToAllFrame": true,
+        "BeHitRangeList": [
+          {
+            "Offset": {
+              "x": 0.0,
+              "y": -0.07
+            },
+            "Size": {
+              "x": 0.78,
+              "y": 1.95
+            },
+            "Rotation": 0.0
+          }
+        ],
+        "AttackedRangeList": []
+      }
+    },
+    "NextStateName": "Idle_1",
+    "TransitionTime": 0.0,
+    "UseCurSBeHitBox": true
+  },
+  "m_StateDataList": [
+    {
+      "StateName": "Idle_1",
+      "Duration": 4.0,
+      "FrameCount": 120,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Walk_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 2
+            }
+          ],
+          "BehaviourName": "状态切换-Walk_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Run_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 4
+            }
+          ],
+          "BehaviourName": "状态切换-Run_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Jump_Part_1",
+          "Duration": 0.1,
+          "StartFrame": 10,
+          "KeyCode": [
+            {
+              "EventType": 8
+            }
+          ],
+          "BehaviourName": "状态切换-Jump_Part_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_ColdWeapon_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 32
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        }
+      ],
+      "FrameDic": {
+        "0": {
+          "FrameNumber": 0,
+          "FrameTime": 0.0,
+          "ApplyBeHitBoxToAllFrame": true,
+          "BeHitRangeList": [
+            {
+              "Offset": {
+                "x": 0.0,
+                "y": -0.07
+              },
+              "Size": {
+                "x": 0.78,
+                "y": 1.95
+              },
+              "Rotation": 0.0
+            }
+          ],
+          "AttackedRangeList": []
+        }
+      },
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": true
+    },
+    {
+      "StateName": "Jump_Part_1",
+      "Duration": 0.4,
+      "FrameCount": 12,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Jump_1",
+          "BehaviourFrameStartTime": 0.2,
+          "BehaviourFrameEndTime": 0.2
+        },
+        {
+          "$type": "ActionFrame.Runtime.JumpConfig, Assembly-CSharp",
+          "JumpSpeed": {
+            "x": 0.0,
+            "y": 8.0
+          },
+          "BehaviourName": "Jump",
+          "BehaviourFrameStartTime": 0.4,
+          "BehaviourFrameEndTime": 0.4
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Jump_Part_2",
+      "TransitionTime": 0.2,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Jump_Part_2",
+      "Duration": 0.6667,
+      "FrameCount": 20,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_ColdWeapon_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 32
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.6667
+        },
+        {
+          "$type": "ActionFrame.Runtime.JumpingConfig, Assembly-CSharp",
+          "NextStateName": "Jump_Part_3",
+          "BehaviourName": "跳跃中行为",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.6667
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Jump_Part_3",
+      "Duration": 0.3333,
+      "FrameCount": 9,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Jump_2",
+          "BehaviourFrameStartTime": 0.0333,
+          "BehaviourFrameEndTime": 0.0333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.2,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Run_1",
+      "Duration": 1.6,
+      "FrameCount": 48,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Walk_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 2
+            }
+          ],
+          "BehaviourName": "状态切换-Walk_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.6
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Idle_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 1
+            }
+          ],
+          "BehaviourName": "状态切换-Idle_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.6
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Jump_Part_1",
+          "Duration": 0.1,
+          "StartFrame": 3,
+          "KeyCode": [
+            {
+              "EventType": 8
+            }
+          ],
+          "BehaviourName": "状态切换-Jump_Part_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.6
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_ColdWeapon_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 32
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.6
+        },
+        {
+          "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
+          "MoveSpeed": 4.0,
+          "BehaviourName": "Run",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 1.6
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Walk_1",
+      "Duration": 2.0,
+      "FrameCount": 60,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 0.5333,
+          "BehaviourFrameEndTime": 0.5333
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 1.0,
+          "BehaviourFrameEndTime": 1.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 1.5333,
+          "BehaviourFrameEndTime": 1.5333
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 2.0,
+          "BehaviourFrameEndTime": 2.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Run_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 4
+            }
+          ],
+          "BehaviourName": "状态切换-Run_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Idle_1",
+          "Duration": 0.2,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 1
+            }
+          ],
+          "BehaviourName": "状态切换-Idle_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Jump_Part_1",
+          "Duration": 0.1,
+          "StartFrame": 3,
+          "KeyCode": [
+            {
+              "EventType": 8
+            }
+          ],
+          "BehaviourName": "状态切换-Jump_Part_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_ColdWeapon_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 32
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
+          "MoveSpeed": 2.0,
+          "BehaviourName": "Move",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 2.0
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Walk_Low_1",
+      "Duration": 2.0,
+      "FrameCount": 60,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 0.5,
+          "BehaviourFrameEndTime": 0.5
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 1.0,
+          "BehaviourFrameEndTime": 1.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 1.5,
+          "BehaviourFrameEndTime": 1.5
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Step_1",
+          "BehaviourFrameStartTime": 2.0,
+          "BehaviourFrameEndTime": 2.0
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Shoot_ColdWeapon_1",
+      "Duration": 0.5,
+      "FrameCount": 15,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Hit_1",
+          "BehaviourFrameStartTime": 0.2333,
+          "BehaviourFrameEndTime": 0.2333
+        },
+        {
+          "$type": "ActionFrame.Runtime.HitAnimConfig, Assembly-CSharp",
+          "HitSpeed": {
+            "x": 0.2,
+            "y": 6.0
+          },
+          "BehaviourName": "Attack",
+          "BehaviourFrameStartTime": 0.266666681,
+          "BehaviourFrameEndTime": 0.266666681
+        },
+        {
+          "$type": "ActionFrame.Runtime.AttackSpeedConfig, Assembly-CSharp",
+          "BehaviourName": "附加Y轴速度",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.5
+        }
+      ],
+      "FrameDic": {
+        "8": {
+          "FrameNumber": 0,
+          "FrameTime": 0.0,
+          "ApplyBeHitBoxToAllFrame": false,
+          "BeHitRangeList": [],
+          "AttackedRangeList": [
+            {
+              "Offset": {
+                "x": 0.93,
+                "y": -0.05
+              },
+              "Size": {
+                "x": 1.54,
+                "y": 1.9
+              },
+              "Rotation": 0.0
+            }
+          ]
+        }
+      },
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.2,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Shoot_Grenade_1",
+      "Duration": 0.7333,
+      "FrameCount": 21,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.4333,
+          "BehaviourFrameEndTime": 0.4333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Shoot_Submachine_1",
+      "Duration": 0.5,
+      "FrameCount": 15,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.0667,
+          "BehaviourFrameEndTime": 0.0667
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.2333,
+          "BehaviourFrameEndTime": 0.2333
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.4,
+          "BehaviourFrameEndTime": 0.4
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Shoot_Submachine_2",
+      "Duration": 0.5,
+      "FrameCount": 15,
+      "IsLoop": true,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.0667,
+          "BehaviourFrameEndTime": 0.0667
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.2333,
+          "BehaviourFrameEndTime": 0.2333
+        },
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.4,
+          "BehaviourFrameEndTime": 0.4
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.0,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Damage_1",
+      "Duration": 0.5,
+      "FrameCount": 15,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Damage_1",
+          "BehaviourFrameStartTime": 0.0333,
+          "BehaviourFrameEndTime": 0.0333
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.1,
+      "UseCurSBeHitBox": false
+    }
+  ]
+}

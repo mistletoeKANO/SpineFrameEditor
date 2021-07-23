@@ -1,6 +1,5 @@
 ﻿.LeftPanelClass{
-    flex-grow: 1;
-    max-width: 256px;
+    max-width: 420px;
     min-width: 160px;
     border-right-width: 1px;
     border-color: rgba(0,0,0,0.28);

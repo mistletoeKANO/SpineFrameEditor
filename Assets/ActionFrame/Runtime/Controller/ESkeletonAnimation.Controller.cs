@@ -62,6 +62,10 @@ namespace ActionFrame.Runtime
 
         private void StartHandle()
         {
+            if (this.m_CurrentState == null || !this.m_HandleDic.ContainsKey(this.m_CurrentState.StateName))
+            {
+                return;
+            }
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
             foreach (var item in handles)
             {
@@ -71,6 +75,10 @@ namespace ActionFrame.Runtime
         
         private void ExitHandle()
         {
+            if (this.m_CurrentState == null || !this.m_HandleDic.ContainsKey(this.m_CurrentState.StateName))
+            {
+                return;
+            }
             List<BaseHandle> handles = this.m_HandleDic[this.CurrentState.StateName];
             foreach (var item in handles)
             {
@@ -80,6 +88,10 @@ namespace ActionFrame.Runtime
 
         private void UpdateHandle(float dealtTime, float updateDealt)
         {
+            if (this.m_CurrentState == null || !this.m_HandleDic.ContainsKey(this.m_CurrentState.StateName))
+            {
+                return;
+            }
             List<BaseHandle> handles = this.m_HandleDic[this.m_CurrentState.StateName];
             int curFrame = Mathf.RoundToInt((this.m_CurrentTrack.AnimationTime + updateDealt) * this.m_FrameRate);
 
@@ -105,6 +117,7 @@ namespace ActionFrame.Runtime
                     return value;
                 }
             }
+            Debug.LogError($"{stateName} is not exist in current animController.");
             return null;
         }
     }

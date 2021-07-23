@@ -1,7 +1,7 @@
 ﻿
 namespace ActionFrame.Runtime
 {
-    [LabelName("状态跳转基本信息")]
+    [LabelName("跳跃")]
     [BehaviourConfig(typeof(JumpHandle))]
     public class JumpConfig : BehaviourData
     {

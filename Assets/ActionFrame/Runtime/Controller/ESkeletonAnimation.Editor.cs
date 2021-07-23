@@ -69,7 +69,7 @@ namespace ActionFrame.Runtime
                     this.DrawBodyBox(boxItems, this.m_GizMorBeHit);
                 }
             }
-            else if (this.m_DefaultState != null && this.m_DefaultState.FrameDic[0] != null)
+            else if (this.m_DefaultState != null && this.m_DefaultState.FrameDic.ContainsKey(0))
             {
                 FrameData data = this.m_DefaultState.FrameDic[0];
                 if (data != null)
