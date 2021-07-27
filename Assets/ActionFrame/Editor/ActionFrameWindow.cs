@@ -172,17 +172,19 @@ namespace ActionFrame.Editor
             this.m_PrefabData = new PrefabDataParse(evt.newValue as GameObject);
             this.OnJsonValueChange(this.m_PrefabData.ESkeletonAnim.ESpineCtrJsonFile);
             this.m_PrefabData.ESkeletonAnim.JsonFileChangeEvent += this.OnJsonValueChange;
-            if (this.m_PrefabData.ESkeletonAnim.ESpineCtrJsonFile == null)
-            {
-                return;
-            }
-            this.m_AnimClipView?.InitClipList(this.m_PrefabData);
         }
 
         private void OnJsonValueChange(object json)
         {
+            TextAsset textAsset = (TextAsset) json;
+            if (textAsset == null || textAsset.GetInstanceID() == 0)
+            {
+                this.m_TipDialog.ShowTip("预制体组件缺少 Json 文件, 请添加 Json 文件.", 4f);
+                return;
+            }
             this.m_JsonData = new AnimationJsonData((TextAsset) json);
             this.m_AnimStateView?.ResetStateList();
+            this.m_AnimClipView?.InitClipList(this.m_PrefabData);
         }
 
         public void AddState(List<Spine.Animation> stateList)
@@ -244,6 +246,7 @@ namespace ActionFrame.Editor
                 return;
             }
             string tip = this.m_JsonData.Save() ? "保存成功..." : "保存失败...";
+            this.PrefabData.ESkeletonAnim.Init();
             this.TipDialog.ShowTip(tip, 2f);
         }
 
