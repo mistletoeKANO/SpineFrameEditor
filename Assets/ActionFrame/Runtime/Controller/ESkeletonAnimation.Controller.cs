@@ -16,6 +16,7 @@ namespace ActionFrame.Runtime
         {
             get => this.m_FrameRate;
         }
+        private float m_CurLogicTime = 0f;
         
         private StateData m_DefaultState;
         private StateData m_CurrentState;

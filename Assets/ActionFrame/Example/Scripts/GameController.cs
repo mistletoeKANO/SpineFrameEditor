@@ -90,11 +90,11 @@ namespace ActionFrame.Runtime
             if (this.m_CurLogicTime >= this.m_LogicFrameTime)
             {
                 this.m_CurLogicTime -= this.m_LogicFrameTime;
-                this.m_Hero.UpdateLogic(this.m_LogicFrameTime);
-                InputEventCache.Clear();
+                //this.m_Hero.UpdateLogic(this.m_LogicFrameTime);
+                //InputEventCache.Clear();
                 foreach (var monster in this.m_Monster)
                 {
-                    monster.UpdateLogic(this.m_LogicFrameTime);
+                    //monster.UpdateLogic(this.m_LogicFrameTime);
                 }
                 Physics.Simulate(this.m_LogicFrameTime);
             }

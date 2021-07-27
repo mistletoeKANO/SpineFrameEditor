@@ -58,6 +58,11 @@ namespace ActionFrame.Runtime
         private float m_RunAnimTime = 0;
         private float m_UpdateLogicTime = 0;
 
+        /// <summary>
+        /// 当前状态循环信息
+        /// </summary>
+        private StateLoopInfo m_LoopInfo;
+
         public TextAsset ESpineCtrJsonFile
         {
             get => this.eSpineCtrJsonFile;
@@ -100,6 +105,12 @@ namespace ActionFrame.Runtime
         
         private void Update()
         {
+            this.m_CurLogicTime += Time.deltaTime;
+            if (this.m_CurLogicTime >= this.FrameTime)
+            {
+                this.m_CurLogicTime -= this.FrameTime;
+                this.UpdateLogic(this.FrameTime);
+            }
 #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
@@ -174,7 +185,9 @@ namespace ActionFrame.Runtime
 
         public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
         {
-            if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
+            if (this.AnimationState.GetCurrent(0) != null 
+                && this.AnimationState.GetCurrent(0).Animation.Name == stateName 
+                && !this.m_CurrentTrack.IsComplete)
             {
                 return this.AnimationState.GetCurrent(0);
             }
@@ -201,7 +214,7 @@ namespace ActionFrame.Runtime
             }
             else
             {
-                this.skeleton.SetToSetupPose();
+                this.skeleton.SetBonesToSetupPose();
                 this.AnimationState.ClearTracks();
                 this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
             }
@@ -215,6 +228,12 @@ namespace ActionFrame.Runtime
 
         private void StateComplete(TrackEntry entry)
         {
+            if (this.m_LoopInfo != null && this.m_LoopInfo.CurLoopCount > 0 && entry.Animation.Name == this.m_LoopInfo.LoopStateName)
+            {
+                this.ChangeStateWithMix(this.m_LoopInfo.LoopStateName, false, this.m_LoopInfo.Transition);
+                this.m_LoopInfo.CurLoopCount--;
+                return;
+            }
             if (!entry.Loop)
             {
                 StateData next = this.GetStateData(this.m_CurrentState.NextStateName);
@@ -245,6 +264,27 @@ namespace ActionFrame.Runtime
         {
             int frameCount = Mathf.RoundToInt(time / this.FrameTime);
             this.m_DelayFrame += Mathf.Abs(frameCount);
+        }
+
+        /// <summary>
+        /// 设置当前状态循环信息
+        /// </summary>
+        public void SetCurrentStateLoopInfo(string stateName, int loopCount, float transition)
+        {
+            if (this.m_LoopInfo == null)
+            {
+                this.m_LoopInfo = new StateLoopInfo();
+            }
+            this.m_LoopInfo.LoopStateName = stateName;
+            this.m_LoopInfo.CurLoopCount = loopCount;
+            this.m_LoopInfo.Transition = transition;
+        }
+        
+        private class StateLoopInfo
+        {
+            public int CurLoopCount = 0;
+            public string LoopStateName;
+            public float Transition = 0f;
         }
     }
 }
