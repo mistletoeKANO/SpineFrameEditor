@@ -31,7 +31,7 @@ namespace ActionFrame.Runtime
                 monster.AttachNormalSpeed(hitSpeed);
                 monster.SetBullet(6);
             }
-            //this.m_Hero.SetBullet(6);
+            this.m_Hero.SetBullet(6);
         }
     }
 }
