@@ -1,12 +1,13 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace ActionFrame.Runtime
 {
     /// <summary>
     /// ArrayUtility
     /// </summary>
-    public class ArrayUtility
+    public static class ArrayUtility
     {
         public static T RemoveAt<T>(ref T[] source, int index, T defaultValue = default)
         {
@@ -60,6 +61,20 @@ namespace ActionFrame.Runtime
         public static T[] Append<T>(T[] source, params T[] items)
         {
             return Combine(source, items);
+        }
+
+        public static List<T> SubList<T>(this List<T> self, List<T> other)
+        {
+            List<T> result = new List<T>();
+            foreach (var item in self)
+            {
+                if (other.Contains(item))
+                {
+                    continue;
+                }
+                result.Add(item);
+            }
+            return result;
         }
     }
 }

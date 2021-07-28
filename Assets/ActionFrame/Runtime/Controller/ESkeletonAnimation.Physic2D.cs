@@ -20,6 +20,10 @@ namespace ActionFrame.Runtime
         {
             this.FixedUpdateAction?.Invoke();
             if (this.m_DelayFrame > 0f || !IsUseSimulate) return;
+            if (this.transform.parent == null)
+            {
+                return;
+            }
             if (this.m_CurAnimProcess.IsJumping)
             {
                 this.UpdateNoGroundPos();
@@ -32,25 +36,23 @@ namespace ActionFrame.Runtime
 
         private void UpdateNoGroundPos()
         {
+            Transform curTrans = this.transform;
             Vector3 pos = this.transform.localPosition;
             Vector3 groundPos = this.transform.parent.GetChild(1).localPosition;
             this.IsInGround = !(pos.y > groundPos.y);
             
-            if (Mathf.Abs(this.m_CurAnimProcess.SpeedSelfY) > 0f)
+            float moveX = this.m_CurAnimProcess.SpeedX * Time.fixedDeltaTime;
+            float moveY = this.m_CurAnimProcess.SpeedSelfY * Time.fixedDeltaTime;
+            
+            curTrans.localPosition += new Vector3(0, moveY);
+            curTrans.parent.position += new Vector3(moveX, 0);
+            if (pos.y + moveY < groundPos.y)
             {
-                float moveX = this.m_CurAnimProcess.SpeedX * Time.fixedDeltaTime;
-                float moveY = this.m_CurAnimProcess.SpeedSelfY * Time.fixedDeltaTime;
-                Transform curTrans = this.transform;
-                curTrans.localPosition += new Vector3(0, moveY);
-                curTrans.parent.position += new Vector3(moveX, 0);
-                if (pos.y + moveY < groundPos.y)
-                {
-                    curTrans.localPosition = groundPos;
-                    this.m_CurAnimProcess.SpeedSelfY = 0;
-                    this.m_CurAnimProcess.SpeedX = 0;
-                    this.m_CurAnimProcess.IsJumping = false;
-                    this.IsInGround = true;
-                }
+                curTrans.localPosition = groundPos;
+                this.m_CurAnimProcess.SpeedSelfY = 0;
+                this.m_CurAnimProcess.SpeedX = 0;
+                this.m_CurAnimProcess.IsJumping = false;
+                this.IsInGround = true;
             }
             this.m_CurAnimProcess.SpeedSelfY -= Time.fixedDeltaTime * this.m_G;
         }

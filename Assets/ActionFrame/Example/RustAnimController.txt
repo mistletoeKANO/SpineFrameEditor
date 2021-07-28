@@ -60,6 +60,48 @@
         "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
         "BehaviourFrameStartTime": 0.0,
         "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Shoot_Submachine_1",
+        "Duration": 0.1,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 64
+          }
+        ],
+        "BehaviourName": "状态切换-Shoot_Submachine_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Shoot_Grenade_1",
+        "Duration": 0.1,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 128
+          }
+        ],
+        "BehaviourName": "状态切换-Shoot_Grenade_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
+      },
+      {
+        "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+        "StateName": "Gun_Shoot_Pistol_1",
+        "Duration": 0.1,
+        "StartFrame": 0,
+        "KeyCode": [
+          {
+            "EventType": 256
+          }
+        ],
+        "BehaviourName": "状态切换-Gun_Shoot_Pistol_1",
+        "BehaviourFrameStartTime": 0.0,
+        "BehaviourFrameEndTime": 4.0
       }
     ],
     "FrameDic": {
@@ -85,7 +127,7 @@
     },
     "NextStateName": "Idle_1",
     "TransitionTime": 0.0,
-    "UseCurSBeHitBox": true
+    "UseCurSBeHitBox": false
   },
   "m_StateDataList": [
     {
@@ -149,6 +191,48 @@
           "BehaviourName": "状态切换-Shoot_ColdWeapon_1",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_Submachine_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 64
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_Submachine_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Shoot_Grenade_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 128
+            }
+          ],
+          "BehaviourName": "状态切换-Shoot_Grenade_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
+        },
+        {
+          "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
+          "StateName": "Gun_Shoot_Pistol_1",
+          "Duration": 0.1,
+          "StartFrame": 0,
+          "KeyCode": [
+            {
+              "EventType": 256
+            }
+          ],
+          "BehaviourName": "状态切换-Gun_Shoot_Pistol_1",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 4.0
         }
       ],
       "FrameDic": {
@@ -174,7 +258,7 @@
       },
       "NextStateName": "Idle_1",
       "TransitionTime": 0.0,
-      "UseCurSBeHitBox": true
+      "UseCurSBeHitBox": false
     },
     {
       "StateName": "Jump_Part_1",
@@ -530,18 +614,32 @@
           "BehaviourName": "Shoot_1",
           "BehaviourFrameStartTime": 0.4333,
           "BehaviourFrameEndTime": 0.4333
+        },
+        {
+          "$type": "ActionFrame.Runtime.ThrowGrenadeConfig, Assembly-CSharp",
+          "StartSpeed": {
+            "x": 3.0,
+            "y": 4.0
+          },
+          "Offset": {
+            "x": 0.43,
+            "y": 1.0
+          },
+          "BehaviourName": "投掷炸弹",
+          "BehaviourFrameStartTime": 0.433333337,
+          "BehaviourFrameEndTime": 0.433333337
         }
       ],
       "FrameDic": {},
       "NextStateName": "Idle_1",
-      "TransitionTime": 0.0,
+      "TransitionTime": 0.1,
       "UseCurSBeHitBox": false
     },
     {
       "StateName": "Shoot_Submachine_1",
       "Duration": 0.5,
       "FrameCount": 15,
-      "IsLoop": true,
+      "IsLoop": false,
       "EventList": [
         {
           "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
@@ -560,11 +658,47 @@
           "BehaviourName": "Shoot_1",
           "BehaviourFrameStartTime": 0.4,
           "BehaviourFrameEndTime": 0.4
+        },
+        {
+          "$type": "ActionFrame.Runtime.ShootFpxConfig, Assembly-CSharp",
+          "FpxName": null,
+          "Speed": 8.0,
+          "InstantiatePos": {
+            "x": 1.0,
+            "y": 0.3
+          },
+          "BehaviourName": "ShootFpx",
+          "BehaviourFrameStartTime": 0.06666667,
+          "BehaviourFrameEndTime": 0.06666667
+        },
+        {
+          "$type": "ActionFrame.Runtime.ShootFpxConfig, Assembly-CSharp",
+          "FpxName": null,
+          "Speed": 8.0,
+          "InstantiatePos": {
+            "x": 1.0,
+            "y": 0.3
+          },
+          "BehaviourName": "ShootFpx",
+          "BehaviourFrameStartTime": 0.233333334,
+          "BehaviourFrameEndTime": 0.233333334
+        },
+        {
+          "$type": "ActionFrame.Runtime.ShootFpxConfig, Assembly-CSharp",
+          "FpxName": null,
+          "Speed": 8.0,
+          "InstantiatePos": {
+            "x": 1.0,
+            "y": 0.3
+          },
+          "BehaviourName": "ShootFpx",
+          "BehaviourFrameStartTime": 0.4,
+          "BehaviourFrameEndTime": 0.4
         }
       ],
       "FrameDic": {},
       "NextStateName": "Idle_1",
-      "TransitionTime": 0.0,
+      "TransitionTime": 0.1,
       "UseCurSBeHitBox": false
     },
     {
@@ -613,6 +747,36 @@
       "FrameDic": {},
       "NextStateName": "Idle_1",
       "TransitionTime": 0.1,
+      "UseCurSBeHitBox": false
+    },
+    {
+      "StateName": "Gun_Shoot_Pistol_1",
+      "Duration": 0.3333,
+      "FrameCount": 9,
+      "IsLoop": false,
+      "EventList": [
+        {
+          "$type": "ActionFrame.Runtime.SpineEventConfig, Assembly-CSharp",
+          "BehaviourName": "Shoot_1",
+          "BehaviourFrameStartTime": 0.0667,
+          "BehaviourFrameEndTime": 0.0667
+        },
+        {
+          "$type": "ActionFrame.Runtime.ShootFpxConfig, Assembly-CSharp",
+          "FpxName": null,
+          "Speed": 400.0,
+          "InstantiatePos": {
+            "x": 0.87,
+            "y": 0.54
+          },
+          "BehaviourName": "Shoot",
+          "BehaviourFrameStartTime": 0.06666667,
+          "BehaviourFrameEndTime": 0.06666667
+        }
+      ],
+      "FrameDic": {},
+      "NextStateName": "Idle_1",
+      "TransitionTime": 0.2,
       "UseCurSBeHitBox": false
     }
   ]

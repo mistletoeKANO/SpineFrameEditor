@@ -65,7 +65,7 @@ namespace ActionFrame.Runtime
             GUILayout.Label($"渲染帧率 {this.m_RenderFrameRate} FPS", this.labelSty, GUILayout.Width(260));
             GUILayout.Label($"逻辑帧率 {this.m_LogicFrameRate} FPS", this.labelSty, GUILayout.Width(260));
             GUILayout.FlexibleSpace();
-            GUILayout.Label("操作: ↑↓←→ 移动(加LeftShift 奔跑), A 攻击, Space 跳跃", this.valueSty);
+            GUILayout.Label("操作: ↑↓←→ 移动(加LeftShift 奔跑), A S D F 攻击, Space 跳跃", this.valueSty);
 
             GUILayout.EndHorizontal();
         }

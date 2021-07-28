@@ -73,6 +73,7 @@ namespace ActionFrame.Runtime
             for (int i = 0; i < 2; i++)
             {
                 var monster = Instantiate(PrefabHero);
+                monster.name = $"Monster{i + 1}";
                 monster.transform.position = this.m_Hero.transform.position +
                                              new Vector3(Random.Range(-2, 2), Random.Range(-1, 1));
                 ESkeletonAnimation esk = monster.GetComponentInChildren<ESkeletonAnimation>();
@@ -126,6 +127,24 @@ namespace ActionFrame.Runtime
             if (hero.Attack.triggered)
             {
                 InputEventCache.EventType |= InputEventType.Attack;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
+            }
+            
+            if (hero.Shoot.triggered || hero.Shoot.phase == InputActionPhase.Started)
+            {
+                InputEventCache.EventType |= InputEventType.Shoot;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
+            }
+            
+            if (hero.GunShoot.triggered || hero.GunShoot.phase == InputActionPhase.Started)
+            {
+                InputEventCache.EventType |= InputEventType.GunShoot;
+                this.m_Hero.AttachMoveSpeed(Vector2.zero);
+            }
+            
+            if (hero.ThrowGrenade.triggered)
+            {
+                InputEventCache.EventType |= InputEventType.ThrowGrenade;
                 this.m_Hero.AttachMoveSpeed(Vector2.zero);
             }
 

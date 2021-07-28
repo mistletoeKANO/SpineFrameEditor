@@ -6,6 +6,7 @@ using UnityEngine;
 namespace ActionFrame.Runtime
 {
     [AddComponentMenu("Spine/ESkeletonAnimation")]
+    [RequireComponent(typeof(ESkeletonState))]
     public sealed partial class ESkeletonAnimation : SkeletonAnimation
     {
         private readonly int m_FrameRate = 30;
@@ -65,7 +66,6 @@ namespace ActionFrame.Runtime
 
         public override void Start()
         {
-            base.Start();
 #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
@@ -201,7 +201,7 @@ namespace ActionFrame.Runtime
             }
             else
             {
-                this.skeleton.SetToSetupPose();
+                this.skeleton.SetBonesToSetupPose();
                 this.AnimationState.ClearTracks();
                 this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
             }

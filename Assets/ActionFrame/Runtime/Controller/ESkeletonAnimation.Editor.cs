@@ -51,6 +51,7 @@ namespace ActionFrame.Runtime
             
         }
         
+        [ExecuteAlways]
         private void OnDrawGizmos()
         {
             if (this.m_CurrentState != null && this.m_CurrentState.UseCurSBeHitBox)

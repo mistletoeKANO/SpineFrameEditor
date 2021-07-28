@@ -33,5 +33,8 @@ namespace ActionFrame.Runtime
         Jump = 8,
         Jumping = 16,
         Attack = 32,
+        Shoot = 64,
+        ThrowGrenade = 128,
+        GunShoot = 256,
     }
 }

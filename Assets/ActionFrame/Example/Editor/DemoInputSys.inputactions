@@ -36,6 +36,30 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "6792768a-7362-40d6-9914-39105cbf2120",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ThrowGrenade",
+                    "type": "Button",
+                    "id": "2225f025-e0dc-48c0-9005-484bcfefabbc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GunShoot",
+                    "type": "Button",
+                    "id": "8274e419-ba20-4615-83ad-f4f13448a9a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -124,6 +148,39 @@
                     "processors": "",
                     "groups": "DemoScheme",
                     "action": "RunBtn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "381ba574-b1ff-4407-ad89-fa14dd3ec852",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c4b97f3-6d13-49db-a1ab-4a9c91dd69e5",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowGrenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f29be26-6dba-4f3f-8b64-ed5bd3304da4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GunShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

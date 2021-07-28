@@ -22,7 +22,7 @@ namespace ActionFrame.Runtime
                 return;
             }
 
-            List<ESkeletonAnimation> beHitAnim = this.m_Hero.RectColliderEnter(this.m_Monster, e.FrameIndex);
+            List<ESkeletonAnimation> beHitAnim = this.m_Hero.RectColliderOverlap(e.FrameIndex);
             if (beHitAnim.Count == 0) return;
             Vector2 hitSpeed = new Vector2(this.m_Hero.skeleton.ScaleX * e.HitSpeed.x, e.HitSpeed.y);
             foreach (var monster in beHitAnim)

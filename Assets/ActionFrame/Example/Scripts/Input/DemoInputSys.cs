@@ -51,6 +51,30 @@ namespace ActionFrame.Runtime
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""6792768a-7362-40d6-9914-39105cbf2120"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ThrowGrenade"",
+                    ""type"": ""Button"",
+                    ""id"": ""2225f025-e0dc-48c0-9005-484bcfefabbc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""GunShoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""8274e419-ba20-4615-83ad-f4f13448a9a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -141,6 +165,39 @@ namespace ActionFrame.Runtime
                     ""action"": ""RunBtn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""381ba574-b1ff-4407-ad89-fa14dd3ec852"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c4b97f3-6d13-49db-a1ab-4a9c91dd69e5"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowGrenade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f29be26-6dba-4f3f-8b64-ed5bd3304da4"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GunShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -159,6 +216,9 @@ namespace ActionFrame.Runtime
             m_Hero_Jump = m_Hero.FindAction("Jump", throwIfNotFound: true);
             m_Hero_Attack = m_Hero.FindAction("Attack", throwIfNotFound: true);
             m_Hero_RunBtn = m_Hero.FindAction("RunBtn", throwIfNotFound: true);
+            m_Hero_Shoot = m_Hero.FindAction("Shoot", throwIfNotFound: true);
+            m_Hero_ThrowGrenade = m_Hero.FindAction("ThrowGrenade", throwIfNotFound: true);
+            m_Hero_GunShoot = m_Hero.FindAction("GunShoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -212,6 +272,9 @@ namespace ActionFrame.Runtime
         private readonly InputAction m_Hero_Jump;
         private readonly InputAction m_Hero_Attack;
         private readonly InputAction m_Hero_RunBtn;
+        private readonly InputAction m_Hero_Shoot;
+        private readonly InputAction m_Hero_ThrowGrenade;
+        private readonly InputAction m_Hero_GunShoot;
         public struct HeroActions
         {
             private @HeroInputSys m_Wrapper;
@@ -220,6 +283,9 @@ namespace ActionFrame.Runtime
             public InputAction @Jump => m_Wrapper.m_Hero_Jump;
             public InputAction @Attack => m_Wrapper.m_Hero_Attack;
             public InputAction @RunBtn => m_Wrapper.m_Hero_RunBtn;
+            public InputAction @Shoot => m_Wrapper.m_Hero_Shoot;
+            public InputAction @ThrowGrenade => m_Wrapper.m_Hero_ThrowGrenade;
+            public InputAction @GunShoot => m_Wrapper.m_Hero_GunShoot;
             public InputActionMap Get() { return m_Wrapper.m_Hero; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -241,6 +307,15 @@ namespace ActionFrame.Runtime
                     @RunBtn.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
                     @RunBtn.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
                     @RunBtn.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnRunBtn;
+                    @Shoot.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnShoot;
+                    @Shoot.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnShoot;
+                    @Shoot.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnShoot;
+                    @ThrowGrenade.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnThrowGrenade;
+                    @ThrowGrenade.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnThrowGrenade;
+                    @ThrowGrenade.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnThrowGrenade;
+                    @GunShoot.started -= m_Wrapper.m_HeroActionsCallbackInterface.OnGunShoot;
+                    @GunShoot.performed -= m_Wrapper.m_HeroActionsCallbackInterface.OnGunShoot;
+                    @GunShoot.canceled -= m_Wrapper.m_HeroActionsCallbackInterface.OnGunShoot;
                 }
                 m_Wrapper.m_HeroActionsCallbackInterface = instance;
                 if (instance != null)
@@ -257,6 +332,15 @@ namespace ActionFrame.Runtime
                     @RunBtn.started += instance.OnRunBtn;
                     @RunBtn.performed += instance.OnRunBtn;
                     @RunBtn.canceled += instance.OnRunBtn;
+                    @Shoot.started += instance.OnShoot;
+                    @Shoot.performed += instance.OnShoot;
+                    @Shoot.canceled += instance.OnShoot;
+                    @ThrowGrenade.started += instance.OnThrowGrenade;
+                    @ThrowGrenade.performed += instance.OnThrowGrenade;
+                    @ThrowGrenade.canceled += instance.OnThrowGrenade;
+                    @GunShoot.started += instance.OnGunShoot;
+                    @GunShoot.performed += instance.OnGunShoot;
+                    @GunShoot.canceled += instance.OnGunShoot;
                 }
             }
         }
@@ -276,6 +360,9 @@ namespace ActionFrame.Runtime
             void OnJump(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnRunBtn(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
+            void OnThrowGrenade(InputAction.CallbackContext context);
+            void OnGunShoot(InputAction.CallbackContext context);
         }
     }
 }
