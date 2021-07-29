@@ -11,6 +11,8 @@ namespace ActionFrame.Runtime
         private readonly float m_G = 9.8f;
 
         private AnimInfo m_CurAnimProcess = new AnimInfo();
+        public AnimInfo CurAnimProcess => this.m_CurAnimProcess;
+        
         public bool IsUseSimulate = true;
         public bool IsInGround = true;
 

@@ -75,7 +75,7 @@ namespace ActionFrame.Runtime
                 var monster = Instantiate(PrefabHero);
                 monster.name = $"Monster{i + 1}";
                 monster.transform.position = this.m_Hero.transform.position +
-                                             new Vector3(Random.Range(-2, 2), Random.Range(-1, 1));
+                                             new Vector3(Random.Range(-3, 3), Random.Range(-2, 2));
                 ESkeletonAnimation esk = monster.GetComponentInChildren<ESkeletonAnimation>();
                 esk.GetComponent<Renderer>().sortingOrder = (int) (-monster.transform.position.y * 1000);
                 this.m_Monster.Add(esk);
@@ -132,8 +132,13 @@ namespace ActionFrame.Runtime
             
             if (hero.Shoot.triggered || hero.Shoot.phase == InputActionPhase.Started)
             {
+                if (hero.Move.phase == InputActionPhase.Started)
+                {
+                    var move = hero.Move.ReadValue<Vector2>();
+                    InputEventCache.EventType |= InputEventType.Walk;
+                    InputEventCache.InputAxis = move;
+                }
                 InputEventCache.EventType |= InputEventType.Shoot;
-                this.m_Hero.AttachMoveSpeed(Vector2.zero);
             }
             
             if (hero.GunShoot.triggered || hero.GunShoot.phase == InputActionPhase.Started)

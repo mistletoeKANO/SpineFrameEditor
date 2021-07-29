@@ -17,6 +17,8 @@ namespace ActionFrame.Runtime
 
         private Spine.TrackEntry m_ForwardTrack;
         private Spine.TrackEntry m_CurrentTrack;
+        private Spine.TrackEntry m_MixTrack;
+        private int m_MainTrackIndex = 0;
 
         public Spine.TrackEntry ForwardTrack
         {
@@ -174,9 +176,9 @@ namespace ActionFrame.Runtime
 
         public Spine.TrackEntry ChangeStateWithMix(string stateName, bool isLoop, float mixTime = 0f, float animStartTime = 0f)
         {
-            if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == stateName)
+            if (this.AnimationState.GetCurrent(1) != null && this.AnimationState.GetCurrent(1).Animation.Name == stateName)
             {
-                return this.AnimationState.GetCurrent(0);
+                return this.AnimationState.GetCurrent(1);
             }
             return this.ChangeStateInternal(stateName, isLoop, mixTime, animStartTime);
         }
@@ -195,15 +197,15 @@ namespace ActionFrame.Runtime
             if (mixTime > 0)
             {
                 this.m_ForwardTrack = this.m_CurrentTrack;
-                this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
-                this.m_CurrentTrack.MixBlend = MixBlend.Setup;
+                this.m_CurrentTrack = this.AnimationState.SetAnimation(1, stateName, isLoop);
+                this.m_CurrentTrack.MixBlend = MixBlend.Replace;
                 this.m_CurrentTrack.MixDuration = mixTime;
             }
             else
             {
                 this.skeleton.SetBonesToSetupPose();
-                this.AnimationState.ClearTracks();
-                this.m_CurrentTrack = this.AnimationState.SetAnimation(0, stateName, isLoop);
+                this.AnimationState.ClearTrack(1);
+                this.m_CurrentTrack = this.AnimationState.SetAnimation(1, stateName, isLoop);
             }
             this.m_RunFrameCount = Mathf.RoundToInt(animStartTime * this.FrameTime);
             this.m_CurrentTrack.AnimationStart = animStartTime;
@@ -211,6 +213,24 @@ namespace ActionFrame.Runtime
             this.m_CurrentTrack.Complete += this.StateComplete;
             this.StartHandle();
             return this.m_CurrentTrack;
+        }
+
+        public Spine.TrackEntry MixState(string mixStateName, float mixDuration, bool isLoop)
+        {
+            if (this.AnimationState.GetCurrent(0) != null && this.AnimationState.GetCurrent(0).Animation.Name == mixStateName)
+            {
+                return this.AnimationState.GetCurrent(0);
+            }
+            this.m_MixTrack = this.AnimationState.SetAnimation(0, mixStateName, isLoop);
+            this.m_MixTrack.MixBlend = MixBlend.Setup;
+            this.m_MixTrack.MixDuration = mixDuration;
+            return this.m_MixTrack;
+        }
+
+        public void ClearMixTrack()
+        {
+            this.AnimationState.ClearTrack(0);
+            this.skeleton.SetBonesToSetupPose();
         }
 
         private void StateComplete(TrackEntry entry)

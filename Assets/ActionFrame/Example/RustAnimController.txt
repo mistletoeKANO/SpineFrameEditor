@@ -64,7 +64,7 @@
       {
         "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
         "StateName": "Shoot_Submachine_1",
-        "Duration": 0.1,
+        "Duration": 0.2,
         "StartFrame": 0,
         "KeyCode": [
           {
@@ -195,7 +195,7 @@
         {
           "$type": "ActionFrame.Runtime.ChangeStateConfig, Assembly-CSharp",
           "StateName": "Shoot_Submachine_1",
-          "Duration": 0.1,
+          "Duration": 0.2,
           "StartFrame": 0,
           "KeyCode": [
             {
@@ -694,6 +694,20 @@
           "BehaviourName": "ShootFpx",
           "BehaviourFrameStartTime": 0.4,
           "BehaviourFrameEndTime": 0.4
+        },
+        {
+          "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
+          "MoveSpeed": 1.0,
+          "BehaviourName": "Move",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.5
+        },
+        {
+          "$type": "ActionFrame.Runtime.MixAnimConfig, Assembly-CSharp",
+          "StateName": "Walk_1",
+          "BehaviourName": "MixAnim",
+          "BehaviourFrameStartTime": 0.0,
+          "BehaviourFrameEndTime": 0.5
         }
       ],
       "FrameDic": {},
@@ -764,7 +778,7 @@
         {
           "$type": "ActionFrame.Runtime.ShootFpxConfig, Assembly-CSharp",
           "FpxName": null,
-          "Speed": 400.0,
+          "Speed": 100.0,
           "InstantiatePos": {
             "x": 0.87,
             "y": 0.54
