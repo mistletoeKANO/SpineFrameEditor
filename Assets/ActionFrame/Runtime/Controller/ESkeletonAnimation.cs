@@ -18,7 +18,6 @@ namespace ActionFrame.Runtime
         private Spine.TrackEntry m_ForwardTrack;
         private Spine.TrackEntry m_CurrentTrack;
         private Spine.TrackEntry m_MixTrack;
-        private int m_MainTrackIndex = 0;
 
         public Spine.TrackEntry ForwardTrack
         {
@@ -222,8 +221,6 @@ namespace ActionFrame.Runtime
                 return this.AnimationState.GetCurrent(0);
             }
             this.m_MixTrack = this.AnimationState.SetAnimation(0, mixStateName, isLoop);
-            this.m_MixTrack.MixBlend = MixBlend.Setup;
-            this.m_MixTrack.MixDuration = mixDuration;
             return this.m_MixTrack;
         }
 

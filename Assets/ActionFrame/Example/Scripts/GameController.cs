@@ -132,12 +132,6 @@ namespace ActionFrame.Runtime
             
             if (hero.Shoot.triggered || hero.Shoot.phase == InputActionPhase.Started)
             {
-                if (hero.Move.phase == InputActionPhase.Started)
-                {
-                    var move = hero.Move.ReadValue<Vector2>();
-                    InputEventCache.EventType |= InputEventType.Walk;
-                    InputEventCache.InputAxis = move;
-                }
                 InputEventCache.EventType |= InputEventType.Shoot;
             }
             

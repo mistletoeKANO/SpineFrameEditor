@@ -9,6 +9,10 @@ namespace ActionFrame.Runtime
         /// 重力加速度 G
         /// </summary>
         private readonly float m_G = 9.8f;
+        //硬直系数
+        private float m_FloatingPower = 1f;
+        //当前 增加 加速度值
+        private float m_CurPower = 0;
 
         private AnimInfo m_CurAnimProcess = new AnimInfo();
         public AnimInfo CurAnimProcess => this.m_CurAnimProcess;
@@ -26,7 +30,7 @@ namespace ActionFrame.Runtime
             {
                 return;
             }
-            if (this.m_CurAnimProcess.IsJumping)
+            if (!this.m_CurAnimProcess.IsInGround)
             {
                 this.UpdateNoGroundPos();
             }
@@ -53,10 +57,12 @@ namespace ActionFrame.Runtime
                 curTrans.localPosition = groundPos;
                 this.m_CurAnimProcess.SpeedSelfY = 0;
                 this.m_CurAnimProcess.SpeedX = 0;
-                this.m_CurAnimProcess.IsJumping = false;
+                this.m_CurAnimProcess.IsInGround = true;
                 this.IsInGround = true;
+                this.m_CurPower = 0f;
             }
-            this.m_CurAnimProcess.SpeedSelfY -= Time.fixedDeltaTime * this.m_G;
+            this.m_CurPower += Time.fixedDeltaTime * this.m_FloatingPower;
+            this.m_CurAnimProcess.SpeedSelfY -= Time.fixedDeltaTime * (this.m_G + this.m_CurPower);
         }
 
         private void UpdateInGroundPos()
@@ -69,7 +75,7 @@ namespace ActionFrame.Runtime
         {
             this.m_CurAnimProcess.SpeedX = speed.x;
             this.m_CurAnimProcess.SpeedSelfY = speed.y;
-            this.m_CurAnimProcess.IsJumping = true;
+            this.m_CurAnimProcess.IsInGround = false;
         }
         
         public void AttachMoveSpeed(Vector2 speed)
@@ -91,6 +97,6 @@ namespace ActionFrame.Runtime
         public float SpeedX;
         public float SpeedSelfY;
         public float SpeedRootY;
-        public bool IsJumping = false;
+        public bool IsInGround = false;
     }
 }

@@ -576,6 +576,13 @@
           "BehaviourName": "附加Y轴速度",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 0.5
+        },
+        {
+          "$type": "ActionFrame.Runtime.AttackMoveConfig, Assembly-CSharp",
+          "MoveValue": 0.05,
+          "BehaviourName": "AttackMove",
+          "BehaviourFrameStartTime": 0.233333349,
+          "BehaviourFrameEndTime": 0.366666675
         }
       ],
       "FrameDic": {
@@ -696,15 +703,10 @@
           "BehaviourFrameEndTime": 0.4
         },
         {
-          "$type": "ActionFrame.Runtime.MoveConfig, Assembly-CSharp",
-          "MoveSpeed": 1.0,
-          "BehaviourName": "Move",
-          "BehaviourFrameStartTime": 0.0,
-          "BehaviourFrameEndTime": 0.5
-        },
-        {
           "$type": "ActionFrame.Runtime.MixAnimConfig, Assembly-CSharp",
           "StateName": "Walk_1",
+          "MoveSpeed": 1.0,
+          "MixDuration": 0.2,
           "BehaviourName": "MixAnim",
           "BehaviourFrameStartTime": 0.0,
           "BehaviourFrameEndTime": 0.5

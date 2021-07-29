@@ -22,7 +22,6 @@ namespace ActionFrame.Runtime
             HitAnimConfig force = (HitAnimConfig) this.config;
             EventManager.Instance.InvokeHandle(new Event_HitAnim(force.HitSpeed,
                 Mathf.RoundToInt(force.BehaviourFrameStartTime * hero.FrameRate)));
-            hero.AttachNormalSpeed(new Vector2(1,0));
         }
 
         public override void ExitHandle(ESkeletonAnimation hero)
