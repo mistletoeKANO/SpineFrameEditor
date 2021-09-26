@@ -248,6 +248,7 @@ namespace ActionFrame.Editor
         /// <param name="stateData"></param>
         public void RefreshSelectedFrameView(StateData stateData)
         {
+            if (this.m_IsPLay) this.OnPlayBtn();
             this.ResetSelectItemInternal();
             
             if (this.m_FrameDic.Count > 0)
