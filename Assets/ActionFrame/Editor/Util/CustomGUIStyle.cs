@@ -9,12 +9,14 @@ namespace ENode.CustomGUIStyle
 {
     public class CustomGUIStyle : EditorWindow
     {
-        private ScrollView GraphView;
+        private IMGUIContainer GraphView;
         private VisualElement GraphBG;
         
         private Object[] _Icons;
-        private GUIStyle[] _Styles;
-        private GUIStyle _Line = "sv_iconselector_sep";
+        private static GUIStyle[] Styles => GUI.skin.customStyles.OrderBy(item => item.name).ToArray();
+        private static GUIStyle Line => "sv_iconselector_sep";
+        
+        private Vector2 _scrollPos = Vector2.zero;
 
         [MenuItem("Tool/Unity内置样式")]
         private static void GetCustomWindow()
@@ -26,19 +28,11 @@ namespace ENode.CustomGUIStyle
         {
             this.titleContent = new GUIContent("Unity内置样式预览");
             this.InitData();
+            this.InitView();
         }
         private void InitData()
         {
             this._Icons = Resources.FindObjectsOfTypeAll(typeof(Texture)).OrderBy(item => item.name).ToArray();
-        }
-
-        private void OnGUI()
-        {
-            if (this._Styles == null)
-            {
-                this._Styles = GUI.skin.customStyles.OrderBy(item => item.name).ToArray();
-                this.InitView();
-            }
         }
 
         private void InitView()
@@ -56,78 +50,62 @@ namespace ENode.CustomGUIStyle
             this.GraphBG.name = "GraphBG";
             this.rootVisualElement.Add(GraphBG);
             
-            this.GraphView = new ScrollView();
+            this.GraphView = new IMGUIContainer(this.DrawCustomStyle);
             this.GraphView.name = "GraphView";
             
-            this.DrawCustomStyle();
-            this.DrawTexture();
             this.rootVisualElement.Add(GraphView);
         }
 
         private void DrawCustomStyle()
         {
-            foreach (var style in this._Styles)
+            this._scrollPos = EditorGUILayout.BeginScrollView(this._scrollPos);
+            foreach (var style in Styles)
             {
-                VisualElement item = new IMGUIContainer(() =>
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(10);
+                GUILayout.Label("", style, GUILayout.Width(160));
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("拷贝", GUILayout.Width(160)))
                 {
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Space(10);
-                    GUILayout.Label("", style, GUILayout.Width(160));
-                    GUILayout.FlexibleSpace();
-                    if (GUILayout.Button("拷贝", GUILayout.Width(160)))
-                    {
-                        UnityEngine.GUIUtility.systemCopyBuffer = style.name;
-                    }
-                    GUILayout.Space(10);
-                    GUILayout.EndHorizontal();
-                    GUILayout.Space(12);
-                    GUILayout.Box("", this._Line, GUILayout.Height(2));
-                    GUILayout.Space(4);
-                });
-                item.name = "StyleItem";
-                this.GraphView.Add(item);
-            }
-        }
-
-        private void DrawTexture()
-        {
-            int iconWidth = 60;
-            VisualElement textureItem = new IMGUIContainer(() =>
-            {
-                float width = this.GraphView.layout.width;
-                float space = (width % (iconWidth + 10)) * (iconWidth + 10) / 100f;
-                int col = Mathf.CeilToInt(width / (iconWidth + 10));
-                int row = Mathf.FloorToInt((float) this._Icons.Length / col);
-                for (int i = 0; i < row; i++)
-                {
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Space(space);
-                    for (int j = 0; j < col; j++)
-                    {
-                        int index = i * col + j;
-                        if (index >= this._Icons.Length)
-                        {
-                            return;
-                        }
-                        Texture cur = this._Icons[index] as Texture;
-                        if (cur == null)
-                        {
-                            continue;
-                        }
-                        if (GUILayout.Button(cur, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth)))
-                        {
-                            GenericMenu menu = new GenericMenu();
-                            menu.AddItem(new GUIContent("拷贝"), false, () =>
-                            {
-                                UnityEngine.GUIUtility.systemCopyBuffer = AssetDatabase.GetAssetPath(cur.GetInstanceID());
-                            });
-                            menu.ShowAsContext();
-                        }
-                    }
-                    GUILayout.EndHorizontal();
+                    UnityEngine.GUIUtility.systemCopyBuffer = style.name;
                 }
-            });
-            this.GraphView.Add(textureItem);
+                GUILayout.Space(10);
+                GUILayout.EndHorizontal();
+                GUILayout.Space(12);
+                GUILayout.Box("", Line, GUILayout.Height(2));
+                GUILayout.Space(4);
+            }
+            
+            int iconWidth = 60;
+            float width = this.GraphView.contentContainer.layout.width;
+            int col = Mathf.FloorToInt(width / (iconWidth));
+            float headSpace = (width - col * (iconWidth)) / 2f;
+            int row = Mathf.FloorToInt((float) this._Icons.Length / col);
+            for (int i = 0; i < row; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Space(headSpace);
+                for (int j = 0; j < col; j++)
+                {
+                    int index = i * col + j;
+                    if (index >= this._Icons.Length) return;
+                    Texture2D cur = this._Icons[index] as Texture2D;
+                    if (cur == null) continue;
+                    
+                    if (GUILayout.Button(cur, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth)))
+                    {
+                        GenericMenu menu = new GenericMenu();
+                        menu.AddItem(new GUIContent("拷贝"), false, () =>
+                        {
+                            UnityEngine.GUIUtility.systemCopyBuffer = cur.name;
+                        });
+                        menu.ShowAsContext();
+                    }
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+            
+            EditorGUILayout.EndScrollView();
         }
     }
 }
