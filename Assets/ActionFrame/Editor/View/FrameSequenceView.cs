@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ActionFrame.Runtime;
 using UnityEditor;
@@ -745,7 +745,7 @@ namespace ActionFrame.Editor
         }
 
         /// <summary>
-        /// 这就是坨 屎, 浪费很多时间 实现的 效果还不流畅...
+        /// ...
         /// </summary>
         private void RefreshBehaviourListPos(BehaviourEventInfo behaviour, int newIndex)
         {
@@ -761,7 +761,7 @@ namespace ActionFrame.Editor
             {
                 this.m_BehaviourListContainer.Add(this.m_BehaviourList[i].HeadView);
             }
-            //todo 留着吧！ 看看 后面还能不能 优化一下效果
+            //todo 
             /*this.m_BehaviourListContainer.Remove(behaviour.HeadView);
             if (!isDrag) this.m_BehaviourList.Remove(behaviour);
             if (oldIndex < newIndex)
